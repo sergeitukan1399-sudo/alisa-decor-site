@@ -71,6 +71,18 @@ button{cursor:pointer}
 .cart:hover{border-color:var(--gold);color:var(--gold)}
 .cart svg{width:20px;height:20px}
 .top .btn{min-height:42px;padding:0 20px;font-size:14px}
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;position:relative;flex:none}
+.burger span{position:absolute;left:13px;right:13px;height:2px;border-radius:2px;background:var(--ink);transition:transform .35s var(--ease),top .35s var(--ease)}
+.burger span:first-child{top:17px}.burger span:last-child{top:25px}
+.burger[aria-expanded="true"] span:first-child{top:21px;transform:rotate(45deg)}
+.burger[aria-expanded="true"] span:last-child{top:21px;transform:rotate(-45deg)}
+.mnav{border-top:1px solid var(--line);background:var(--bg);max-height:calc(100vh - 72px);overflow:auto}
+.top .mnav .wrap{display:flex;flex-direction:column;align-items:stretch;gap:0;min-height:0;padding-block:8px 28px}
+.mnav > .wrap > a{padding:14px 0;border-bottom:1px solid var(--line);font:700 22px/1.2 var(--serif);color:var(--ink);text-decoration:none}
+.mnav > .wrap > a:hover{color:var(--gold-1)}
+.mnav-foot{display:flex;flex-direction:column;align-items:stretch;gap:14px;padding-top:24px;color:var(--muted);text-align:center}
+.mnav-foot .btn{width:100%}
+@media (min-width:1081px){.mnav{display:none!important}}
 
 /* Hero */
 .hero{position:relative;overflow:hidden;padding-block:96px 120px}
@@ -276,12 +288,16 @@ button{cursor:pointer}
 /* Responsive */
 @media (max-width:1080px){
   .nav{display:none}
-  .top .wrap{justify-content:space-between}
+  .burger{display:block}
+  .top .wrap{gap:12px}
+  .logo{margin-right:auto}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .st.a,.st.b,.st.c,.st.d{grid-column:auto}
+  .st.a{order:1}.st.b{order:2}.st.c{order:3}.st.d{order:4}.ph-a{order:5}
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hits{grid-template-columns:repeat(2,minmax(0,1fr))}
   .maker{grid-template-columns:140px minmax(0,1fr) 140px}
   .rev{flex-basis:calc((100% - 20px)/2)}
-  .st.a,.st.b,.st.c,.st.d{grid-column:span 6}
   .ph-a{grid-column:1 / -1;grid-row:auto;min-height:340px}
 }
 @media (max-width:860px){
@@ -296,6 +312,13 @@ button{cursor:pointer}
   .inc{flex-direction:column;align-items:flex-start}
   .occ{grid-template-columns:1fr 1fr}
   .oc.big{grid-column:1 / -1;grid-row:auto;min-height:380px}
+  .occ .oc:last-child:nth-child(even){grid-column:1 / -1;min-height:300px}
+  .foot-top{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:32px 20px}
+  .foot-brand{grid-column:1 / -1!important}
+  .fcol,.fcol:nth-of-type(2),.fcol.wide{grid-column:auto!important}
+  .hero h1{font-size:clamp(38px,7vw,56px)}
+  .head{margin-bottom:32px}
+  .head h2,.h2{font-size:clamp(28px,6vw,40px)}
   .maker{grid-template-columns:1fr 1fr}
   .maker h2,.stage{grid-column:1 / -1}
   .optcol.right{align-items:flex-end}
@@ -308,18 +331,50 @@ button{cursor:pointer}
   .works{border-radius:var(--r-lg)}
 }
 @media (max-width:560px){
-  .top .btn{display:none}
-  .tiles,.hits{grid-template-columns:1fr}
+  .top .wrap > .btn{display:none}
+  .sec{padding-block:64px}
+  .hero{padding-block:32px 64px}
+  .hero .lead{font-size:16px}
+  .hero-actions .btn{flex:1 1 auto}
+  .tiles{grid-template-columns:1fr;gap:12px}
+  .tile{display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:16px;row-gap:4px;padding:18px;align-items:start}
+  .tile .ico{grid-row:1 / span 3;margin:0}
+  .tile h3{font-size:20px}
+  .tile p{font-size:14.5px}
+  .tile .go{padding-top:4px}
+  .occ{grid-template-columns:1fr 1fr!important;gap:12px}
+  .oc{min-height:190px!important}
+  .oc.big{grid-column:1 / -1;min-height:300px!important}
+  .oc .row{left:12px;right:12px;bottom:12px;flex-direction:column;align-items:flex-start;gap:6px}
+  .oc b{font-size:18px}
+  .oc.big b{font-size:28px}
+  .oc.big .row{flex-direction:row;align-items:flex-end}
+  .stats{gap:12px}
+  .st{padding:20px;min-height:140px}
+  .st b{font-size:clamp(34px,10vw,48px)}
+  .st span{font-size:13.5px}
+  .ph-a{min-height:260px}
+  .foot-top{grid-template-columns:1fr 1fr!important;gap:28px 16px}
+  .fcol.wide{grid-column:1 / -1!important}
+  .foot-brand,.fcol.wide{grid-column:1 / -1!important}
+  .fcol{grid-column:auto!important}
+  .legal{flex-direction:column;align-items:flex-start}
+  .works{height:420px}
+  .works .nav-b{width:44px;height:44px}
+  .rev-h{font-size:clamp(26px,7vw,34px);margin-bottom:36px}
+  .maker{padding:24px 16px}
+  .type{padding:12px 8px}
+  .type svg{width:48px;height:48px}
+  .type span{font-size:11.5px}
+  .opts button{min-height:40px}
+  .hits{grid-template-columns:1fr}
   .hits{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
   .hits::-webkit-scrollbar{display:none}
   .hit{flex:0 0 76%;scroll-snap-align:start}
-  .occ{grid-template-columns:1fr}
-  .oc{min-height:240px}
   .maker{grid-template-columns:1fr}
   .types{grid-template-columns:repeat(2,minmax(0,1fr))}
   .opts.right{justify-content:flex-start}
   .optcol.right{align-items:flex-start;text-align:left}
-  .st.a,.st.b,.st.c,.st.d{grid-column:1 / -1;min-height:150px}
   .mini{gap:28px}
 }
 </style>
@@ -338,7 +393,17 @@ button{cursor:pointer}
     </nav>
     <a class="cart" href="#hits" aria-label="Корзина, 0 товаров"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.5 12h-11L5 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
     <a class="btn btn-gold wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать оформление праздника.">Заказать оформление</a>
+    <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
+  <nav class="mnav" id="mnav" aria-label="Меню" hidden>
+    <div class="wrap">
+      <a href="#catalog">Каталог</a><a href="#hits">Хиты</a><a href="#occasions">Поводы</a><a href="#maker">Создай композицию</a><a href="#about">О нас</a><a href="#works">Работы</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a>
+      <div class="mnav-foot">
+        <a class="btn btn-gold wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать оформление праздника.">Заказать оформление</a>
+        <span class="num">+373 62 555 358</span>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <main>
@@ -560,6 +625,12 @@ button{cursor:pointer}
 <script>
 (function(){
   const WA='https://wa.me/37362555358?text=';
+  const burger=document.getElementById('burger'),mnav=document.getElementById('mnav');
+  function menu(open){burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');mnav.hidden=!open;document.body.style.overflow=open?'hidden':''}
+  burger.addEventListener('click',()=>menu(burger.getAttribute('aria-expanded')!=='true'));
+  mnav.addEventListener('click',e=>{if(e.target.closest('a'))menu(false)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mnav.hidden){menu(false);burger.focus()}});
+  window.addEventListener('resize',()=>{if(innerWidth>1080&&!mnav.hidden)menu(false)});
   document.querySelectorAll('a.wa[data-msg]').forEach(a=>{a.href=WA+encodeURIComponent(a.dataset.msg)});
 
   function scroller(list,prev,next){
