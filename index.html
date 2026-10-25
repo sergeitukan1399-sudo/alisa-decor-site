@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alisa Decor &amp; Balloons</title>
+<meta name="description" content="Авторские композиции из воздушных шаров и оформление праздников в Комрате.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,700;0,7..72,800;1,7..72,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+[hidden]{display:none!important}
+/* Layout: Figma «Второе приближение» order, restyled to the warm-black + gold world the client chose (single dark theme by choice); 1240px / 12-col */
+:root{
+  --bg:#0D0D0D; --bg-2:#171717; --card:#141414; --card-2:#1C1B1A; --line:#292929; --line-2:#3A3835;
+  --ink:#F6F2EA; --muted:#ABA397; --dim:#7D766C;
+  --gold:#E6B033; --gold-1:#FBE293; --gold-3:#C38822; --on-gold:#0F0F0F;
+  --gold-grad:linear-gradient(135deg,#F8D562 0%,#E6B033 55%,#9B7027 100%);
+  --gold-text:linear-gradient(90deg,#FBE293,#E6B033 55%,#C38822);
+  --serif:"Literata", Georgia, "Times New Roman", serif;
+  --sans:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r-md:14px; --r-lg:20px; --r-xl:28px; --pill:999px;
+  --ease:cubic-bezier(.16,1,.3,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px);scrollbar-color:var(--line-2) var(--bg)}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.625 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+::selection{background:var(--gold);color:var(--on-gold)}
+a{color:var(--gold);text-underline-offset:.22em}
+a:hover{color:var(--gold-1)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+img{display:block;max-width:100%}
+h1,h2,h3{margin:0;font-family:var(--serif);font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+.g{background:var(--gold-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+p{margin:0}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums}
+.sec{padding-block:112px}
+.warm{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 100%)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 32px;flex-wrap:wrap;margin-bottom:48px}
+.head h2,.h2{font-size:clamp(32px,3.6vw,50px);line-height:1.04}
+.head p{max-width:30em;color:var(--muted);font-size:15.5px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:var(--pill);font:600 15px/1.3 var(--sans);text-decoration:none;border:2px solid transparent;white-space:nowrap;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .25s,border-color .25s,color .25s}
+.btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn-gold{background:var(--gold-grad);color:var(--on-gold);box-shadow:0 10px 28px -10px rgba(230,176,51,.55)}
+.btn-gold:hover{color:var(--on-gold);transform:translateY(-1px);box-shadow:0 16px 36px -10px rgba(230,176,51,.7)}
+.btn-dark{background:var(--bg);border-color:var(--line);color:var(--ink)}
+.btn-dark:hover{border-color:var(--gold);color:var(--ink)}
+.round{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;transition:border-color .25s,color .25s,background .25s}
+.round:hover{border-color:var(--gold);color:var(--gold)}
+.round svg{width:20px;height:20px}
+.round:disabled{opacity:.35;cursor:default;border-color:var(--line);color:var(--ink)}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(13,13,13,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;min-height:72px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.logo .moon{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFF3C4 0 10%,#F8D562 32%,#C38822 78%);box-shadow:0 0 22px rgba(230,176,51,.45)}
+.logo b{font:700 20px/1 var(--serif);letter-spacing:-.01em}
+.nav{display:flex;gap:28px;flex:1;justify-content:center;font-size:15px;font-weight:600}
+.nav a{color:var(--ink);text-decoration:none;opacity:.86;transition:opacity .2s,color .2s}
+.nav a:hover{opacity:1;color:var(--gold-1)}
+.cart{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--ink);border:1px solid var(--line)}
+.cart:hover{border-color:var(--gold);color:var(--gold)}
+.cart svg{width:20px;height:20px}
+.top .btn{min-height:42px;padding:0 20px;font-size:14px}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding-block:96px 120px}
+.hero::before{content:"";position:absolute;width:760px;height:760px;right:-220px;top:-260px;border-radius:50%;background:radial-gradient(circle,rgba(230,176,51,.32) 0%,rgba(230,176,51,.08) 42%,rgba(230,176,51,0) 70%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.hero-copy{grid-column:1 / span 6;display:flex;flex-direction:column;align-items:flex-start;gap:26px}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:var(--pill);border:1px solid var(--line);background:var(--card);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.hero h1{font-size:clamp(44px,5.2vw,74px);line-height:1.02}
+.hero .lead{font-size:18px;color:var(--muted);max-width:30em}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.mini{display:flex;gap:40px;padding-top:6px}
+.mini div{display:flex;flex-direction:column}
+.mini b{font:800 30px/1 var(--serif)}
+.mini span{font-size:13.5px;color:var(--muted);margin-top:6px}
+.hero-media{grid-column:7 / span 6;position:relative;perspective:1600px}
+.hero-media::before{content:"";position:absolute;inset:6% -4% -8% 4%;border-radius:40px;background:radial-gradient(60% 60% at 50% 55%,rgba(230,176,51,.55),rgba(230,176,51,0) 72%);filter:blur(30px);z-index:0}
+.hero-card{position:relative;z-index:1;border-radius:var(--r-xl);overflow:hidden;aspect-ratio:1358/1159;transform:rotate(2.5deg);box-shadow:0 30px 80px -24px rgba(0,0,0,.8),0 0 0 1px rgba(246,242,234,.08);transition:transform .8s var(--ease)}
+.hero-card img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.hero-media:hover .hero-card{transform:rotate(0deg) scale(1.01)}
+.hero-tag{position:absolute;z-index:2;left:-20px;bottom:-26px;display:flex;align-items:center;gap:12px;padding:12px 18px 12px 12px;border-radius:var(--pill);background:rgba(20,20,20,.88);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:14px}
+.hero-tag i{width:36px;height:36px;border-radius:50%;background:var(--gold-grad);display:grid;place-items:center;color:var(--on-gold)}
+.hero-tag i svg{width:18px;height:18px}
+.hero-tag b{display:block;font-weight:700}
+.hero-tag span{color:var(--muted);font-size:13px}
+
+/* Tiles (categories) */
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.tile{position:relative;display:flex;flex-direction:column;gap:14px;padding:32px;border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink);overflow:hidden;transition:border-color .35s var(--ease),transform .35s var(--ease),background .35s}
+.tile::after{content:"";position:absolute;width:260px;height:260px;right:-120px;top:-140px;border-radius:50%;background:radial-gradient(circle,rgba(230,176,51,.22),rgba(230,176,51,0) 70%);opacity:0;transition:opacity .4s}
+.tile:hover{border-color:rgba(230,176,51,.55);transform:translateY(-4px);background:var(--card-2);color:var(--ink)}
+.tile:hover::after{opacity:1}
+.ico{width:52px;height:52px;border-radius:14px;background:var(--gold-grad);display:grid;place-items:center;color:var(--on-gold);box-shadow:0 10px 26px -8px rgba(230,176,51,.55);margin-bottom:12px}
+.ico svg{width:24px;height:24px}
+.tile h3{font-size:25px;line-height:1.2}
+.tile p{color:var(--muted);font-size:15.5px}
+.tile .go{margin-top:auto;padding-top:10px;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--gold)}
+.tile .go svg{width:16px;height:16px;transition:transform .3s var(--ease)}
+.tile:hover .go svg{transform:translateX(4px)}
+.inc{margin-top:32px;display:flex;align-items:center;gap:16px 24px;flex-wrap:wrap;padding:22px 26px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card)}
+.inc b{font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.chips span{padding:7px 14px;border-radius:var(--pill);background:var(--bg);border:1px solid var(--line);font-size:13.5px;font-weight:500;color:var(--ink)}
+
+/* Hits (gallery-style cards) */
+.hits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.hit{position:relative;display:block;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:var(--card);text-decoration:none;color:var(--ink);box-shadow:0 0 0 1px rgba(246,242,234,.06)}
+.hit img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.hit:hover img{transform:scale(1.05)}
+.hit::after{content:"";position:absolute;inset:auto 0 0;height:42%;background:linear-gradient(0deg,rgba(13,13,13,.85),rgba(13,13,13,0));pointer-events:none}
+.hit .lab{position:absolute;left:16px;bottom:16px;z-index:2;padding:7px 14px;border-radius:var(--pill);background:rgba(13,13,13,.82);border:1px solid var(--line);font-size:13px;font-weight:700}
+.hit .pr{position:absolute;right:16px;bottom:16px;z-index:2;font-size:14px;font-weight:700;color:var(--gold-1)}
+.hit .add{position:absolute;right:14px;top:14px;z-index:2;width:44px;height:44px;border-radius:50%;background:var(--gold-grad);color:var(--on-gold);display:grid;place-items:center;transform:scale(.8);opacity:0;transition:opacity .3s,transform .4s var(--spring)}
+.hit .add svg{width:20px;height:20px}
+.hit:hover .add,.hit:focus-visible .add{opacity:1;transform:none}
+.hits-foot{margin-top:40px;display:flex;justify-content:center}
+
+/* Occasions bento */
+.occ{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.oc{position:relative;display:block;border-radius:var(--r-lg);overflow:hidden;min-height:280px;background:var(--card);color:var(--ink);text-decoration:none;box-shadow:0 0 0 1px rgba(246,242,234,.06)}
+.oc.big{grid-column:span 2;grid-row:span 2;min-height:580px}
+.oc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.oc:hover img{transform:scale(1.05)}
+.oc::after{content:"";position:absolute;inset:auto 0 0;height:55%;background:linear-gradient(0deg,rgba(13,13,13,.88),rgba(13,13,13,0))}
+.oc .row{position:absolute;z-index:2;left:22px;right:22px;bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.oc b{font:800 24px/1.15 var(--serif);letter-spacing:-.01em}
+.oc.big b{font-size:clamp(30px,3vw,42px)}
+.oc .pr{flex:none;padding:6px 12px;border-radius:var(--pill);background:var(--gold-grad);color:var(--on-gold);font-size:13.5px;font-weight:700}
+
+/* Constructor */
+.maker{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--r-xl);padding:clamp(28px,4vw,56px);display:grid;grid-template-columns:180px minmax(0,1fr) 180px;gap:24px;align-items:center}
+.maker::before{content:"";position:absolute;left:50%;top:55%;width:620px;height:620px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(230,176,51,.18),rgba(230,176,51,0) 65%);pointer-events:none}
+.maker > *{position:relative}
+.maker h2{grid-column:1 / -1;text-align:center;margin-bottom:0}
+.types{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:760px;width:100%;justify-self:center;margin-bottom:8px}
+.type{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px 12px;border-radius:16px;border:1.5px solid var(--line);background:var(--bg);color:var(--muted);transition:border-color .25s,background .25s,color .25s,transform .3s var(--ease)}
+.type svg{width:64px;height:64px}
+.type b{font:700 16px/1.2 var(--serif);color:var(--ink)}
+.type span{font-size:12.5px}
+.type:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.type[aria-pressed="true"]{border-color:var(--gold);background:var(--card-2);color:var(--gold-1);box-shadow:0 0 0 4px rgba(230,176,51,.12),0 14px 30px -16px rgba(230,176,51,.6)}
+.numfield{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.numfield[hidden],.balloon input[hidden]{display:none}
+.optcol{display:flex;flex-direction:column;gap:10px;min-width:0}
+.optcol.right{align-items:flex-end;text-align:right}
+.opt-t{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.opts i.tri{width:18px;height:18px}
+.numfield input{width:64px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);text-align:center;font:800 20px/1 var(--serif);color:var(--gold-1);outline:none}
+.numfield input:focus{border-color:var(--gold)}
+.opts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.opts.right{align-items:flex-end;text-align:right}
+.opts button{border:0;background:none;padding:6px 0;font:700 21px/1.25 var(--serif);color:var(--dim);display:inline-flex;align-items:center;gap:10px;transition:color .25s}
+.opts button:hover{color:var(--ink)}
+.opts button[aria-pressed="true"]{color:var(--gold-1)}
+.opts button[aria-pressed="true"]::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.opts.right button[aria-pressed="true"]::before{order:2}
+.opts i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(246,242,234,.25);order:3}
+.stage{display:flex;flex-direction:column;align-items:center;gap:20px;min-width:0}
+.balloon{width:min(100%,440px);aspect-ratio:400/520;position:relative}
+.balloon svg{width:100%;height:100%;overflow:visible}
+.balloon .body{transform-origin:200px 210px;transform-box:view-box}
+.balloon.pop .body{animation:inflate .7s var(--spring)}
+@keyframes inflate{0%{transform:scale(.82)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:no-preference){.balloon svg{animation:bob 6s ease-in-out infinite}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-.6deg)}50%{transform:translateY(-10px) rotate(.6deg)}}
+.balloon input{position:absolute;left:14%;right:14%;top:32%;text-align:center;background:transparent;border:0;outline:0;font:800 clamp(24px,3vw,40px)/1.1 var(--serif);color:var(--ink2,#2D2926);text-transform:uppercase;letter-spacing:.02em;caret-color:var(--gold)}
+.balloon input::placeholder{color:inherit;opacity:.6}
+.balloon input:focus-visible{outline:2px dashed var(--gold);outline-offset:6px;border-radius:8px}
+.maker-act{display:flex;flex-direction:column;align-items:center;gap:8px}
+.maker-act small{font-size:13.5px;color:var(--muted)}
+
+/* About + stats */
+.about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;margin-bottom:48px}
+.about h2{grid-column:1 / span 7;font-size:clamp(34px,4vw,58px);line-height:1.04}
+.about-side{grid-column:9 / span 4;display:flex;flex-direction:column;gap:22px;padding-top:10px}
+.about-side p{color:var(--muted)}
+.about-side .row{display:flex;gap:12px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto auto;gap:20px}
+.st{border-radius:var(--r-lg);background:var(--card);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;min-height:200px}
+.st b{font:800 clamp(44px,5vw,72px)/1 var(--serif);letter-spacing:-.03em}
+.st span{color:var(--muted);font-size:15px}
+.st.a{grid-column:span 3}
+.ph-a{grid-column:span 6;grid-row:span 2;border-radius:var(--r-lg);overflow:hidden;min-height:420px;position:relative}
+.ph-a img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.st.b{grid-column:span 3}
+.st.c{grid-column:span 3}
+.st.d{grid-column:span 3}
+
+/* Works slider */
+.works{position:relative;height:clamp(460px,48vw,780px);overflow:hidden;border-radius:var(--r-xl);background:var(--card);box-shadow:0 0 0 1px rgba(246,242,234,.06)}
+.works figure{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s var(--ease)}
+.works figure.on{opacity:1}
+.works img{width:100%;height:100%;object-fit:cover;transform:scale(1.05);transition:transform 6s linear}
+.works figure.on img{transform:scale(1)}
+.works::after{content:"";position:absolute;inset:auto 0 0;height:42%;background:linear-gradient(0deg,rgba(13,13,13,.85),rgba(13,13,13,0));pointer-events:none}
+.works .bar{position:absolute;left:28px;right:28px;bottom:26px;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.works .cap{padding:9px 18px;border-radius:var(--pill);background:rgba(13,13,13,.82);border:1px solid var(--line);font-size:15px;font-weight:700}
+.works .nav-b{position:absolute;top:50%;z-index:3;transform:translateY(-50%);background:rgba(13,13,13,.7)}
+.works .prev{left:24px}.works .next{right:24px}
+.dots{display:flex;gap:8px}
+.dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgba(246,242,234,.35);padding:0;transition:width .3s var(--ease),background .3s}
+.dots button.on{width:28px;border-radius:4px;background:var(--gold)}
+
+/* Reviews */
+.rev-h{text-align:center;font-size:clamp(32px,3.6vw,50px);line-height:1.06;margin-bottom:56px}
+.revs{display:grid;grid-template-columns:240px minmax(0,1fr);gap:24px;align-items:start}
+.rev-side{display:flex;flex-direction:column;gap:20px}
+.rev-side .ico{margin:0}
+.rev-side h3{font-size:28px;line-height:1.15}
+.ctrls{display:flex;gap:12px}
+.rev-list{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.rev-list::-webkit-scrollbar{display:none}
+.rev{flex:0 0 calc((100% - 40px)/3);scroll-snap-align:start;margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:280px}
+.stars{color:var(--gold);display:flex;gap:3px}
+.stars svg{width:16px;height:16px}
+.rev blockquote{margin:0;font:500 18.5px/1.55 var(--serif)}
+.rev figcaption{display:flex;align-items:center;gap:12px;font-size:14px}
+.rev figcaption i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 16px/1 var(--serif);font-style:normal;background:var(--gold-grad);color:var(--on-gold)}
+.rev figcaption b{display:block;font-weight:700}
+.rev figcaption span{color:var(--muted)}
+
+/* CTA */
+.cta{position:relative;border-radius:var(--r-xl);overflow:hidden;background:var(--card);border:1px solid var(--line);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center;padding:clamp(32px,5vw,72px)}
+.cta::before{content:"";position:absolute;width:640px;height:640px;left:-220px;bottom:-320px;border-radius:50%;background:radial-gradient(circle,rgba(230,176,51,.28),rgba(230,176,51,0) 68%)}
+.cta > *{position:relative}
+.cta-copy{grid-column:1 / span 6;display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.cta h2{font-size:clamp(36px,4.4vw,64px);line-height:1.02}
+.cta p{color:var(--muted);font-size:17px;max-width:30em}
+.cta-ph{grid-column:8 / span 5;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:4/5;transform:rotate(-2deg);box-shadow:0 30px 70px -24px rgba(0,0,0,.8)}
+.cta-ph img{width:100%;height:100%;object-fit:cover}
+
+/* Footer */
+.foot{border-top:1px solid var(--line)}
+.foot .wrap{padding-block:64px 28px;display:flex;flex-direction:column;gap:44px}
+.foot-top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.foot-brand{grid-column:1 / span 4;display:flex;flex-direction:column;gap:16px}
+.foot-brand p{color:var(--muted);max-width:30ch;font-size:15px}
+.fcol{grid-column:span 2;display:flex;flex-direction:column;gap:8px;font-size:15px}
+.fcol:nth-of-type(2){grid-column:6 / span 2}
+.fcol.wide{grid-column:span 3}
+.fcol b{font-weight:700;margin-bottom:6px}
+.fcol a{color:var(--muted);text-decoration:none}
+.fcol a:hover{color:var(--gold-1)}
+.fcol .k{color:var(--dim);font-size:13px;margin-top:6px}
+.legal{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;font-size:13px;color:var(--dim);align-items:center}
+.legal nav{display:flex;gap:8px 20px;flex-wrap:wrap}
+.legal a{color:var(--dim);text-decoration:none}
+.legal a:hover{color:var(--ink)}
+.soc{display:flex;gap:8px}
+.soc a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink)}
+.soc a:hover{border-color:var(--gold);color:var(--gold)}
+.soc svg{width:18px;height:18px}
+
+/* Load moment: the hero card swings into its tilt under the glow */
+@media (prefers-reduced-motion:no-preference){
+  .hero-card{animation:swing 1.4s var(--ease) .15s both}
+  .hero-media::before{animation:glow 2.4s var(--ease) both}
+  @keyframes swing{from{opacity:0;transform:translateY(40px) rotate(9deg) scale(.96)}to{opacity:1;transform:rotate(2.5deg)}}
+  @keyframes glow{from{opacity:0}to{opacity:1}}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Responsive */
+@media (max-width:1080px){
+  .nav{display:none}
+  .top .wrap{justify-content:space-between}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hits{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .maker{grid-template-columns:140px minmax(0,1fr) 140px}
+  .rev{flex-basis:calc((100% - 20px)/2)}
+  .st.a,.st.b,.st.c,.st.d{grid-column:span 6}
+  .ph-a{grid-column:1 / -1;grid-row:auto;min-height:340px}
+}
+@media (max-width:860px){
+  .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .sec{padding-block:72px}
+  .hero{padding-block:48px 80px}
+  .hero .wrap,.about,.foot-top,.cta{grid-template-columns:1fr}
+  .hero-copy,.hero-media,.about h2,.about-side,.foot-brand,.fcol,.fcol:nth-of-type(2),.fcol.wide,.cta-copy,.cta-ph{grid-column:1 / -1}
+  .hero-media{margin-top:24px}
+  .hero-tag{left:12px;bottom:-24px}
+  .cta-ph{display:none}
+  .inc{flex-direction:column;align-items:flex-start}
+  .occ{grid-template-columns:1fr 1fr}
+  .oc.big{grid-column:1 / -1;grid-row:auto;min-height:380px}
+  .maker{grid-template-columns:1fr 1fr}
+  .maker h2,.stage{grid-column:1 / -1}
+  .optcol.right{align-items:flex-end}
+  .stage{order:-1}.maker h2{order:-3}.types{order:-2}
+  .opts{flex-direction:row;flex-wrap:wrap;gap:2px 16px}
+  .opts.right{justify-content:flex-end}
+  .opts button{font-size:18px}
+  .revs{grid-template-columns:1fr}
+  .rev{flex-basis:84%}
+  .works{border-radius:var(--r-lg)}
+}
+@media (max-width:560px){
+  .top .btn{display:none}
+  .tiles,.hits{grid-template-columns:1fr}
+  .hits{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .hits::-webkit-scrollbar{display:none}
+  .hit{flex:0 0 76%;scroll-snap-align:start}
+  .occ{grid-template-columns:1fr}
+  .oc{min-height:240px}
+  .maker{grid-template-columns:1fr}
+  .types{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .opts.right{justify-content:flex-start}
+  .optcol.right{align-items:flex-start;text-align:left}
+  .st.a,.st.b,.st.c,.st.d{grid-column:1 / -1;min-height:150px}
+  .mini{gap:28px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#hero"><span class="moon" aria-hidden="true"></span><b>Alisa Decor &amp; Balloons</b></a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#catalog">Каталог</a>
+      <a href="#hits">Хиты</a>
+      <a href="#maker">Создай композицию</a>
+      <a href="#about">О нас</a>
+      <a href="#works">Работы</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="cart" href="#hits" aria-label="Корзина, 0 товаров"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14l-1.5 12h-11L5 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a>
+    <a class="btn btn-gold wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать оформление праздника.">Заказать оформление</a>
+  </div>
+</header>
+
+<main>
+<!-- Hero -->
+<section class="hero warm" id="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="badge"><i aria-hidden="true"></i>Авторские композиции из воздушных шаров</span>
+      <h1>Создаём праздник, <span class="g">который хочется запомнить.</span></h1>
+      <p class="lead">Композиции, гирлянды и фотозоны для свадеб, дней рождения, выписок и гендер-пати. С доставкой по Комрату и Гагаузии.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#hits">Выбрать композицию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-dark" href="#works">Наши работы</a>
+      </div>
+      <div class="mini">
+        <div><b class="num">500+</b><span>оформленных праздников</span></div>
+        <div><b class="num">98 %</b><span>довольных клиентов</span></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="hero-card"><img src="img/hero-couple.jpg" alt="Пара рядом с чёрной коробкой-сюрпризом с надписью и букетом красных и чёрных шаров-сердец" width="1358" height="1159" fetchpriority="high"></div>
+      <div class="hero-tag"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M12 15v6M10 21h4"/></svg></i><div><b>Цвет, имя и надпись</b><span>под ваш праздник</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Tiles: categories -->
+<section class="sec" id="catalog">
+  <div class="wrap">
+    <div class="head">
+      <h2>Популярные <span class="g">категории</span></h2>
+      <p>Выберите, с чего начать, — мы соберём композицию под ваш повод, палитру и бюджет.</p>
+    </div>
+    <div class="tiles">
+      <a class="tile" href="#hits"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="M12 15v6M10 21h4"/></svg></span><h3>Шары с гелием</h3><p>Латекс, фольга и прозрачные шары с конфетти — поштучно и букетами.</p><span class="go">Смотреть <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="tile" href="#hits"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="7" r="4"/><circle cx="16" cy="7" r="4"/><circle cx="12" cy="12" r="4"/><path d="M12 16v5M8 21h8"/></svg></span><h3>Фонтаны из шаров</h3><p>Пышные связки на грузике — для стола, входа или фотозоны.</p><span class="go">Смотреть <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="tile" href="#maker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="M13 7l4 4"/></svg></span><h3>Шары с надписями</h3><p>Имя, дата или пожелание — напишем на шаре в вашем цвете.</p><span class="go">Создать <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="tile" href="#hits"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7"/><circle cx="7" cy="6" r="2.5"/><circle cx="17" cy="6" r="2.5"/><path d="M10 12h.01M14 12h.01M10 16c1.2 1 2.8 1 4 0"/></svg></span><h3>Детские наборы</h3><p>Яркие сеты для первого года, школьников и тематических праздников.</p><span class="go">Смотреть <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="tile" href="#hits"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M3 7h18v3H3zM12 7v13M12 7c-2-3-6-3-5 0M12 7c2-3 6-3 5 0"/></svg></span><h3>Подарочные боксы</h3><p>Коробка-сюрприз, из которой поднимаются шары, — с запиской внутри.</p><span class="go">Смотреть <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="tile" href="#hits"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7l3-2v14M8 19h8"/></svg></span><h3>Цифры</h3><p>Фольгированные цифры и буквы 60–100 см — отдельно или в композиции.</p><span class="go">Смотреть <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Hits -->
+<section class="sec warm" id="hits">
+  <div class="wrap">
+    <div class="head">
+      <h2>Хиты <span class="g">композиций</span></h2>
+      <p>Самые заказываемые композиции. Любую соберём в вашем цвете и с надписью.</p>
+    </div>
+    <div class="hits">
+      <a class="hit wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать композицию «Любимой»."><img src="img/product-box.jpg" alt="Коробка-сюрприз с шарами и сердцами rose gold" loading="lazy"><span class="add" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="lab">Любимой</span></a>
+      <a class="hit wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать композицию «Год ребёнку»."><img src="img/hero-4x5.jpg" alt="Гирлянда и фольгированная цифра 1" loading="lazy"><span class="add" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="lab">Год ребёнку</span><span class="pr">от 1 300 лей</span></a>
+      <a class="hit wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать композицию «Юбилей»."><img src="img/product-star.jpg" alt="Букет из шаров со звездой rose gold" loading="lazy"><span class="add" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="lab">Юбилей</span></a>
+      <a class="hit wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать композицию «День рождения»."><img src="img/product-pudra.jpg" alt="Букет из шаров пудра, ivory и champagne" loading="lazy"><span class="add" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="lab">День рождения</span><span class="pr">от 550 лей</span></a>
+      <a class="hit wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать оформление выписки."><img src="img/svc-discharge.jpg" alt="Оформление выписки у роддома" loading="lazy"><span class="add" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="lab">Выписка</span><span class="pr">от 450 лей</span></a>
+      <a class="hit wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать свадебное оформление."><img src="img/occ-wedding.jpg" alt="Свадебная арка из шаров и цветов" loading="lazy"><span class="add" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="lab">Свадьба</span></a>
+    </div>
+    <div class="hits-foot"><a class="btn btn-gold wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать оформление праздника.">Заказать оформление</a></div>
+  </div>
+</section>
+
+<!-- Occasions -->
+<section class="sec" id="occasions">
+  <div class="wrap">
+    <div class="head"><h2>Быстрый выбор <span class="g">по поводу</span></h2><a class="btn btn-dark" href="#catalog">Смотреть каталог</a></div>
+    <div class="occ">
+      <a class="oc big" href="#maker"><img src="img/occ-gender.jpg" alt="Gender party: пара с большим чёрным шаром с конфетти" loading="lazy"><div class="row"><b>Гендер-пати</b><span class="pr">от 400 лей</span></div></a>
+      <a class="oc" href="#maker"><img src="img/occ-birthday.jpg" alt="День рождения с пастельной гирляндой" loading="lazy"><div class="row"><b>День рождения</b><span class="pr">от 550 лей</span></div></a>
+      <a class="oc" href="#maker"><img src="img/product-box.jpg" alt="Коробка с шарами-сердцами" loading="lazy"><div class="row"><b>8 марта</b><span class="pr">от 450 лей</span></div></a>
+      <a class="oc" href="#maker"><img src="img/hero-4x5.jpg" alt="Гирлянда с цифрой 1" loading="lazy"><div class="row"><b>Год ребёнку</b><span class="pr">от 1 300 лей</span></div></a>
+      <a class="oc" href="#maker"><img src="img/svc-discharge.jpg" alt="Оформление выписки у роддома" loading="lazy"><div class="row"><b>Выписка</b><span class="pr">от 450 лей</span></div></a>
+      <a class="oc" href="#maker"><img src="img/occ-christening.jpg" alt="Оформление крестин в бело-голубой гамме" loading="lazy"><div class="row"><b>Крестины</b><span class="pr">от 600 лей</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- Constructor -->
+<section class="sec" id="maker" style="padding-top:0">
+  <div class="wrap">
+    <div class="maker">
+      <h2 class="h2">Создай свою <span class="g">композицию</span></h2>
+      <div class="types" id="types" role="group" aria-label="Тип композиции">
+        <button class="type" aria-pressed="true" data-v="single"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 40c-9-6-14-12-14-19a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 7-5 13-14 19Z"/><path d="M32 40c-1 6 3 10 0 18"/></svg><b>Один шар</b><span>форма, цвет, надпись</span></button>
+        <button class="type" aria-pressed="false" data-v="bouquet"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="20" cy="18" r="9"/><circle cx="44" cy="17" r="9"/><circle cx="32" cy="26" r="10"/><path d="M20 27l12 25M44 26 32 52M32 36v16"/><path d="M28 52h8l-1 6h-6z"/></svg><b>Букет</b><span>5–9 шаров с грузиком</span></button>
+        <button class="type" aria-pressed="false" data-v="box"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="14" r="7"/><circle cx="40" cy="13" r="7"/><circle cx="32" cy="20" r="8"/><path d="M24 21l4 13M40 20l-4 14M32 28v6"/><rect x="14" y="34" width="36" height="24" rx="2"/><path d="M12 34h40M32 34v24"/></svg><b>Коробка</b><span>сюрприз с надписью</span></button>
+        <button class="type" aria-pressed="false" data-v="number"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="22" r="7"/><circle cx="50" cy="22" r="7"/><path d="M27 20l7-5v38M27 53h14"/><circle cx="14" cy="48" r="6"/><circle cx="50" cy="48" r="6"/></svg><b>С цифрой</b><span>цифра в центре сета</span></button>
+      </div>
+      <div class="optcol"><p class="opt-t" id="optAT">Форма</p><ul class="opts" id="optA"></ul></div>
+      <div class="stage">
+        <div class="balloon" id="balloon">
+          <svg viewBox="0 0 400 520" aria-hidden="true">
+            <defs>
+              <radialGradient id="shine" cx="34%" cy="28%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".22" stop-color="#fff" stop-opacity=".25"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>
+              <radialGradient id="shade" cx="38%" cy="32%" r="78%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".32"/></radialGradient>
+              <linearGradient id="f-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBE293"/><stop offset=".45" stop-color="#E6B033"/><stop offset=".7" stop-color="#FFF1BF"/><stop offset="1" stop-color="#9B7027"/></linearGradient>
+              <linearGradient id="f-silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F4F4"/><stop offset=".45" stop-color="#B8BCC2"/><stop offset=".7" stop-color="#FFFFFF"/><stop offset="1" stop-color="#7C8189"/></linearGradient>
+              <linearGradient id="f-rose" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F9D9CF"/><stop offset=".45" stop-color="#D99A8A"/><stop offset=".7" stop-color="#FBE6DE"/><stop offset="1" stop-color="#9E5F53"/></linearGradient>
+              <linearGradient id="f-black" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5A5A5E"/><stop offset=".45" stop-color="#1E1E20"/><stop offset=".7" stop-color="#6A6A70"/><stop offset="1" stop-color="#0C0C0D"/></linearGradient>
+              <pattern id="confetti" width="44" height="44" patternUnits="userSpaceOnUse"><circle cx="8" cy="10" r="4" fill="#E6B033"/><circle cx="30" cy="6" r="3" fill="#F6F2EA"/><circle cx="22" cy="28" r="4.5" fill="#C38822"/><circle cx="38" cy="36" r="3" fill="#FBE293"/><circle cx="6" cy="36" r="2.5" fill="#E6B033"/></pattern>
+            </defs>
+            <g class="body" id="scene"></g>
+          </svg>
+          <label for="btext" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Надпись</label>
+          <input id="btext" type="text" maxlength="24" placeholder="ваш текст" autocomplete="off">
+        </div>
+        <div class="maker-act">
+          <label class="numfield" id="numField" hidden>Цифра <input id="bnum" type="text" inputmode="numeric" maxlength="2" value="1" aria-label="Цифра"></label>
+          <a class="btn btn-gold" id="makeBtn" href="https://wa.me/37362555358" target="_blank" rel="noopener">Создать композицию</a>
+          <small>Откроется WhatsApp с готовым описанием</small>
+        </div>
+      </div>
+      <div class="optcol right"><p class="opt-t" id="optBT">Цвет</p><ul class="opts right" id="optB"></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- About + stats -->
+<section class="sec warm" id="about">
+  <div class="wrap">
+    <div class="about">
+      <h2>Alisa Decor &amp; Balloons — это не только <span class="g">отдельные композиции.</span></h2>
+      <div class="about-side">
+        <p>Мы создаём полноценное оформление пространства, чтобы все элементы праздника выглядели гармонично и создавали единое настроение.</p>
+        <div class="row">
+          <a class="btn btn-dark" href="#works">Подробнее</a>
+          <a class="btn btn-gold wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Хочу заказать оформление праздника.">Заказать оформление</a>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="st a"><b class="num g">500+</b><span>оформленных праздников</span></div>
+      <div class="ph-a"><img src="img/occ-corporate.jpg" alt="Гирлянда графит, ivory и champagne у стойки регистрации" loading="lazy"></div>
+      <div class="st b"><b class="num g">98 %</b><span>довольных клиентов</span></div>
+      <div class="st c"><b class="num g">1500+</b><span>уникальных композиций</span></div>
+      <div class="st d"><b class="num g">5+</b><span>лет креативных событий</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Works -->
+<section class="sec" id="works">
+  <div class="wrap">
+    <div class="head"><h2>Наши <span class="g">работы</span></h2><a class="btn btn-dark" href="#works">Смотреть все работы</a></div>
+    <div class="works" aria-roledescription="карусель" aria-label="Наши работы">
+      <figure class="on"><img src="img/occ-gender.jpg" alt="Gender party: колонны из розовых и голубых шаров" loading="lazy"></figure>
+      <figure><img src="img/occ-wedding.jpg" alt="Свадебная арка из шаров и цветов" loading="lazy"></figure>
+      <figure><img src="img/svc-discharge.jpg" alt="Оформление выписки у входа в роддом" loading="lazy"></figure>
+      <figure><img src="img/occ-christening.jpg" alt="Крестины в бело-голубой гамме" loading="lazy"></figure>
+      <figure><img src="img/occ-corporate.jpg" alt="Гирлянда у стойки регистрации на корпоративе" loading="lazy"></figure>
+      <button class="round nav-b prev" id="wPrev" aria-label="Предыдущая работа"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="round nav-b next" id="wNext" aria-label="Следующая работа"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="bar"><span class="cap" id="wCap" aria-live="polite">Гендер-пати</span><div class="dots" id="wDots"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews -->
+<section class="sec warm" id="reviews">
+  <div class="wrap">
+    <h2 class="rev-h">Читайте отзывы, <span class="g">делитесь своим опытом</span></h2>
+    <div class="revs">
+      <div class="rev-side">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 48 48" fill="currentColor"><path d="M6 36V24c0-8 4-13 12-15l2 4c-4 1.5-6 4-6.5 7H20v16H6Zm22 0V24c0-8 4-13 12-15l2 4c-4 1.5-6 4-6.5 7H42v16H28Z"/></svg></span>
+        <h3>Что говорят наши клиенты</h3>
+        <div class="ctrls"><button class="round" id="rPrev" aria-label="Предыдущий отзыв"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="round" id="rNext" aria-label="Следующий отзыв"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div>
+      </div>
+      <div class="rev-list" id="revList">
+        <figure class="rev"><blockquote>Заказывали оформление детского дня рождения. Всё привезли вовремя, цвета подобрали идеально, дети были в восторге.</blockquote><figcaption><i aria-hidden="true">Д</i><span><b>Дмитрий</b><span>неделю назад</span></span></figcaption></figure>
+        <figure class="rev"><blockquote>Композиция получилась даже красивее, чем я представляла. Всё идеально подошло к оформлению праздника. Спасибо за внимание к каждой детали</blockquote><figcaption><i aria-hidden="true">Ю</i><span><b>Юлия</b><span>неделю назад</span></span></figcaption></figure>
+        <figure class="rev"><blockquote>Очень понравился индивидуальный подход. Отправила референс — в итоге получилось ещё красивее</blockquote><figcaption><i aria-hidden="true">А</i><span><b>Анна</b><span>неделю назад</span></span></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec" aria-labelledby="ctaT">
+  <div class="wrap">
+    <div class="cta">
+      <div class="cta-copy">
+        <h2 id="ctaT">Ваш праздник <span class="g">начинается здесь</span></h2>
+        <p>Расскажите нам о событии, дате и пожеланиях. Мы предложим композицию или оформление, которое подойдёт под ваш стиль и бюджет.</p>
+        <a class="btn btn-gold wa" href="https://wa.me/37362555358" target="_blank" rel="noopener" data-msg="Здравствуйте! Подберите, пожалуйста, оформление. Событие: , дата: , пожелания: ">Подобрать оформление <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="cta-ph"><img src="img/occ-birthday.jpg" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot warm" id="contacts">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="logo"><span class="moon" aria-hidden="true"></span><b>Alisa Decor &amp; Balloons</b></span>
+        <p>Воздушные шары, авторские композиции и оформление мероприятий с вниманием к каждой детали.</p>
+      </div>
+      <div class="fcol"><b>Навигация</b><a href="#catalog">Категории</a><a href="#hits">Хиты</a><a href="#occasions">События</a><a href="#maker">Создай композицию</a><a href="#about">О нас</a><a href="#works">Наши работы</a><a href="#reviews">Отзывы</a></div>
+      <div class="fcol"><b>Страницы</b><a href="#catalog">Каталог</a><a href="#maker">Создай композицию</a><a href="#about">О студии</a><a href="#works">Наши работы</a><a href="#contacts">Контакты</a><a href="#hits">Корзина</a></div>
+      <div class="fcol wide"><b>Контакты</b>
+        <span class="k">Место расположения</span><span>г. Комрат, ул. Ленина 75</span>
+        <span class="k">Сайт</span><span>balloons.alisa.com</span>
+        <span class="k">Телефоны</span><span class="num">+373 62 555 358</span><span class="num">+373 63 475 555</span>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Alisa Decor &amp; Balloons</span>
+      <nav aria-label="Документы"><a href="#contacts">Пользовательское соглашение</a><a href="#contacts">Публичная оферта</a><a href="#contacts">Согласие на обработку перс. данных</a><a href="#contacts">Политика конфиденциальности</a></nav>
+      <div class="soc">
+        <a href="https://www.instagram.com/alisa_balloons_komrat/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor"/></svg></a>
+        <a href="https://wa.me/37362555358" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const WA='https://wa.me/37362555358?text=';
+  document.querySelectorAll('a.wa[data-msg]').forEach(a=>{a.href=WA+encodeURIComponent(a.dataset.msg)});
+
+  function scroller(list,prev,next){
+    const step=()=>{const c=list.children[0];return c?c.getBoundingClientRect().width+20:300};
+    prev.addEventListener('click',()=>list.scrollBy({left:-step(),behavior:'smooth'}));
+    next.addEventListener('click',()=>list.scrollBy({left:step(),behavior:'smooth'}));
+    const upd=()=>{prev.disabled=list.scrollLeft<4;next.disabled=list.scrollLeft+list.clientWidth>=list.scrollWidth-4};
+    list.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+  }
+  scroller(document.getElementById('revList'),document.getElementById('rPrev'),document.getElementById('rNext'));
+
+  /* composition constructor */
+  const NS='http://www.w3.org/2000/svg';
+  const $=id=>document.getElementById(id);
+  const scene=$('scene'),balloon=$('balloon'),input=$('btext'),bnum=$('bnum'),numField=$('numField'),make=$('makeBtn');
+  function el(t,a,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;scene.appendChild(e);return e}
+  function starPath(cx,cy,R,r,n){let d='';for(let i=0;i<n*2;i++){const a=-Math.PI/2+i*Math.PI/n,rad=i%2?r:R;d+=(i?'L':'M')+(cx+rad*Math.cos(a)).toFixed(1)+' '+(cy+rad*Math.sin(a)).toFixed(1)}return d+'Z'}
+  const SH={
+    heart:'M200 368 C 96 296 36 226 36 150 C 36 92 80 50 134 50 C 166 50 190 68 200 94 C 210 68 234 50 266 50 C 320 50 364 92 364 150 C 364 226 304 296 200 368 Z',
+    star:starPath(200,206,178,84,5),
+    oval:'M200 368 C 110 368 66 290 66 200 C 66 104 124 32 200 32 C 276 32 334 104 334 200 C 334 290 290 368 200 368 Z',
+    circle:'M200 368 C 108 368 38 296 38 204 C 38 112 108 40 200 40 C 292 40 362 112 362 204 C 362 296 292 368 200 368 Z',
+    moon:'M232 368 C 128 368 48 292 48 200 C 48 108 128 32 232 32 C 268 32 300 42 326 60 C 238 76 182 132 182 200 C 182 268 238 324 326 340 C 300 358 268 368 232 368 Z',
+    kiss:'M24 200 C 70 136 128 104 166 120 C 182 127 192 134 200 140 C 208 134 218 127 234 120 C 272 104 330 136 376 200 C 330 282 268 318 200 318 C 132 318 70 282 24 200 Z',
+    bear:'M200 368 C 112 368 54 310 54 232 C 54 192 70 158 96 134 C 72 124 58 104 58 82 C 58 52 82 28 112 28 C 136 28 156 44 162 66 C 174 63 187 62 200 62 C 213 62 226 63 238 66 C 244 44 264 28 288 28 C 318 28 342 52 342 82 C 342 104 328 124 304 134 C 330 158 346 192 346 232 C 346 310 288 368 200 368 Z'
+  };
+  const SHB={heart:368,star:364,oval:368,circle:368,moon:368,kiss:318,bear:368};
+  const SHAPES=[['heart','Сердце'],['star','Звёздочка'],['oval','Овал'],['circle','Круг'],['moon','Луна'],['kiss','Поцелуй'],['bear','Зверёк']];
+  const COLORS=[['#5B86C9','Синий'],['#2B2A2C','Чёрный'],['#6E9F7B','Зелёный'],['#C9473F','Красный'],['#F6F2EC','Белый'],['#E8B4BA','Розовый'],['#E6B033','Золотой'],['glass','Прозрачный']];
+  const PALS=[['powder','Пудра и champagne',['#E8B4BA','#F6F2EC','#D8C29C','#E6B033']],['redblack','Красный и чёрный',['#C9473F','#2B2A2C','#C9473F','#E6B033']],['blue','Голубой и белый',['#9CC3E6','#F6F2EC','#C9D6DF','#B8BCC2']],['goldwhite','Золото и белый',['#E6B033','#F6F2EC','#D8C29C','#FFFFFF']],['sage','Шалфей',['#8FAE8B','#F6F2EC','#D8C29C','#6E9F7B']],['pink','Нежно-розовый',['#F2C9CF','#E8B4BA','#F6F2EC','#D98A97']]];
+  const ACCENTS=[['heart','Сердце'],['star','Звёздочка'],['circle','Круг'],['none','Без акцента']];
+  const BOXES=[['#1A1918','Чёрная'],['#F3EFE8','Белая'],['#B98E5E','Крафт'],['#E8B4BA','Розовая']];
+  const FOILS=[['gold','Золото'],['silver','Серебро'],['rose','Розовое золото'],['black','Чёрный']];
+  const TYPES={
+    single:{name:'Один шар',a:['Форма',SHAPES],b:['Цвет',COLORS],text:true,num:false},
+    bouquet:{name:'Букет',a:['Акцентный шар',ACCENTS],b:['Палитра',PALS],text:true,num:false},
+    box:{name:'Коробка-сюрприз',a:['Коробка',BOXES],b:['Палитра шаров',PALS],text:true,num:false},
+    number:{name:'С цифрой',a:['Цвет цифры',FOILS],b:['Палитра шаров',PALS],text:false,num:true}
+  };
+  const st={type:'single',single:{a:'heart',b:'#E6B033'},bouquet:{a:'heart',b:'powder'},box:{a:'#1A1918',b:'redblack'},number:{a:'gold',b:'goldwhite'}};
+  function lum(hex){if(hex[0]!=='#')return .5;const n=parseInt(hex.slice(1),16),r=(n>>16)/255,g=(n>>8&255)/255,b=(n&255)/255;const f=c=>c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);return .2126*f(r)+.7152*f(g)+.0722*f(b)}
+  const pal=()=>PALS.find(p=>p[0]===st[st.type].b)[2];
+  function ball(cx,cy,r,c){el('path',{d:`M${cx-5} ${cy+r-1} L${cx+5} ${cy+r-1} L${cx+3} ${cy+r+7} L${cx-3} ${cy+r+7} Z`,fill:c});el('ellipse',{cx,cy,rx:r*.94,ry:r,fill:c});el('ellipse',{cx,cy,rx:r*.94,ry:r,fill:'url(#shade)'});el('ellipse',{cx,cy,rx:r*.94,ry:r,fill:'url(#shine)'})}
+  function str(x1,y1,x2,y2,bend){el('path',{d:`M${x1} ${y1} Q ${(x1+x2)/2+(bend||0)} ${(y1+y2)/2} ${x2} ${y2}`,fill:'none',stroke:'#9A8664','stroke-width':1.4})}
+  function foilShape(shape,cx,cy,k,fill,stroke){
+    const g=document.createElementNS(NS,'g');g.setAttribute('transform',`translate(${cx-200*k} ${cy-200*k}) scale(${k})`);scene.appendChild(g);
+    const add=(a)=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',SH[shape]);for(const x in a)p.setAttribute(x,a[x]);g.appendChild(p)};
+    add({fill,stroke:shape==='star'?(stroke||fill):(stroke||'none'),'stroke-width':shape==='star'?26:2,'stroke-linejoin':'round'});
+    add({fill:'url(#shade)'});add({fill:'url(#shine)'});
+    return g;
+  }
+  function weight(x,y){el('path',{d:`M${x-16} ${y} h32 l7 34 q-23 11 -46 0 z`,fill:'url(#f-gold)'});el('path',{d:`M${x-24} ${y+4} q24 -14 48 0`,fill:'none',stroke:'#C38822','stroke-width':3});
+    [[-1,60],[1,52],[-1,40]].forEach(([s,l],i)=>el('path',{d:`M${x+s*6} ${y+30} c ${s*10} 12 ${s*-8} 22 ${s*4} ${l}`,fill:'none',stroke:i%2?'#E6B033':'#9A8664','stroke-width':1.6}))}
+  function txtPos(top,side,size,script){input.style.top=top+'%';input.style.left=side+'%';input.style.right=side+'%';input.style.fontSize=size;input.style.textTransform=script?'none':'uppercase';input.style.fontStyle=script?'italic':'normal';input.style.fontWeight=script?'700':'800';input.maxLength=script?24:14}
+  function render(pop){
+    scene.innerHTML='';
+    const T=TYPES[st.type],s=st[st.type];
+    input.parentElement.querySelector('input').hidden=!T.text;numField.hidden=!T.num;
+    let ink='#1A1714',desc='';
+    if(st.type==='single'){
+      const glass=s.b==='glass',c=glass?'rgba(255,255,255,.14)':s.b,by=SHB[s.a]+12;
+      el('path',{d:`M200 ${by} C 196 ${by+30} 212 ${by+60} 198 ${by+90} C 190 ${by+110} 204 ${by+125} 202 516`,fill:'none',stroke:'#9A8664','stroke-width':2});
+      const g=foilShape(s.a,200,200,1,c,glass?'rgba(246,242,234,.45)':null);
+      if(glass){const p=document.createElementNS(NS,'path');p.setAttribute('d',SH[s.a]);p.setAttribute('fill','url(#confetti)');g.insertBefore(p,g.children[1])}
+      el('path',{d:`M192 ${by-12} L208 ${by-12} L204 ${by} L196 ${by} Z`,fill:glass?'#E6B033':c});
+      ink=glass?'#F6F2EA':(lum(s.b)>.35?'#1A1714':'#FBF8F3');
+      txtPos(s.a==='kiss'?34.5:(s.a==='bear'?38:32),14,'clamp(24px,3vw,40px)');
+      desc=`шар «${SHAPES.find(x=>x[0]===s.a)[1]}», цвет ${COLORS.find(x=>x[0]===s.b)[1].toLowerCase()}`;
+    }
+    if(st.type==='bouquet'){
+      const P=pal(),W=[200,436];
+      const balls=[[118,170,56,P[1]],[284,162,58,P[0]],[200,92,60,P[2]],[136,286,50,P[0]],[268,282,52,P[1]],[76,256,40,P[3]],[326,250,40,P[2]],[200,318,46,P[3]],[200,212,54,P[0]]];
+      const list=s.a==='none'?balls:balls.slice(0,8);
+      list.forEach(([x,y,r])=>str(x,y+r+8,W[0],W[1],(x-200)*.08));
+      if(s.a!=='none')str(200,276,W[0],W[1],0);
+      [...list].sort((a,b)=>a[1]-b[1]).forEach(([x,y,r,c])=>ball(x,y,r,c));
+      if(s.a!=='none'){foilShape(s.a,200,206,.44,'url(#f-gold)','#E6B033')}
+      weight(W[0],W[1]);
+      ink='#1A1714';txtPos(36,33,'clamp(13px,1.5vw,19px)');
+      desc=`букет из ${list.length+(s.a==='none'?0:1)} шаров, палитра «${PALS.find(x=>x[0]===s.b)[1]}»${s.a==='none'?'':`, акцентный шар «${ACCENTS.find(x=>x[0]===s.a)[1]}»`}`;
+    }
+    if(st.type==='box'){
+      const P=pal(),bc=s.a;
+      const balls=[[132,150,52,P[0]],[268,142,54,P[1]],[200,84,58,P[2]],[112,250,44,P[1]],[290,246,46,P[0]],[200,200,52,P[3]]];
+      balls.forEach(([x,y,r])=>str(x,y+r+8,170+(x-120)*.25,316,(x-200)*.1));
+      [...balls].sort((a,b)=>a[1]-b[1]).forEach(([x,y,r,c])=>ball(x,y,r,c));
+      const edge=lum(bc)>.35?'rgba(45,41,38,.25)':'#3A3835';
+      el('rect',{x:64,y:338,width:272,height:178,rx:6,fill:bc,stroke:edge,'stroke-width':2});
+      el('rect',{x:52,y:316,width:296,height:32,rx:5,fill:bc,stroke:edge,'stroke-width':2});
+      el('rect',{x:52,y:340,width:296,height:6,fill:'rgba(0,0,0,.18)'});
+      el('rect',{x:192,y:316,width:16,height:200,fill:bc==='#1A1918'?'#C9473F':'url(#f-gold)'});
+      el('path',{d:'M200 318 c-22 -26 -56 -12 -36 6 c10 7 24 2 36 -6 c12 8 26 13 36 6 c20 -18 -14 -32 -36 -6 z',fill:bc==='#1A1918'?'#C9473F':'url(#f-gold)'});
+      ink=bc==='#1A1918'?'#E06A5F':(lum(bc)>.35?'#2D2926':'#FBF8F3');
+      txtPos(76,18,'clamp(16px,1.9vw,24px)',true);
+      desc=`коробка ${BOXES.find(x=>x[0]===bc)[1].toLowerCase()}, шары в палитре «${PALS.find(x=>x[0]===s.b)[1]}»`;
+    }
+    if(st.type==='number'){
+      const P=pal();
+      const balls=[[70,150,50,P[0]],[330,140,50,P[1]],[120,66,40,P[2]],[282,60,40,P[3]],[62,300,44,P[1]],[338,292,44,P[0]],[96,420,40,P[2]],[304,416,40,P[3]],[150,486,32,P[0]],[250,486,32,P[1]],[200,500,26,P[2]]];
+      [...balls].sort((a,b)=>a[1]-b[1]).forEach(([x,y,r,c])=>ball(x,y,r,c));
+      const digit=(bnum.value.replace(/\D/g,'')||'1').slice(0,2);
+      el('text',{x:200,y:digit.length>1?400:430,'text-anchor':'middle','font-family':'Literata, Georgia, serif','font-weight':800,'font-size':digit.length>1?250:360,fill:`url(#f-${s.a})`,stroke:s.a==='black'?'#3A3835':'rgba(0,0,0,.25)','stroke-width':4,'paint-order':'stroke'},digit);
+      desc=`цифра ${digit} (${FOILS.find(x=>x[0]===s.a)[1].toLowerCase()}), шары в палитре «${PALS.find(x=>x[0]===s.b)[1]}»`;
+    }
+    input.style.setProperty('--ink2',ink);
+    const txt=T.text?input.value.trim():'';
+    make.href=WA+encodeURIComponent(`Здравствуйте! Хочу композицию «${T.name}»: ${desc}${txt?`, надпись «${txt}»`:''}.`);
+    if(pop){balloon.classList.remove('pop');void balloon.offsetWidth;balloon.classList.add('pop')}
+  }
+  function list(ulId,titleId,key){
+    const T=TYPES[st.type],[title,items]=T[key];$(titleId).textContent=title;
+    const ul=$(ulId);ul.innerHTML='';
+    items.forEach(it=>{
+      const li=document.createElement('li'),b=document.createElement('button');
+      b.type='button';b.textContent=it[1];b.setAttribute('aria-pressed',st[st.type][key]===it[0]);
+      const kind=T[key][1];let bg='';
+      if(kind===PALS)bg=`conic-gradient(${it[2][0]} 0 33%,${it[2][1]} 0 66%,${it[2][2]} 0)`;
+      else if(kind===COLORS||kind===BOXES)bg=it[0]==='glass'?'linear-gradient(135deg,#fff,#7D766C)':it[0];
+      else if(kind===FOILS)bg={gold:'linear-gradient(135deg,#FBE293,#9B7027)',silver:'linear-gradient(135deg,#fff,#7C8189)',rose:'linear-gradient(135deg,#F9D9CF,#9E5F53)',black:'linear-gradient(135deg,#5A5A5E,#0C0C0D)'}[it[0]];
+      if(bg){const sw=document.createElement('i');if(kind===PALS)sw.className='tri';sw.style.background=bg;b.appendChild(sw)}
+      b.addEventListener('click',()=>{st[st.type][key]=it[0];[...ul.querySelectorAll('button')].forEach(x=>x.setAttribute('aria-pressed',x===b));render(true)});
+      li.appendChild(b);ul.appendChild(li);
+    });
+  }
+  function setType(t){st.type=t;document.querySelectorAll('#types .type').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===t));list('optA','optAT','a');list('optB','optBT','b');render(true)}
+  document.querySelectorAll('#types .type').forEach(b=>b.addEventListener('click',()=>setType(b.dataset.v)));
+  input.addEventListener('input',()=>render(false));bnum.addEventListener('input',()=>render(false));
+  list('optA','optAT','a');list('optB','optBT','b');render(false);
+
+  /* works slider */
+  const figs=[...document.querySelectorAll('.works figure')];
+  const caps=['Гендер-пати','Свадьба','Выписка из роддома','Крестины','Корпоратив'];
+  const dots=document.getElementById('wDots'),cap=document.getElementById('wCap');
+  figs.forEach((f,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Работа '+(i+1));b.addEventListener('click',()=>go(i));dots.appendChild(b)});
+  let wi=0,timer;
+  function go(i){wi=(i+figs.length)%figs.length;figs.forEach((f,j)=>f.classList.toggle('on',j===wi));[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===wi));cap.textContent=caps[wi];restart()}
+  function restart(){clearInterval(timer);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)timer=setInterval(()=>go(wi+1),6000)}
+  document.getElementById('wPrev').addEventListener('click',()=>go(wi-1));
+  document.getElementById('wNext').addEventListener('click',()=>go(wi+1));
+  go(0);
+})();
+</script>
+</body>
+</html>
