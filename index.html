@@ -1279,6 +1279,21 @@ body.copage .tabbar{display:none!important}
 .hw{min-height:0!important}
 .hwimg{margin:10px auto -4px!important;padding-top:0!important;width:78%!important}
 @media (max-width:860px){.hw{padding:0 18px 18px!important}.hwimg{width:56%!important;max-width:200px!important;margin:8px auto 4px!important}}
+/* product card v3: white, info below photo */
+.vcard{background:#fff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:1px solid #ECE8F2!important;outline:0!important;border-radius:22px!important;padding:10px 10px 14px!important;box-shadow:none!important}
+.vcard:hover{transform:translateY(-3px)!important;box-shadow:0 14px 32px rgba(30,20,60,.09)!important}
+.vimgw{border-radius:16px!important}
+.vbody{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:auto auto 1fr auto!important;align-items:start!important;column-gap:10px!important;row-gap:0!important;padding:14px 6px 0!important}
+.vbody .vbadge{position:static!important;grid-column:1/-1;justify-self:start;margin:0 0 10px;background:#E4F6E9!important;color:#1F7A3D!important;font-size:12.5px!important;font-weight:700;padding:4px 11px!important;border-radius:999px;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.vbody .vbadge.new{background:#EEE8FA!important;color:var(--acc-d)!important}
+.vbody .vname{grid-column:1/-1;grid-row:auto!important;font-size:17px!important;font-weight:700!important;color:var(--ink)!important;line-height:1.25!important}
+.vbody .vsub{grid-column:1/-1;margin-top:6px;font-size:13px;line-height:1.4;color:#6E6A78}
+.vbody .vprice{grid-column:1;grid-row:auto!important;align-self:center!important;margin-top:14px;font-size:19px!important;font-weight:800!important;padding:0!important}
+.vbody .vadd{grid-column:2;grid-row:auto!important;align-self:center!important;margin-top:14px}
+@media (max-width:860px){.vcard{padding:6px 6px 10px!important;border-radius:18px!important}.vimgw{border-radius:13px!important}.vbody{padding:10px 3px 0!important;column-gap:6px!important}.vbody .vbadge{font-size:11px!important;padding:3px 8px!important;margin-bottom:7px}.vbody .vname{font-size:14.5px!important}.vbody .vsub{font-size:11.5px;margin-top:4px}.vbody .vprice{font-size:15.5px!important;margin-top:10px}.vbody .vadd{margin-top:10px}}
+.vbody{grid-template-areas:"b b" "n n" "s s" "p a"!important;grid-template-rows:36px auto 1fr auto!important}
+.vbody .vbadge{grid-area:b!important;margin:0!important;align-self:start}.vbody .vname{grid-area:n!important}.vbody .vsub{grid-area:s!important;align-self:start}.vbody .vprice{grid-area:p!important;align-self:end!important}.vbody .vadd{grid-area:a!important;align-self:end!important}
+@media (max-width:860px){.vbody{grid-template-rows:27px auto 1fr auto!important}}
 /* compact filter + sort, equal width */
 .toolbar .fbtn,.toolbar .select{min-height:40px!important;height:40px;font-size:14px!important;font-weight:600!important;width:210px;margin:0!important;box-sizing:border-box}
 .toolbar .fbtn{padding:0 16px!important;gap:8px!important;justify-content:center}
@@ -1600,9 +1615,8 @@ function vcard(p,bdg){
   var raw=bdg||p.badge,badge=raw==="Хит"?"Хит":raw;
   return '<article class="vcard'+(p.photo?'':' noph')+'">'+
    '<div class="vimgw"><a class="vimg" href="#product/'+p.id+'" aria-label="'+esc(p.name)+'" style="background:'+(p.photo?'#F1EEF6':'linear-gradient(160deg,'+p.tone[2]+',#EDE6FA)')+'">'+pic(p)+'</a>'+
-   (badge?'<span class="vbadge'+(raw==="Новинка"?" new":"")+'">'+badge+'</span>':'')+
    '<button class="vheart" data-fav="'+p.id+'" aria-pressed="'+fav+'" aria-label="'+(fav?"Убрать из понравившихся":"В понравившиеся")+'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2c-.3 0-.6-.1-.8-.3C8.6 17.8 3.2 13.9 3.2 9.1 3.2 6.4 5.2 4.3 7.8 4.3c1.7 0 3.2.9 4.2 2.3 1-1.4 2.5-2.3 4.2-2.3 2.6 0 4.6 2.1 4.6 4.8 0 4.8-5.4 8.7-8 10.8-.2.2-.5.3-.8.3z"/></svg></button></div>'+
-   '<div class="vbody"><a class="vname" href="#product/'+p.id+'">'+esc(p.name)+'</a><span class="vprice">'+lei(p.price)+'</span>'+
+   '<div class="vbody">'+(badge?'<span class="vbadge'+(raw==="Новинка"?" new":"")+'">'+(raw==="Хит"?"Хит продаж":badge)+'</span>':'')+'<a class="vname" href="#product/'+p.id+'">'+esc(p.name)+'</a><span class="vsub">'+esc(vsub(p))+'</span><span class="vprice">'+lei(p.price)+'</span>'+
    '<button class="vadd'+(inCart?' done':'')+'" data-add="'+p.id+'" aria-pressed="'+inCart+'" aria-label="'+(inCart?'Убрать из корзины «':'Добавить «')+esc(p.name)+'»">'+BAG+'</button></div>'+
   '</article>';
 }
