@@ -1526,7 +1526,7 @@ function store(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 var cart=load("alisa-cart",[]);(function(){var seen={};cart=cart.filter(function(c){if(seen[c.id])return false;seen[c.id]=1;c.qty=1;return true})})();           // [{id,qty,wish}]
 var favs=load("alisa-favs",{});
 var lastOrder=null;
-var view={cat:"all",sort:"pop",q:"",budget:"any",pmin:0,pmax:0};
+var view={cat:"all",sort:"pop",q:"",budget:"any",pmin:0,pmax:0};window.__setSort=function(v){view.sort=v;view.cat="all"};
 var PRICES=[["Все цены",0,0],["до 700 лей",0,700],["700–1500 лей",700,1500],["1500–3000 лей",1500,3000],["от 3000 лей",3000,0]];
 function priceLabel(){if(!view.pmin&&!view.pmax)return "";if(!view.pmin)return "до "+lei(view.pmax);if(!view.pmax)return "от "+lei(view.pmin);return view.pmin+"–"+lei(view.pmax)}
 var co={step:1,data:{msgr:"Instagram",how:"delivery",pay:"cash"}};
@@ -1659,7 +1659,7 @@ function pHome(){
 
   '<section class="sec cats-sec" id="hits" aria-labelledby="hitsT"><a class="ctitle" href="#catalog"><h2 id="hitsT">Хиты продаж</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
    '<div class="hgrid">'+hits.map(hitCard).join('')+'</div></section>'+
-  '<section class="sec cats-sec" id="new" aria-labelledby="newT"><a class="ctitle" href="#catalog"><h2 id="newT">Новинки</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
+  '<section class="sec cats-sec" id="new" aria-labelledby="newT"><a class="ctitle" href="#catalog" data-sortset="new"><h2 id="newT">Новинки</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
    '<div class="hgrid">'+NEW.map(byId).map(function(p){return vcard(p,"Новинка")}).join('')+'</div></section>'+
   '<section class="sec howsec" id="how" aria-labelledby="howT"><div class="hwband"><div class="hwhead"><h2 id="howT">Как заказать</h2><p>Четыре простых шага — и праздник уже в пути</p></div><ol class="hwlist"><li class="hw"><img class="hwimg" src="img/how3d-1.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c-2.8 0-4.8 2.3-4.8 5 0 3 2.4 5.6 4.8 5.6s4.8-2.6 4.8-5.6c0-2.7-2-5-4.8-5z"/><path d="M11.2 14.1 12 15.4l.8-1.3"/><path d="M12 15.4c0 2.2-1.6 3-1.6 5.1"/><path d="M10 7.2c.4-.9 1.1-1.5 2-1.7"/></svg></span><span class="hwn">01</span><h3>Выберите композицию</h3><p>В каталоге по поводу: день рождения, выписка, свадьба. Цвет можно поменять — цена останется той же.</p></li><li class="hw"><img class="hwimg" src="img/how3d-2.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M10 6.5h4M10 10h4M10 13.5h2.5"/><path d="M10.5 17.5h3"/></svg></span><span class="hwn">02</span><h3>Оформите заказ</h3><p>Имя, телефон, дата и время праздника. Без регистрации, пара минут с телефона.</p></li><li class="hw"><img class="hwimg" src="img/how3d-3.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z"/><path d="m9 10.8 2 2 4-4.2"/></svg></span><span class="hwn">03</span><h3>Подтвердим детали</h3><p>Менеджер свяжется с вами в мессенджере или по телефону и подтвердит заказ.</p></li><li class="hw"><img class="hwimg" src="img/how3d-4.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10.5" rx="1.5"/><path d="M3 7h18v3H3zM12 7v13.5"/><path d="M12 7c-1.5-3-5-3.5-5-1.4C7 7 10 7 12 7zm0 0c1.5-3 5-3.5 5-1.4C17 7 14 7 12 7z"/></svg></span><span class="hwn">04</span><h3>Получите и оплатите</h3><p>Привезём к нужному времени или заберёте сами в Комрате. Оплата наличными или картой при получении.</p></li></ol><div class="hwcta"><a class="dark-pill hwbtn" href="#catalog">Выбрать композицию <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span>Заранее платить не нужно</span></div></div></section>'+
 
@@ -1676,7 +1676,7 @@ function pHome(){
 }
 function catList(){
   var list=P.filter(function(p){return (view.cat==="all"||p.cat===view.cat)&&(!view.q||(p.name+" "+p.catName).toLowerCase().indexOf(view.q.toLowerCase())>-1)&&(function(b){return p.price>=b[2]&&p.price<b[3]})(budgetOf(view.budget))&&p.price>=(view.pmin||0)&&(!view.pmax||p.price<=view.pmax)});
-  list.sort(function(a,b){return view.sort==="asc"?a.price-b.price:view.sort==="desc"?b.price-a.price:b.pop-a.pop});
+  list.sort(function(a,b){if(view.sort==="new"){var na=a.badge==="Новинка"?1:0,nb=b.badge==="Новинка"?1:0;if(na!==nb)return nb-na}return view.sort==="asc"?a.price-b.price:view.sort==="desc"?b.price-a.price:b.pop-a.pop});
   return list}
 function catRes(list){return '<p class="hint" style="margin-bottom:14px">'+list.length+' '+plural(list.length,["композиция","композиции","композиций"])+(view.q?' · <a href="#catalog" data-clear-q>сбросить поиск</a>':'')+(priceLabel()?' · <button class="bchip" data-clear-price>Цена: '+priceLabel()+' ×</button>':'')+'</p>'+
    (list.length?'<div class="pgrid">'+list.map(card).join('')+'</div>':'<div class="empty"><h3>Ничего не нашлось</h3><p class="sub" style="margin-top:8px">Попробуйте другой запрос или выберите повод</p>'+(priceLabel()?'<button class="btn" data-clear-price style="margin-top:18px">Сбросить цену</button>':'<a class="btn" href="#catalog" data-clear-q style="margin-top:18px">Весь каталог</a>')+'</div>')}
@@ -1696,7 +1696,7 @@ function pCatalog(){
      '<div class="fquick">'+[["до 700",0,700],["700–1500",700,1500],["1500–3000",1500,3000],["от 3000",3000,0]].map(function(x){return '<button class="pchip" data-fq="'+x[1]+'|'+x[2]+'">'+x[0]+'</button>'}).join('')+'</div>'+
      '<div class="ffoot"><button class="btn line" id="fReset">Сбросить</button><button class="btn" id="fApply">Показать</button></div>'+
     '</div></div>'+
-   '<label class="sr" for="sort">Сортировка</label><select class="select" id="sort"><option value="pop"'+(view.sort==="pop"?" selected":"")+'>Сначала популярные</option><option value="asc"'+(view.sort==="asc"?" selected":"")+'>Сначала дешевле</option><option value="desc"'+(view.sort==="desc"?" selected":"")+'>Сначала дороже</option></select></div>'+
+   '<label class="sr" for="sort">Сортировка</label><select class="select" id="sort"><option value="pop"'+(view.sort==="pop"?" selected":"")+'>Сначала популярные</option><option value="new"'+(view.sort==="new"?" selected":"")+'>Сначала новинки</option><option value="asc"'+(view.sort==="asc"?" selected":"")+'>Сначала дешевле</option><option value="desc"'+(view.sort==="desc"?" selected":"")+'>Сначала дороже</option></select></div>'+
    '<div id="catRes">'+catRes(list)+'</div>'+
   '</div>';
 }
@@ -2049,6 +2049,7 @@ saveCart();
 if(!load("alisa-cookie",null))$("#cookie").classList.remove("hidden");
 route();
 })();
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-sortset]");if(a&&window.__setSort)window.__setSort(a.getAttribute("data-sortset"))},true);
 </script>
 </body>
 </html>
