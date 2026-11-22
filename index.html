@@ -1485,20 +1485,20 @@ var NAMES={
 var P=[];var HITS=[];var HITS2=["p-yana-3","p-35-gold","p-one-boy","p-red-gold"];var NEW=["p-one-girl","p-70-rose","p-raspberry-star","p-emerald"];var NEWPH={};
 CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
   var id=c.id+"-"+i;
-  P.push({id:id,cat:c.id,catName:c.name,name:n,price:[650,890,1150,1490,780,1990,540,960,1750,820,1250,690][(ci+i*5)%12]+(i?150:0),
+  P.push({id:id,cat:c.id,catName:c.name,name:n,price:[190,240,290,350,220,420,180,260,390,230,310,200][(ci+i*5)%12]+(i?40:0),
    tone:c.t,box:!!c.box,variant:(ci+i)%3,pop:HITS.indexOf(id)>-1?100-HITS.indexOf(id):(NEW.indexOf(id)>-1?50:10+((ci*7+i*3)%30)),
    photo:NEWPH[id],badge:HITS.indexOf(id)>-1?"Хит":(NEW.indexOf(id)>-1?"Новинка":"")});
 });});
-[["p-blue-stars","him","Синие звёзды","Звёзды, сердце и хромированные шары",650],
- ["p-emerald","him","Изумрудный букет","Зелёные, белые шары и шар с конфетти",590],
- ["p-70-rose","jubilee","«70» в розовом золоте","Две цифры + фонтан из хромированных шаров",1950],
- ["p-35-gold","jubilee","«35» в золоте и красном","Цифры на подставках + фонтан с сердцами",2190],
- ["p-raspberry-star","her","Малиновый с серебряной звездой","Хромированные шары, звезда и конфетти",690],
- ["p-red-gold","her","Красное золото","Золотое сердце и красные шары",650],
+[["p-blue-stars","him","Синие звёзды","Звёзды, сердце и хромированные шары",260],
+ ["p-emerald","him","Изумрудный букет","Зелёные, белые шары и шар с конфетти",220],
+ ["p-70-rose","jubilee","«70» в розовом золоте","Две цифры + фонтан из хромированных шаров",420],
+ ["p-35-gold","jubilee","«35» в золоте и красном","Цифры на подставках + фонтан с сердцами",450],
+ ["p-raspberry-star","her","Малиновый с серебряной звездой","Хромированные шары, звезда и конфетти",240],
+ ["p-red-gold","her","Красное золото","Золотое сердце и красные шары",230],
  ["p-one-boy","birthday","Первый годик мальчика","Цифра на подставке + фонтан из шаров",290],
- ["p-one-girl","birthday","Первый годик девочки","Цифра с сердцем + два фонтана из шаров",2490],
- ["p-yana-3","birthday","Фотозона с именем и цифрой «3»","Фонтаны, цифра и табличка с именем",3900],
- ["p-dreams","newborn","Сладких снов, малыш","Голубые и белые шары с рисунком",590]].forEach(function(x,i){
+ ["p-one-girl","birthday","Первый годик девочки","Цифра с сердцем + два фонтана из шаров",390],
+ ["p-yana-3","birthday","Фотозона с именем и цифрой «3»","Фонтаны, цифра и табличка с именем",590],
+ ["p-dreams","newborn","Сладких снов, малыш","Голубые и белые шары с рисунком",210]].forEach(function(x,i){
   var c=catBy(x[1]);P.push({id:x[0],cat:x[1],catName:c.name,name:x[2],sub:x[3],price:x[4],tone:c.t,box:false,variant:0,photo:"img/"+x[0]+".webp",pop:(HITS2.indexOf(x[0])>-1?100-HITS2.indexOf(x[0]):90-i),badge:HITS2.indexOf(x[0])>-1?"Хит":(NEW.indexOf(x[0])>-1?"Новинка":"")});
 });
 var WISH_CATS=["wedding","welcome","facade"];
@@ -1639,7 +1639,7 @@ var ICO_S={
  car:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>',
  tag:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>'
 };
-var BUDGETS=[["any","Любой бюджет",0,1e9],["lt700","до 700 лей",0,700],["700-1200","700–1200 лей",700,1200],["gt1200","от 1200 лей",1200,1e9]];
+var BUDGETS=[["any","Любой бюджет",0,1e9],["lt700","до 250 лей",0,250],["700-1200","250–400 лей",250,400],["gt1200","от 400 лей",400,1e9]];
 function todayISO(){var t=new Date();return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0")}
 function budgetOf(id){for(var i=0;i<BUDGETS.length;i++)if(BUDGETS[i][0]===id)return BUDGETS[i];return BUDGETS[0]}
 function pHome(){
@@ -1691,8 +1691,8 @@ function pCatalog(){
     '<div class="fback hidden" id="fBack"></div>'+
     '<div class="fpanel hidden" id="fPanel" role="dialog" aria-modal="false" aria-labelledby="fT" data-lo="'+loB+'" data-hi="'+hiB+'">'+
      '<div class="fhead"><b id="fT">Цена, лей</b><button class="fx" id="fClose" aria-label="Закрыть фильтр">×</button></div>'+
-     '<div class="dual"><div class="dtrack"><span class="dfill" id="dFill"></span></div><label class="sr" for="rMin">Минимальная цена</label><input type="range" id="rMin" min="'+loB+'" max="'+hiB+'" step="50" value="'+loB+'"><label class="sr" for="rMax">Максимальная цена</label><input type="range" id="rMax" min="'+loB+'" max="'+hiB+'" step="50" value="'+hiB+'"></div>'+
-     '<div class="fins"><label class="fin"><span>от</span><input id="fMin" type="number" inputmode="numeric" min="0" step="50"></label><span class="fdash" aria-hidden="true">—</span><label class="fin"><span>до</span><input id="fMax" type="number" inputmode="numeric" min="0" step="50"></label></div>'+
+     '<div class="dual"><div class="dtrack"><span class="dfill" id="dFill"></span></div><label class="sr" for="rMin">Минимальная цена</label><input type="range" id="rMin" min="'+loB+'" max="'+hiB+'" step="10" value="'+loB+'"><label class="sr" for="rMax">Максимальная цена</label><input type="range" id="rMax" min="'+loB+'" max="'+hiB+'" step="10" value="'+hiB+'"></div>'+
+     '<div class="fins"><label class="fin"><span>от</span><input id="fMin" type="number" inputmode="numeric" min="0" step="10"></label><span class="fdash" aria-hidden="true">—</span><label class="fin"><span>до</span><input id="fMax" type="number" inputmode="numeric" min="0" step="10"></label></div>'+
      '<div class="fquick">'+[["до 700",0,700],["700–1500",700,1500],["1500–3000",1500,3000],["от 3000",3000,0]].map(function(x){return '<button class="pchip" data-fq="'+x[1]+'|'+x[2]+'">'+x[0]+'</button>'}).join('')+'</div>'+
      '<div class="ffoot"><button class="btn line" id="fReset">Сбросить</button><button class="btn" id="fApply">Показать</button></div>'+
     '</div></div>'+
