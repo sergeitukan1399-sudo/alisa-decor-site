@@ -1348,6 +1348,11 @@ body.copage .tabbar{display:none!important}
   body.prodpage .mtop.mini .mtsearch{margin-left:52px!important}
   body.prodpage .pgw .pback{display:none!important}
 }
+/* no blue tap/long-press highlight */
+*{-webkit-tap-highlight-color:transparent}
+button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+:where(a,button,input,select,textarea,summary,[tabindex]):focus:not(:focus-visible){outline:none!important;box-shadow:none}
+@media (hover:none){:where(a,button,[tabindex]):focus-visible{outline:none!important}}
 </style>
 </head>
 <body>
