@@ -1273,6 +1273,11 @@ body.copage .tabbar{display:none!important}
 .hw p{color:#5C5147!important}
 .hwimg{filter:drop-shadow(0 16px 22px rgba(120,85,50,.22))!important}
 @media (max-width:860px){.hw{background:radial-gradient(80% 45% at 50% 0%,rgba(255,250,243,.95) 0%,rgba(255,250,243,0) 75%),linear-gradient(0deg,#F6EDE1 0%,#EFE2D0 60%,#E9D9C3 100%)!important}}
+/* compact filter + sort, equal width */
+.toolbar .fbtn,.toolbar .select{min-height:40px!important;height:40px;font-size:14px!important;font-weight:600!important;width:210px;margin:0!important;box-sizing:border-box}
+.toolbar .fbtn{padding:0 16px!important;gap:8px!important;justify-content:center}
+.toolbar .fbtn svg{width:16px;height:16px}
+@media (max-width:860px){.toolbar{gap:8px!important}.toolbar .fwrap,.toolbar .select{flex:none!important;width:calc(50% - 4px)!important;min-width:0;box-sizing:border-box!important}.toolbar .fbtn{width:100%!important}.toolbar .select{padding:0 4px 0 12px!important;font-size:13px!important}}
 .tabbar a svg,.tabbar button svg{width:23px!important;height:23px!important}
 .tabbar a svg *,.tabbar button svg *{stroke-width:1.8px!important;vector-effect:non-scaling-stroke}
 /* hero refinements */
@@ -1527,7 +1532,7 @@ var cart=load("alisa-cart",[]);(function(){var seen={};cart=cart.filter(function
 var favs=load("alisa-favs",{});
 var lastOrder=null;
 var view={cat:"all",sort:"pop",q:"",budget:"any",pmin:0,pmax:0};window.__setSort=function(v){view.sort=v;view.cat="all"};
-var PRICES=[["Все цены",0,0],["до 700 лей",0,700],["700–1500 лей",700,1500],["1500–3000 лей",1500,3000],["от 3000 лей",3000,0]];
+var PRICES=[["Все цены",0,0],["до 250 лей",0,250],["250–350 лей",250,350],["350–450 лей",350,450],["от 450 лей",450,0]];
 function priceLabel(){if(!view.pmin&&!view.pmax)return "";if(!view.pmin)return "до "+lei(view.pmax);if(!view.pmax)return "от "+lei(view.pmin);return view.pmin+"–"+lei(view.pmax)}
 var co={step:1,data:{msgr:"Instagram",how:"delivery",pay:"cash"}};
 
@@ -1693,7 +1698,7 @@ function pCatalog(){
      '<div class="fhead"><b id="fT">Цена, лей</b><button class="fx" id="fClose" aria-label="Закрыть фильтр">×</button></div>'+
      '<div class="dual"><div class="dtrack"><span class="dfill" id="dFill"></span></div><label class="sr" for="rMin">Минимальная цена</label><input type="range" id="rMin" min="'+loB+'" max="'+hiB+'" step="10" value="'+loB+'"><label class="sr" for="rMax">Максимальная цена</label><input type="range" id="rMax" min="'+loB+'" max="'+hiB+'" step="10" value="'+hiB+'"></div>'+
      '<div class="fins"><label class="fin"><span>от</span><input id="fMin" type="number" inputmode="numeric" min="0" step="10"></label><span class="fdash" aria-hidden="true">—</span><label class="fin"><span>до</span><input id="fMax" type="number" inputmode="numeric" min="0" step="10"></label></div>'+
-     '<div class="fquick">'+[["до 700",0,700],["700–1500",700,1500],["1500–3000",1500,3000],["от 3000",3000,0]].map(function(x){return '<button class="pchip" data-fq="'+x[1]+'|'+x[2]+'">'+x[0]+'</button>'}).join('')+'</div>'+
+     '<div class="fquick">'+[["до 250",0,250],["250–350",250,350],["350–450",350,450],["от 450",450,0]].map(function(x){return '<button class="pchip" data-fq="'+x[1]+'|'+x[2]+'">'+x[0]+'</button>'}).join('')+'</div>'+
      '<div class="ffoot"><button class="btn line" id="fReset">Сбросить</button><button class="btn" id="fApply">Показать</button></div>'+
     '</div></div>'+
    '<label class="sr" for="sort">Сортировка</label><select class="select" id="sort"><option value="pop"'+(view.sort==="pop"?" selected":"")+'>Сначала популярные</option><option value="new"'+(view.sort==="new"?" selected":"")+'>Сначала новинки</option><option value="asc"'+(view.sort==="asc"?" selected":"")+'>Сначала дешевле</option><option value="desc"'+(view.sort==="desc"?" selected":"")+'>Сначала дороже</option></select></div>'+
