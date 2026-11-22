@@ -1482,7 +1482,7 @@ var NAMES={
  christening:["Нежные крестины","Белый ангел"],bubble:["Bubble Box с цветами","Bubble Box с именем"],
  gender:["Мальчик или девочка?","Розово-голубой сюрприз"],cumatria:["Кумэтрие в белом","Светлое торжество"],box:["Коробка-сюрприз «Лаванда»","Коробка с цифрой"]
 };
-var P=[];var HITS=["birthday-0","newborn-0","wedding-0","box-0"];var NEW=["gender-0","him-0","her-0","welcome-0"];var NEWPH={"gender-0":"img/new-gender.webp","him-0":"img/new-him.webp","her-0":"img/new-her.webp","welcome-0":"img/new-welcome.webp"};
+var P=[];var HITS=["birthday-0","newborn-0","wedding-0","box-0"];var NEW=["p-one-girl","p-70-rose","p-raspberry-star","p-emerald"];var NEWPH={};
 CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
   var id=c.id+"-"+i;
   P.push({id:id,cat:c.id,catName:c.name,name:n,price:[650,890,1150,1490,780,1990,540,960,1750,820,1250,690][(ci+i*5)%12]+(i?150:0),
@@ -1491,6 +1491,18 @@ CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
 });});
 [["hit-six","Цифра 6 и фонтан из шаров","img/hit-six.webp",890],["hit-18","Композиция «18» с сердцем","img/hit-18.webp",1650],["hit-1year","Фотозона «1\u00a0годик»","img/hit-1year.webp",4900],["hit-serafim","Фотозона с именем и цифрой","img/hit-serafim.webp",5900]].forEach(function(x,i){
   P.push({sub:{"hit-six":"Цифра + фонтан из шаров","hit-18":"Цифры + фольгированное сердце + шары","hit-1year":"Арка, цифра и цветы из шаров","hit-serafim":"Фотозона с именем, цифрой и шарами"}[x[0]],id:x[0],cat:"birthday",catName:"День рождения",name:x[1],price:x[3],tone:catBy("birthday").t,box:false,variant:0,photo:x[2],pop:200-i,badge:"Хит"});
+});
+[["p-blue-stars","him","Синие звёзды","Звёзды, сердце и хромированные шары",650],
+ ["p-emerald","him","Изумрудный букет","Зелёные, белые шары и шар с конфетти",590],
+ ["p-70-rose","jubilee","«70» в розовом золоте","Две цифры + фонтан из хромированных шаров",1950],
+ ["p-35-gold","jubilee","«35» в золоте и красном","Цифры на подставках + фонтан с сердцами",2190],
+ ["p-raspberry-star","her","Малиновый с серебряной звездой","Хромированные шары, звезда и конфетти",690],
+ ["p-red-gold","her","Красное золото","Золотое сердце и красные шары",650],
+ ["p-one-boy","birthday","Первый годик мальчика","Цифра на подставке + фонтан из шаров",1290],
+ ["p-one-girl","birthday","Первый годик девочки","Цифра с сердцем + два фонтана из шаров",2490],
+ ["p-yana-3","birthday","Фотозона с именем и цифрой «3»","Фонтаны, цифра и табличка с именем",3900],
+ ["p-dreams","newborn","Сладких снов, малыш","Голубые и белые шары с рисунком",590]].forEach(function(x,i){
+  var c=catBy(x[1]);P.push({id:x[0],cat:x[1],catName:c.name,name:x[2],sub:x[3],price:x[4],tone:c.t,box:false,variant:0,photo:"img/"+x[0]+".webp",pop:90-i,badge:NEW.indexOf(x[0])>-1?"Новинка":""});
 });
 var WISH_CATS=["wedding","welcome","facade"];
 var REVIEWS=[
