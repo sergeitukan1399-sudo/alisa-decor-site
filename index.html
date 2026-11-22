@@ -1710,7 +1710,7 @@ function catRes(list){return '<p class="hint" style="margin-bottom:14px">'+list.
    (list.length?'<div class="pgrid">'+list.map(card).join('')+'</div>':'<div class="empty"><h3>Ничего не нашлось</h3><p class="sub" style="margin-top:8px">Попробуйте другой запрос или выберите повод</p>'+(priceLabel()?'<button class="btn" data-clear-price style="margin-top:18px">Сбросить цену</button>':'<a class="btn" href="#catalog" data-clear-q style="margin-top:18px">Весь каталог</a>')+'</div>')}
 function pCatalog(){
   var list=catList();
-  var inCat=P.filter(function(p){return view.cat==="all"||p.cat===view.cat}),lo=Math.min.apply(null,inCat.map(function(p){return p.price})),hi=Math.max.apply(null,inCat.map(function(p){return p.price})),loB=Math.floor(lo/50)*50,hiB=Math.ceil(hi/50)*50;
+  var inCat=P.filter(function(p){return view.cat==="all"||p.cat===view.cat}),lo=Math.min.apply(null,inCat.map(function(p){return p.price})),hi=Math.max.apply(null,inCat.map(function(p){return p.price})),loB=0,hiB=10000;
   var c=catBy(view.cat);
   return '<div class="wrap"><nav class="crumbs" aria-label="Хлебные крошки"><a href="#home">Главная</a> / '+(c?'<a href="#catalog">Каталог</a> / '+esc(c.name):'Каталог')+'</nav>'+
    '<h1 class="h2" style="margin-top:6px">'+(c?esc(c.name):'Каталог')+'</h1>'+(view.q?'<p class="sub" style="margin-top:6px">Поиск: «'+esc(view.q)+'»</p>':'')+
