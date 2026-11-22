@@ -1294,6 +1294,7 @@ body.copage .tabbar{display:none!important}
 .vbody{grid-template-areas:"b b" "n n" "s s" "p a"!important;grid-template-rows:36px auto 1fr auto!important}
 .vbody .vbadge{grid-area:b!important;margin:0!important;align-self:start}.vbody .vname{grid-area:n!important}.vbody .vsub{grid-area:s!important;align-self:start}.vbody .vprice{grid-area:p!important;align-self:end!important}.vbody .vadd{grid-area:a!important;align-self:end!important}
 @media (max-width:860px){.vbody{grid-template-rows:27px auto 1fr auto!important}}
+@media (max-width:860px){#cats,#hits,#new,#how,#reviews,#faq{scroll-margin-top:64px}}
 /* compact filter + sort, equal width */
 .toolbar .fbtn,.toolbar .select{min-height:40px!important;height:40px;font-size:14px!important;font-weight:600!important;width:210px;margin:0!important;box-sizing:border-box}
 .toolbar .fbtn{padding:0 16px!important;gap:8px!important;justify-content:center}
@@ -1403,6 +1404,7 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
       <a href="#home" data-nav="home">Главная</a>
       <a href="#catalog" data-nav="catalog">Каталог</a>
       <a href="#home/hits" data-nav="hits">Хиты продаж</a>
+      <a href="#home/how" data-nav="how">Как заказать</a>
       <a href="#delivery" data-nav="delivery">Доставка и оплата</a>
       <span class="lang" role="group" aria-label="Язык сайта"><button data-lang="ro" aria-pressed="false">RO</button><button data-lang="ru" aria-pressed="true">RU</button></span>
     </nav>
@@ -1421,7 +1423,7 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
   <div class="mback" id="mBack" aria-hidden="true"></div>
   <nav class="mmenu drawer" id="mmenu" aria-label="Меню" aria-hidden="true">
     <div class="dhead"><span class="dbrand"><b>ALISA</b><small>DECOR &amp; BALLOONS</small></span><button class="dclose" id="mClose" aria-label="Закрыть меню"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-    <div class="dlinks"><a href="#home" data-nav="home">Главная<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#catalog" data-nav="catalog">Каталог<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#home/hits" data-nav="hits">Хиты продаж<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#home/new" data-nav="new">Новинки<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#favorites" data-nav="favorites">Понравившиеся<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#cart" data-nav="cart">Корзина<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#delivery" data-nav="delivery">Доставка и оплата<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#home/faq" data-nav="faq">Частые вопросы<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
+    <div class="dlinks"><a href="#home" data-nav="home">Главная<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#catalog" data-nav="catalog">Каталог<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#home/hits" data-nav="hits">Хиты продаж<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#home/new" data-nav="new">Новинки<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#favorites" data-nav="favorites">Понравившиеся<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#cart" data-nav="cart">Корзина<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#home/how" data-nav="how">Как заказать<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#delivery" data-nav="delivery">Доставка и оплата<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a><a href="#home/faq" data-nav="faq">Частые вопросы<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
     <div class="dfoot"><span class="lang" role="group" aria-label="Язык сайта"><button data-lang="ro" aria-pressed="false">RO</button><button data-lang="ru" aria-pressed="true">RU</button></span><button class="btn" data-contact>Написать нам</button><p class="dphone">+373 67 344 603</p></div>
   </nav>
 </div></div>
@@ -1439,7 +1441,7 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
       <a class="fl" href="#catalog">Все композиции</a><a class="fl" href="#home/hits">Хиты продаж</a><a class="fl" href="#catalog/birthday">День рождения</a><a class="fl" href="#catalog/wedding">Свадьба</a><a class="fl" href="#catalog/newborn">Выписка</a><a class="fl" href="#catalog/him">Для него</a><a class="fl" href="#catalog/her">Для неё</a><a class="fl" href="#home/cats">Все категории</a>
     </div>
     <div><h4>Покупателям</h4>
-      <a class="fl" href="#delivery">Доставка и оплата</a><a class="fl" href="#home/faq">Частые вопросы</a><a class="fl" href="#delivery/contacts">Контакты</a>
+      <a class="fl" href="#home/how">Как заказать</a><a class="fl" href="#delivery">Доставка и оплата</a><a class="fl" href="#home/faq">Частые вопросы</a><a class="fl" href="#delivery/contacts">Контакты</a>
     </div>
     <div id="contacts"><h4>Контакты</h4>
       <p>Комрат, Молдова · +373 67 344 603</p>
@@ -1460,6 +1462,7 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 <div class="sheet hidden" id="moreSheet" role="dialog" aria-modal="true" aria-label="Ещё"><div class="box">
   <a class="row" href="#home/hits">Хиты продаж<span>›</span></a>
   <a class="row" href="#home/new">Новинки<span>›</span></a>
+  <a class="row" href="#home/how">Как заказать<span>›</span></a>
   <a class="row" href="#delivery">Доставка и оплата<span>›</span></a>
   <a class="row" href="#home/faq">Частые вопросы<span>›</span></a>
   <a class="row" href="#" data-contact>Написать нам<span>›</span></a>
