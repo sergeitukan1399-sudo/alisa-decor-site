@@ -1340,12 +1340,20 @@ body.copage .tabbar{display:none!important}
 /* page titles: one size */
 :root{--page-ttl:40px}@media (max-width:860px){:root{--page-ttl:28px}}
 #app h1.h2,#app h1.fav-t,#app .khead h1{font-size:var(--page-ttl)!important;font-weight:800!important;line-height:1.12!important;letter-spacing:-.02em!important;font-family:Manrope,system-ui,sans-serif!important}
+.mtback{display:none}
+@media (max-width:860px){
+  body.prodpage .mtback{display:flex;position:absolute;left:8px;top:8px;width:40px;height:40px;align-items:center;justify-content:center;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer;z-index:2}
+  body.prodpage .mtback:active{background:rgba(255,255,255,.16)}
+  body.prodpage .mtop{position:fixed}
+  body.prodpage .mtop.mini .mtsearch{margin-left:52px!important}
+  body.prodpage .pgw .pback{display:none!important}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#app" onclick="event.preventDefault();document.getElementById('app').focus()">Перейти к содержимому</a>
 <div class="demo" role="note">Демо-версия магазина: названия, цены, фото и отзывы — примеры, заказ никуда не отправляется</div>
-<div class="mtop" id="mtop"><div class="mt1"><span></span><div class="mtic"><button class="mtb" data-contact aria-label="Написать нам"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></button><button class="mtb" id="mtBurger" aria-label="Меню"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div><form class="mtsearch" id="mtSearch" role="search"><span class="mtsi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><label class="sr" for="mq">Поиск композиций</label><input id="mq" type="search" placeholder="Поиск композиций" autocomplete="off" enterkeyhint="search"><button type="button" class="mtx" id="mtX" aria-label="Очистить поиск" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form></div>
+<div class="mtop" id="mtop"><div class="mt1"><span></span><div class="mtic"><button class="mtb" data-contact aria-label="Написать нам"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></button><button class="mtb" id="mtBurger" aria-label="Меню"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div><button type="button" class="mtback" id="mtBack" aria-label="Назад"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><form class="mtsearch" id="mtSearch" role="search"><span class="mtsi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><label class="sr" for="mq">Поиск композиций</label><input id="mq" type="search" placeholder="Поиск композиций" autocomplete="off" enterkeyhint="search"><button type="button" class="mtx" id="mtX" aria-label="Очистить поиск" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form></div>
 <div class="mtspace" id="mtSpace" aria-hidden="true"></div>
 
 
@@ -1826,6 +1834,7 @@ function seo(page,arg){var B=" — Alisa Decor & Balloons",ld=null,crumbs=[["Г�
   mx.addEventListener("click",function(){mq.value="";mx.hidden=true;mq.focus()});
   document.getElementById("mtSearch").addEventListener("submit",function(e){e.preventDefault();view.q=mq.value.trim();view.cat="all";mq.blur();if(location.hash!=="#catalog")location.hash="catalog";else route()});
   document.getElementById("mtBurger").addEventListener("click",function(){mOpen(true)});
+  document.getElementById("mtBack").addEventListener("click",function(){var b=document.querySelector(".pback");if(b)b.click();else history.back()});
   var sp=document.getElementById("mtSpace"),dm=document.querySelector(".demo");
   function place(){var dh=dm&&dm.offsetParent?dm.offsetHeight:0;top.style.top=Math.max(0,dh-scrollY)+"px";sp.style.setProperty("--mth",top.offsetHeight+"px")}
   addEventListener("resize",place);setTimeout(place,50);window.mtPlace=place;
