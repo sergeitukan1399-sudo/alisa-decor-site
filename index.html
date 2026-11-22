@@ -1265,6 +1265,14 @@ body.copage .tabbar{display:none!important}
    linear-gradient(0deg,#0B0914 0%,#120D22 35%,#1E1340 65%,#2A1A5A 100%) padding-box,
    linear-gradient(200deg,rgba(200,175,255,.85) 0%,rgba(185,167,214,.18) 40%,rgba(255,255,255,.12) 70%,rgba(255,255,255,.45) 100%) border-box!important}
 }
+/* how v12: warm beige */
+.hw,.hw:hover{color:var(--ink)!important;border:1px solid rgba(255,255,255,.9)!important;background:radial-gradient(70% 45% at 50% 100%,rgba(255,250,243,.95) 0%,rgba(255,250,243,0) 75%),linear-gradient(180deg,#F6EDE1 0%,#EFE2D0 60%,#E9D9C3 100%)!important}
+.hw{box-shadow:0 16px 36px rgba(150,115,70,.14),inset 0 1px 0 #fff!important}
+.hw:hover{box-shadow:0 24px 46px rgba(150,115,70,.22),inset 0 1px 0 #fff!important}
+.hw h3{color:var(--ink)!important}
+.hw p{color:#5C5147!important}
+.hwimg{filter:drop-shadow(0 16px 22px rgba(120,85,50,.22))!important}
+@media (max-width:860px){.hw{background:radial-gradient(80% 45% at 50% 0%,rgba(255,250,243,.95) 0%,rgba(255,250,243,0) 75%),linear-gradient(0deg,#F6EDE1 0%,#EFE2D0 60%,#E9D9C3 100%)!important}}
 .tabbar a svg,.tabbar button svg{width:23px!important;height:23px!important}
 .tabbar a svg *,.tabbar button svg *{stroke-width:1.8px!important;vector-effect:non-scaling-stroke}
 /* hero refinements */
@@ -1474,12 +1482,12 @@ var NAMES={
  christening:["Нежные крестины","Белый ангел"],bubble:["Bubble Box с цветами","Bubble Box с именем"],
  gender:["Мальчик или девочка?","Розово-голубой сюрприз"],cumatria:["Кумэтрие в белом","Светлое торжество"],box:["Коробка-сюрприз «Лаванда»","Коробка с цифрой"]
 };
-var P=[];var HITS=["birthday-0","newborn-0","wedding-0","box-0"];var NEW=["her-0","gender-0"];
+var P=[];var HITS=["birthday-0","newborn-0","wedding-0","box-0"];var NEW=["gender-0","him-0","her-0","welcome-0"];var NEWPH={"gender-0":"img/new-gender.webp","him-0":"img/new-him.webp","her-0":"img/new-her.webp","welcome-0":"img/new-welcome.webp"};
 CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
   var id=c.id+"-"+i;
   P.push({id:id,cat:c.id,catName:c.name,name:n,price:[650,890,1150,1490,780,1990,540,960,1750,820,1250,690][(ci+i*5)%12]+(i?150:0),
    tone:c.t,box:!!c.box,variant:(ci+i)%3,pop:HITS.indexOf(id)>-1?100-HITS.indexOf(id):(NEW.indexOf(id)>-1?50:10+((ci*7+i*3)%30)),
-   badge:HITS.indexOf(id)>-1?"Хит":(NEW.indexOf(id)>-1?"Новинка":"")});
+   photo:NEWPH[id],badge:HITS.indexOf(id)>-1?"Хит":(NEW.indexOf(id)>-1?"Новинка":"")});
 });});
 [["hit-six","Цифра 6 и фонтан из шаров","img/hit-six.webp",890],["hit-18","Композиция «18» с сердцем","img/hit-18.webp",1650],["hit-1year","Фотозона «1\u00a0годик»","img/hit-1year.webp",4900],["hit-serafim","Фотозона с именем и цифрой","img/hit-serafim.webp",5900]].forEach(function(x,i){
   P.push({sub:{"hit-six":"Цифра + фонтан из шаров","hit-18":"Цифры + фольгированное сердце + шары","hit-1year":"Арка, цифра и цветы из шаров","hit-serafim":"Фотозона с именем, цифрой и шарами"}[x[0]],id:x[0],cat:"birthday",catName:"День рождения",name:x[1],price:x[3],tone:catBy("birthday").t,box:false,variant:0,photo:x[2],pop:200-i,badge:"Хит"});
@@ -1643,7 +1651,7 @@ function pHome(){
   '<section class="sec cats-sec" id="hits" aria-labelledby="hitsT"><a class="ctitle" href="#catalog"><h2 id="hitsT">Хиты продаж</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
    '<div class="hgrid">'+hits.map(hitCard).join('')+'</div></section>'+
   '<section class="sec cats-sec" id="new" aria-labelledby="newT"><a class="ctitle" href="#catalog"><h2 id="newT">Новинки</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
-   '<div class="hgrid">'+hits.map(function(p){return vcard(p,"Новинка")}).join('')+'</div></section>'+
+   '<div class="hgrid">'+NEW.map(byId).map(function(p){return vcard(p,"Новинка")}).join('')+'</div></section>'+
   '<section class="sec howsec" id="how" aria-labelledby="howT"><div class="hwband"><div class="hwhead"><h2 id="howT">Как заказать</h2><p>Четыре простых шага — и праздник уже в пути</p></div><ol class="hwlist"><li class="hw"><img class="hwimg" src="img/how3d-1.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c-2.8 0-4.8 2.3-4.8 5 0 3 2.4 5.6 4.8 5.6s4.8-2.6 4.8-5.6c0-2.7-2-5-4.8-5z"/><path d="M11.2 14.1 12 15.4l.8-1.3"/><path d="M12 15.4c0 2.2-1.6 3-1.6 5.1"/><path d="M10 7.2c.4-.9 1.1-1.5 2-1.7"/></svg></span><span class="hwn">01</span><h3>Выберите композицию</h3><p>В каталоге по поводу: день рождения, выписка, свадьба. Цвет можно поменять — цена останется той же.</p></li><li class="hw"><img class="hwimg" src="img/how3d-2.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M10 6.5h4M10 10h4M10 13.5h2.5"/><path d="M10.5 17.5h3"/></svg></span><span class="hwn">02</span><h3>Оформите заказ</h3><p>Имя, телефон, дата и время праздника. Без регистрации, пара минут с телефона.</p></li><li class="hw"><img class="hwimg" src="img/how3d-3.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z"/><path d="m9 10.8 2 2 4-4.2"/></svg></span><span class="hwn">03</span><h3>Подтвердим детали</h3><p>Менеджер свяжется с вами в мессенджере или по телефону и подтвердит заказ.</p></li><li class="hw"><img class="hwimg" src="img/how3d-4.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10.5" rx="1.5"/><path d="M3 7h18v3H3zM12 7v13.5"/><path d="M12 7c-1.5-3-5-3.5-5-1.4C7 7 10 7 12 7zm0 0c1.5-3 5-3.5 5-1.4C17 7 14 7 12 7z"/></svg></span><span class="hwn">04</span><h3>Получите и оплатите</h3><p>Привезём к нужному времени или заберёте сами в Комрате. Оплата наличными или картой при получении.</p></li></ol><div class="hwcta"><a class="dark-pill hwbtn" href="#catalog">Выбрать композицию <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span>Заранее платить не нужно</span></div></div></section>'+
 
 
