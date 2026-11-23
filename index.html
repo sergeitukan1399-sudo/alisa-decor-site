@@ -1435,6 +1435,17 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 /* reviews: static, no autoplay, no morph */
 .rv{transition:none!important}
 .rv[data-pos="0"] .rvtxt,.rvtxt{transition:opacity .2s ease!important}
+/* tablet hero: tidy stacked layout */
+@media (min-width:561px) and (max-width:860px){
+  .hero3{text-align:center}
+  .hero3 .hx,.hero3 .hdesc{margin-left:auto!important;margin-right:auto!important;text-align:center}
+  .hero3 .hdesc{max-width:440px}
+  .hero3 picture{display:block;width:100%;max-width:460px;margin:8px auto 0!important}
+  .hero3 picture img{width:100%!important;height:auto!important}
+  .hero3 picture{-webkit-mask-image:radial-gradient(75% 70% at 50% 50%,#000 70%,transparent 100%);mask-image:radial-gradient(75% 70% at 50% 50%,#000 70%,transparent 100%)}
+  .hero3 .hcta{display:flex!important;justify-content:center;width:100%}
+  .hero3 .hcta .btn,.hero3 .hcta a{width:100%;max-width:420px;justify-content:center}
+}
 </style>
 </head>
 <body>
