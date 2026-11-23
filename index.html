@@ -1523,6 +1523,15 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 .pgw .pfav svg,.pgw .pshare svg{width:26px!important;height:26px!important}
 @media (max-width:860px){.pgw .pfav,.pgw .pshare{width:48px!important;height:48px!important;right:12px!important}.pgw .pfav{top:12px!important}.pgw .pshare{top:12px!important;bottom:auto!important;left:12px!important;right:auto!important}.pgw .pfav svg,.pgw .pshare svg{width:24px!important;height:24px!important}}
 .pgw .pfav.vheart{right:14px!important}@media (max-width:860px){.pgw .pfav.vheart{right:12px!important}.pgw .pshare{left:12px!important;right:auto!important}}
+/* desktop: share in info card corner */
+.pshare2{display:none}
+@media (min-width:861px){
+ .pbox{position:relative}
+ .pshare2{display:flex;position:absolute;top:22px;right:22px;width:46px;height:46px;border-radius:50%;border:1.5px solid #D9D6DE!important;background:#fff!important;color:#2B2730!important;align-items:center;justify-content:center;cursor:pointer;padding:0}
+ .pshare2:hover{background:#F6F3FB!important}
+ .pbox .pttl{padding-right:56px}
+ .pgw .pshare{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -1886,7 +1895,7 @@ function pProduct(id){
    (p.photo?'':'<p class="hint pnote">Демо: здесь будут фото этой композиции</p>')+
   '</div>'+
   '<form class="pbox" id="pForm" data-id="'+p.id+'" novalidate>'+
-   '<span class="pcat">'+esc(p.catName)+'</span><h1 class="pttl">'+esc(p.name)+'</h1><p class="price">'+lei(p.price)+'</p>'+
+   '<button type="button" class="pshare2" data-pshare="'+p.id+'" aria-label="Поделиться"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="m8.3 10.8 7.4-4M8.3 13.2l7.4 4"/></svg></button>'+'<span class="pcat">'+esc(p.catName)+'</span><h1 class="pttl">'+esc(p.name)+'</h1><p class="price">'+lei(p.price)+'</p>'+
    '<div class="popts">'+
    '<div class="popt"><span class="plbl">Цвет: <b id="pColor">Как на фото</b></span><div class="pcolors" role="radiogroup" aria-label="Цвет композиции">'+'<button type="button" class="pcol pcol-ph" role="radio" data-color="Как на фото" aria-checked="true" aria-label="Как на фото" style="--c:'+(p.photo?'url('+p.photo+') center 35%/cover':'linear-gradient(135deg,'+p.tone[0]+','+p.tone[3]+')')+'"></button>'+COLORS.map(function(c,i){return '<button type="button" class="pcol" role="radio" data-color="'+c[0]+'" aria-checked="false" aria-label="'+c[0]+'" style="--c:'+c[1]+'"></button>'}).join('')+'</div></div></div>'+
    '<p class="hint pcnote">Цвет не меняет цену. Другие оттенки — напишите в комментарии к заказу</p>'+
