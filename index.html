@@ -1422,6 +1422,15 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 }
 /* mobile: no shadows on buttons */
 @media (max-width:860px){button:not(.pcol),a:not(.vcard):not(.ktile),[role=button],.btn,.vadd,.vheart,.mthome,.cnav{box-shadow:none!important;filter:none}}
+/* tablet: how cards 2x2, compact */
+@media (min-width:561px) and (max-width:1180px){
+  .hwlist{grid-template-columns:1fr 1fr!important;gap:14px!important}
+  .hw{display:flex!important;flex-direction:column!important;padding:22px 22px 16px!important;min-height:0!important}
+  .hw h3{order:1;white-space:normal!important;font-size:19px!important}
+  .hw p{order:2;max-width:none!important;font-size:14px!important}
+  .hwimg{order:3;width:62%!important;max-width:230px!important;margin:10px auto 0!important}
+  .hw{background:radial-gradient(70% 45% at 50% 100%,rgba(255,250,243,.95) 0%,rgba(255,250,243,0) 75%),linear-gradient(180deg,#F6EDE1 0%,#EFE2D0 60%,#E9D9C3 100%)!important}
+}
 </style>
 </head>
 <body>
