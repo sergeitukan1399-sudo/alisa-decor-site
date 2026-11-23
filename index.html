@@ -1690,7 +1690,7 @@ function pHome(){
   '<section class="sec cats-sec" id="cats" aria-labelledby="catsT"><a class="ctitle" href="#catalog"><h2 id="catsT">Категории</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
    '<div class="kwrap"><button class="knav prev" id="cPrev" aria-label="Листать категории назад"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><div class="krow" id="cRow">'+CATS.map(catTile).join('')+'</div><button class="knav next" id="cNext" aria-label="Листать категории вперёд"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></div></section>'+
 
-  '<section class="sec cats-sec" id="hits" aria-labelledby="hitsT"><a class="ctitle" href="#catalog"><h2 id="hitsT">Хиты продаж</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
+  '<section class="sec cats-sec" id="hits" aria-labelledby="hitsT"><a class="ctitle" href="#catalog" data-sortset="hits"><h2 id="hitsT">Хиты продаж</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
    '<div class="hgrid">'+hits.map(hitCard).join('')+'</div></section>'+
   '<section class="sec cats-sec" id="new" aria-labelledby="newT"><a class="ctitle" href="#catalog" data-sortset="new"><h2 id="newT">Новинки</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
    '<div class="hgrid">'+NEW.map(byId).map(function(p){return vcard(p,"Новинка")}).join('')+'</div></section>'+
@@ -1709,7 +1709,7 @@ function pHome(){
 }
 function catList(){
   var list=P.filter(function(p){return (view.cat==="all"||p.cat===view.cat)&&(!view.q||(p.name+" "+p.catName).toLowerCase().indexOf(view.q.toLowerCase())>-1)&&(function(b){return p.price>=b[2]&&p.price<b[3]})(budgetOf(view.budget))&&p.price>=(view.pmin||0)&&(!view.pmax||p.price<=view.pmax)});
-  list.sort(function(a,b){if(view.sort==="new"){var na=a.badge==="Новинка"?1:0,nb=b.badge==="Новинка"?1:0;if(na!==nb)return nb-na}return view.sort==="asc"?a.price-b.price:view.sort==="desc"?b.price-a.price:b.pop-a.pop});
+  list.sort(function(a,b){if(view.sort==="new"||view.sort==="hits"){var bd=view.sort==="new"?"Новинка":"Хит",na=a.badge===bd?1:0,nb=b.badge===bd?1:0;if(na!==nb)return nb-na}return view.sort==="asc"?a.price-b.price:view.sort==="desc"?b.price-a.price:b.pop-a.pop});
   return list}
 function catRes(list){return '<p class="hint" style="margin-bottom:14px">'+list.length+' '+plural(list.length,["композиция","композиции","композиций"])+(view.q?' · <a href="#catalog" data-clear-q>сбросить поиск</a>':'')+(priceLabel()?' · <button class="bchip" data-clear-price>Цена: '+priceLabel()+' ×</button>':'')+'</p>'+
    (list.length?'<div class="pgrid">'+list.map(card).join('')+'</div>':'<div class="empty"><h3>Ничего не нашлось</h3><p class="sub" style="margin-top:8px">Попробуйте другой запрос или выберите повод</p>'+(priceLabel()?'<button class="btn" data-clear-price style="margin-top:18px">Сбросить цену</button>':'<a class="btn" href="#catalog" data-clear-q style="margin-top:18px">Весь каталог</a>')+'</div>')}
@@ -1729,7 +1729,7 @@ function pCatalog(){
      '<div class="fquick">'+[["до 250",0,250],["250–350",250,350],["350–450",350,450],["от 450",450,0]].map(function(x){return '<button class="pchip" data-fq="'+x[1]+'|'+x[2]+'">'+x[0]+'</button>'}).join('')+'</div>'+
      '<div class="ffoot"><button class="btn line" id="fReset">Сбросить</button><button class="btn" id="fApply">Показать</button></div>'+
     '</div></div>'+
-   '<label class="sr" for="sort">Сортировка</label><select class="select" id="sort"><option value="pop"'+(view.sort==="pop"?" selected":"")+'>Сначала популярные</option><option value="new"'+(view.sort==="new"?" selected":"")+'>Сначала новинки</option><option value="asc"'+(view.sort==="asc"?" selected":"")+'>Сначала дешевле</option><option value="desc"'+(view.sort==="desc"?" selected":"")+'>Сначала дороже</option></select></div>'+
+   '<label class="sr" for="sort">Сортировка</label><select class="select" id="sort"><option value="pop"'+(view.sort==="pop"?" selected":"")+'>Сначала популярные</option><option value="new"'+(view.sort==="new"?" selected":"")+'>Сначала новинки</option><option value="hits"'+(view.sort==="hits"?" selected":"")+'>Сначала хиты</option><option value="asc"'+(view.sort==="asc"?" selected":"")+'>Сначала дешевле</option><option value="desc"'+(view.sort==="desc"?" selected":"")+'>Сначала дороже</option></select></div>'+
    '<div id="catRes">'+catRes(list)+'</div>'+
   '</div>';
 }
