@@ -1475,6 +1475,42 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 @media (max-width:370px){.vbadge.vbtop{font-size:10.5px!important;padding:0 8px!important;height:28px!important;top:6px!important}.vheart{width:28px!important;height:28px!important;top:6px!important}}
 /* CLS: reserve space before JS renders the page */
 #app{min-height:100vh}
+/* ===== TZ2 mobile ===== */
+.hwdots{display:none}
+@media (max-width:767px){
+ /* how: horizontal snap carousel */
+ .howsec .hwband{overflow:visible}
+ .hwlist{display:flex!important;grid-template-columns:none!important;gap:12px!important;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px!important;padding:4px 16px 6px!important;scroll-padding-left:16px}
+ .hwlist::-webkit-scrollbar{display:none}
+ .hwlist::before{display:none!important}
+ .hw{flex:0 0 80%;max-width:320px;scroll-snap-align:start;display:flex!important;flex-direction:column!important;padding:18px 18px 20px!important;min-height:0!important}
+ .hw .hwimg{order:0;width:70%!important;max-width:210px!important;aspect-ratio:1/1;height:auto;object-fit:contain;margin:0 auto 10px!important}
+ .hw h3{order:1;font-size:18px!important;white-space:normal!important}
+ .hw p{order:2;max-width:none!important;font-size:14.5px!important;line-height:1.5!important;margin-top:6px}
+ .hwdots{display:flex;justify-content:center;gap:7px;margin:14px 0 2px}
+ .hwdots i{width:7px;height:7px;border-radius:999px;background:rgba(104,59,178,.22);transition:width .2s,background .2s}
+ .hwdots i.on{width:20px;background:#6B4BD8}
+}
+@media (max-width:860px){
+ /* categories: ~2.3 visible */
+ #cRow .ktile{flex:0 0 calc((100vw - 32px - 24px) / 2.3)!important;width:calc((100vw - 32px - 24px) / 2.3)!important;max-width:170px;scroll-snap-align:start}
+ #cRow .kimg{width:100%!important;height:auto!important;aspect-ratio:1/1}
+ #cRow .kname{font-size:13px!important;font-weight:600!important;line-height:1.3!important;min-height:2.6em;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin-top:8px}
+ #cRow{scroll-behavior:smooth}
+ /* footer */
+ footer #contacts p{font-size:15px!important;line-height:1.5}
+ footer .ftel{font-weight:700;color:var(--ink);text-decoration:none;display:inline-flex;min-height:44px;align-items:center;font-size:16px}
+ footer a.fl{min-height:44px;display:flex!important;align-items:center}
+ footer h4{margin-top:6px}
+ footer .wrap>div>div,footer #contacts{margin-bottom:10px}
+}
+/* reviews: reliable swipe */
+#rvStage{touch-action:pan-y}
+#rvStage img{-webkit-user-drag:none;user-drag:none;pointer-events:none}
+@media (max-width:360px){.rv[data-pos="0"] .rvhead{font-size:19px!important}.rv[data-pos="0"] .rvtxt p{font-size:14.5px!important;line-height:1.45!important}}
+@media (max-width:760px){.rvstage{--mh:580px!important}}
+.ftel{color:inherit;text-decoration:none}
+@media (max-width:860px){footer .fsep{display:none}footer .ftel{display:flex!important}}
 </style>
 </head>
 <body>
@@ -1530,7 +1566,7 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
       <a class="fl" href="#home/how">Как заказать</a><a class="fl" href="#delivery">Доставка и оплата</a><a class="fl" href="#home/faq">Частые вопросы</a><a class="fl" href="#delivery/contacts">Контакты</a>
     </div>
     <div id="contacts"><h4>Контакты</h4>
-      <p>Комрат, Молдова · +373 67 344 603</p>
+      <p>Комрат, Молдова<span class="fsep"> · </span><a class="ftel" href="tel:+37367344603">+373 67 344 603</a></p>
       <p>График работы: <span class="tbd">уточняется</span></p>
       <div class="fsub">Новые композиции — в Instagram <a class="ib" href="https://www.instagram.com/alisa_balloons_komrat/" target="_blank" rel="noopener" aria-label="Instagram @alisa_balloons_komrat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a></div>
       <a class="fl" style="margin-top:8px" href="https://www.instagram.com/alisa_balloons_komrat/" target="_blank" rel="noopener">@alisa_balloons_komrat</a>
@@ -1775,7 +1811,7 @@ function pHome(){
    '<div class="hgrid">'+hits.map(hitCard).join('')+'</div></section>'+
   '<section class="sec cats-sec" id="new" aria-labelledby="newT"><a class="ctitle" href="#catalog" data-sortset="new"><h2 id="newT">Новинки</h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>'+
    '<div class="hgrid">'+NEW.map(byId).map(function(p){return vcard(p,"Новинка")}).join('')+'</div></section>'+
-  '<section class="sec howsec" id="how" aria-labelledby="howT"><div class="hwband"><div class="hwhead"><h2 id="howT">Как заказать</h2><p>Четыре простых шага — и праздник уже в пути</p></div><ol class="hwlist"><li class="hw"><img class="hwimg" src="img/how3d-1.webp?v=2" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c-2.8 0-4.8 2.3-4.8 5 0 3 2.4 5.6 4.8 5.6s4.8-2.6 4.8-5.6c0-2.7-2-5-4.8-5z"/><path d="M11.2 14.1 12 15.4l.8-1.3"/><path d="M12 15.4c0 2.2-1.6 3-1.6 5.1"/><path d="M10 7.2c.4-.9 1.1-1.5 2-1.7"/></svg></span><span class="hwn">01</span><h3>Выберите набор</h3><p>Готовые наборы в каталоге по поводу: день рождения, выписка, юбилей и другие.</p></li><li class="hw"><img class="hwimg" src="img/how3d-2.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M10 6.5h4M10 10h4M10 13.5h2.5"/><path d="M10.5 17.5h3"/></svg></span><span class="hwn">02</span><h3>Оформите заказ</h3><p>Укажите имя, телефон и способ получения. Без регистрации и предоплаты.</p></li><li class="hw"><img class="hwimg" src="img/how3d-3.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z"/><path d="m9 10.8 2 2 4-4.2"/></svg></span><span class="hwn">03</span><h3>Подтвердим детали</h3><p>Менеджер свяжется с вами в мессенджере или по телефону и подтвердит заказ.</p></li><li class="hw"><img class="hwimg" src="img/how3d-4.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10.5" rx="1.5"/><path d="M3 7h18v3H3zM12 7v13.5"/><path d="M12 7c-1.5-3-5-3.5-5-1.4C7 7 10 7 12 7zm0 0c1.5-3 5-3.5 5-1.4C17 7 14 7 12 7z"/></svg></span><span class="hwn">04</span><h3>Получите и оплатите</h3><p>Привезём в удобное время или заберёте сами. Оплата наличными или картой.</p></li></ol><div class="hwcta"><a class="dark-pill hwbtn" href="#catalog">Выбрать композицию <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span>Заранее платить не нужно</span></div></div></section>'+
+  '<section class="sec howsec" id="how" aria-labelledby="howT"><div class="hwband"><div class="hwhead"><h2 id="howT">Как заказать</h2><p>Четыре простых шага — и праздник уже в пути</p></div><ol class="hwlist"><li class="hw"><img class="hwimg" src="img/how3d-1.webp?v=2" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c-2.8 0-4.8 2.3-4.8 5 0 3 2.4 5.6 4.8 5.6s4.8-2.6 4.8-5.6c0-2.7-2-5-4.8-5z"/><path d="M11.2 14.1 12 15.4l.8-1.3"/><path d="M12 15.4c0 2.2-1.6 3-1.6 5.1"/><path d="M10 7.2c.4-.9 1.1-1.5 2-1.7"/></svg></span><span class="hwn">01</span><h3>Выберите набор</h3><p>Готовые наборы в каталоге по поводу: день рождения, выписка, юбилей и другие.</p></li><li class="hw"><img class="hwimg" src="img/how3d-2.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M10 6.5h4M10 10h4M10 13.5h2.5"/><path d="M10.5 17.5h3"/></svg></span><span class="hwn">02</span><h3>Оформите заказ</h3><p>Укажите имя, телефон и способ получения. Без регистрации и предоплаты.</p></li><li class="hw"><img class="hwimg" src="img/how3d-3.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z"/><path d="m9 10.8 2 2 4-4.2"/></svg></span><span class="hwn">03</span><h3>Подтвердим детали</h3><p>Менеджер свяжется с вами в мессенджере или по телефону и подтвердит заказ.</p></li><li class="hw"><img class="hwimg" src="img/how3d-4.webp" alt="" width="640" height="640" loading="lazy"><span class="hwic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10.5" rx="1.5"/><path d="M3 7h18v3H3zM12 7v13.5"/><path d="M12 7c-1.5-3-5-3.5-5-1.4C7 7 10 7 12 7zm0 0c1.5-3 5-3.5 5-1.4C17 7 14 7 12 7z"/></svg></span><span class="hwn">04</span><h3>Получите и оплатите</h3><p>Привезём в удобное время или заберёте сами. Оплата наличными или картой.</p></li></ol><div class="hwdots" id="hwDots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div><div class="hwcta"><a class="dark-pill hwbtn" href="#catalog">Выбрать композицию <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span>Заранее платить не нужно</span></div></div></section>'+
 
 
   '<section class="sec rvsec" id="reviews" aria-labelledby="revT"><div class="rvband"><h2 class="rvh" id="revT">Настоящие праздники.<br><span class="acc-word">Настоящие эмоции.</span></h2>'+
@@ -1938,7 +1974,7 @@ function route(){
   $$("[data-nav]").forEach(function(a){var n=a.getAttribute("data-nav");a.classList.toggle("on",page==="home"?(arg?n===arg:n==="home"):n===page);if(a.classList.contains("on"))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   mOpen(false);
   if(page==="product"){var g=$("#pGal"),pc=$("#pCount");if(g&&pc){g.addEventListener("scroll",function(){var i=Math.round(g.scrollLeft/g.clientWidth);pc.textContent=(i+1)+" / "+g.children.length;$$("[data-thumb]").forEach(function(b,j){b.setAttribute("aria-pressed",j===i)})},{passive:true})}}
-  if(page==="home"){initRev();initCats();if(arg){var t=document.getElementById(arg);if(t){setTimeout(function(){t.scrollIntoView({behavior:"smooth"})},30);return}}}
+  if(page==="home"){initRev();initCats();initHow();if(arg){var t=document.getElementById(arg);if(t){setTimeout(function(){t.scrollIntoView({behavior:"smooth"})},30);return}}}
   if(page==="delivery"&&arg==="contacts"){var c=document.getElementById("contactsH");if(c){setTimeout(function(){c.scrollIntoView({behavior:"smooth"})},30);return}}
   window.scrollTo(0,0);
 }
@@ -2034,6 +2070,7 @@ function add(id,qty,wish,quiet){var p=byId(id);if(!p)return;var f=null;cart.forE
 var tT;function toast(t,link){var el=$("#toast");el.innerHTML=esc(t)+(link?" "+link:"");el.classList.remove("hidden");clearTimeout(tT);tT=setTimeout(function(){el.classList.add("hidden")},2800)}
 
 /* ---------- categories row ---------- */
+function initHow(){var l=$(".hwlist"),d=$$("#hwDots i");if(!l||!d.length)return;var raf=0;l.addEventListener("scroll",function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;var it=l.children,best=0,bd=1e9;for(var i=0;i<it.length;i++){var x=Math.abs(it[i].offsetLeft-l.offsetLeft-l.scrollLeft-parseFloat(getComputedStyle(l).paddingLeft||0));if(x<bd){bd=x;best=i}}if(l.scrollLeft+l.clientWidth>=l.scrollWidth-4)best=it.length-1;d.forEach(function(e,i){e.classList.toggle("on",i===best)})})},{passive:true})}
 function initCats(){var r=$("#cRow");if(!r)return;function st(){return Math.max(160,r.clientWidth*.8)}
   function upd(){$("#cPrev").disabled=r.scrollLeft<12;$("#cNext").disabled=r.scrollLeft+r.clientWidth>=r.scrollWidth-12}
   $("#cPrev").onclick=function(){r.scrollBy({left:-st(),behavior:"smooth"})};$("#cNext").onclick=function(){r.scrollBy({left:st(),behavior:"smooth"})};
@@ -2045,10 +2082,10 @@ function initRev(){
   function show(k){cur=(k+n)%n;cards.forEach(function(c,i){var d=pos(i);c.setAttribute("data-pos",Math.abs(d)>2?"x":d);c.setAttribute("aria-hidden",d!==0);c.tabIndex=d===0?-1:0});$$("[data-rvdot]").forEach(function(b,i){b.setAttribute("aria-selected",i===cur)})}
   function play(){stop()}
   function stop(){if(timer)clearInterval(timer);timer=null}
-  cards.forEach(function(c,i){c.addEventListener("click",function(){if(i!==cur){show(i);play()}});c.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&i!==cur){e.preventDefault();show(i)}})});
+  cards.forEach(function(c,i){c.addEventListener("click",function(){if(swiped){swiped=false;return}if(i!==cur){show(i);play()}});c.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&i!==cur){e.preventDefault();show(i)}})});
   $("#rvPrev").onclick=function(){show(cur-1);play()};$("#rvNext").onclick=function(){show(cur+1);play()};
   $$("[data-rvdot]").forEach(function(b){b.onclick=function(){show(+b.getAttribute("data-rvdot"));play()}});
-  var x0=null;st.addEventListener("pointerdown",function(e){x0=e.clientX});st.addEventListener("pointerup",function(e){if(x0===null)return;var dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40){show(cur+(dx<0?1:-1));play()}});
+  var x0=null,swiped=false;st.addEventListener("pointerdown",function(e){x0=e.clientX;swiped=false});st.addEventListener("pointercancel",function(){x0=null});st.addEventListener("pointerup",function(e){if(x0===null)return;var dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40){swiped=true;setTimeout(function(){swiped=false},400);show(cur+(dx<0?1:-1));play()}});
   st.addEventListener("mouseenter",stop);st.addEventListener("mouseleave",play);
   show(0);play();
 }
