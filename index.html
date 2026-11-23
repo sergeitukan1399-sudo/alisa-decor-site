@@ -1182,7 +1182,7 @@ body.copage .tabbar{display:none!important}
 .mtspace{display:none}
 @media (max-width:860px){
  .mtop{position:fixed!important;left:0;right:0;top:0}
- .mtspace{display:block;height:var(--mth,150px)}
+ .mtspace{display:block;height:var(--mth,54px)}
  .demo{position:relative;z-index:1}
  .mtop.mini .mtlogo{opacity:0;pointer-events:none}
  .mtlogo{transition:opacity .2s}
@@ -1450,12 +1450,37 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 .hw,.hw *,.hw:hover,.hw:hover *{transition:none!important;animation:none!important}
 .hw:hover{transform:none!important;box-shadow:0 16px 36px rgba(150,115,70,.14),inset 0 1px 0 #fff!important}
 .hw:hover .hwimg,.hwimg{transform:none!important}
+/* ===== TZ: product cards ===== */
+.vbody .vname{font-size:15px!important;font-weight:600!important;line-height:1.3!important;color:var(--ink)!important;display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:2.6em}
+.vbody .vsub{font-size:13px!important;line-height:1.4!important;color:#57525F!important;display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:2.8em;margin-top:5px!important}
+.vbody .vprice{font-size:18px!important;font-weight:700!important;color:var(--ink)!important;margin-top:12px!important;white-space:nowrap}
+.vbody .vadd{width:44px!important;height:44px!important;min-width:44px;margin-top:12px!important;color:#15122B!important;transition:filter .15s ease!important}
+.vbody .vadd:hover{filter:brightness(.94)}
+@media (max-width:860px){
+ .vbody .vname{font-size:14px!important}
+ .vbody .vsub{font-size:12px!important}
+ .vbody .vprice{font-size:16px!important;margin-top:10px!important}
+ .vbody .vadd{margin-top:10px!important}
+}
+/* cart qty */
+.krow{display:flex;align-items:center;gap:12px;margin-top:6px;flex-wrap:wrap}
+.kqty{display:inline-flex;align-items:center;border:1px solid #E4DFEE;border-radius:999px;height:36px;background:#fff}
+.kqty button{width:36px;height:36px;border:0;background:none;font-size:18px;line-height:1;color:var(--ink);cursor:pointer;border-radius:50%}
+.kqty button:disabled{color:#C9C4D3;cursor:default}
+.kqty span{min-width:22px;text-align:center;font-weight:700;font-size:14px}
+.krow .kprice{margin:0!important}
+/* ===== TZ: section rhythm (-12%) & small text ===== */
+:root{--sec-gap:70px!important}
+@media (max-width:860px){:root{--sec-gap:50px!important}.vbadge.vbtop{font-size:11.5px!important}}
+@media (max-width:370px){.vbadge.vbtop{font-size:10.5px!important;padding:0 8px!important;height:28px!important;top:6px!important}.vheart{width:28px!important;height:28px!important;top:6px!important}}
+/* CLS: reserve space before JS renders the page */
+#app{min-height:100vh}
 </style>
 </head>
 <body>
 <a class="skip" href="#app" onclick="event.preventDefault();document.getElementById('app').focus()">Перейти к содержимому</a>
 <div class="demo" role="note">Демо-версия магазина: названия, цены, фото и отзывы — примеры, заказ никуда не отправляется</div>
-<div class="mtop" id="mtop"><div class="mt1"><span></span><div class="mtic"><button class="mtb" id="mtBurger" aria-label="Меню"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div><button type="button" class="mtback" id="mtBack" aria-label="Назад"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><a class="mthome" id="mtHome" href="#home" aria-label="На главную"><svg width="20" height="23" viewBox="0 0 28 32" aria-hidden="true"><defs><radialGradient id="lgm" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#C9B8F5"/><stop offset="1" stop-color="#5A3CC4"/></radialGradient></defs><ellipse cx="14" cy="12" rx="10.5" ry="12" fill="url(#lgm)"/><ellipse cx="10.2" cy="7.6" rx="2.2" ry="3.4" fill="#fff" opacity=".55" transform="rotate(-24 10.2 7.6)"/><path d="M12.4 23.6 14 26l1.6-2.4z" fill="#5A3CC4"/><path d="M14 26c-2.4 2 2.4 3 0 6" stroke="#6B4BD8" stroke-width="1.3" fill="none"/></svg></a><form class="mtsearch" id="mtSearch" role="search"><span class="mtsi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><label class="sr" for="mq">Поиск композиций</label><input id="mq" type="search" placeholder="Поиск композиций" autocomplete="off" enterkeyhint="search"><button type="button" class="mtx" id="mtX" aria-label="Очистить поиск" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form></div>
+<div class="mtop mini" id="mtop"><div class="mt1"><span></span><div class="mtic"><button class="mtb" id="mtBurger" aria-label="Меню"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div><button type="button" class="mtback" id="mtBack" aria-label="Назад"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><a class="mthome" id="mtHome" href="#home" aria-label="На главную"><svg width="20" height="23" viewBox="0 0 28 32" aria-hidden="true"><defs><radialGradient id="lgm" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#C9B8F5"/><stop offset="1" stop-color="#5A3CC4"/></radialGradient></defs><ellipse cx="14" cy="12" rx="10.5" ry="12" fill="url(#lgm)"/><ellipse cx="10.2" cy="7.6" rx="2.2" ry="3.4" fill="#fff" opacity=".55" transform="rotate(-24 10.2 7.6)"/><path d="M12.4 23.6 14 26l1.6-2.4z" fill="#5A3CC4"/><path d="M14 26c-2.4 2 2.4 3 0 6" stroke="#6B4BD8" stroke-width="1.3" fill="none"/></svg></a><form class="mtsearch" id="mtSearch" role="search"><span class="mtsi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><label class="sr" for="mq">Поиск композиций</label><input id="mq" type="search" placeholder="Поиск композиций" autocomplete="off" enterkeyhint="search"><button type="button" class="mtx" id="mtX" aria-label="Очистить поиск" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form></div>
 <div class="mtspace" id="mtSpace" aria-hidden="true"></div>
 
 
@@ -1495,7 +1520,7 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 <footer><div class="wrap">
   <div class="fgrid">
     <div>
-      <a class="logo" href="#home"><svg width="28" height="32" viewBox="0 0 28 32" aria-hidden="true"><defs><radialGradient id="lg" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#C9B8F5"/><stop offset="1" stop-color="#5A3CC4"/></radialGradient></defs><ellipse cx="14" cy="12" rx="10.5" ry="12" fill="url(#lg)"/><ellipse cx="10.2" cy="7.6" rx="2.2" ry="3.4" fill="#fff" opacity=".55" transform="rotate(-24 10.2 7.6)"/><path d="M12.4 23.6 14 26l1.6-2.4z" fill="#5A3CC4"/><path d="M14 26c-2.4 2 2.4 3 0 6" stroke="#6B4BD8" stroke-width="1.3" fill="none"/></svg><span><b>Alisa Decor &amp; Balloons</b></span></a>
+      <a class="logo" href="#home"><svg width="28" height="32" viewBox="0 0 28 32" aria-hidden="true"><defs><radialGradient id="lgf" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#C9B8F5"/><stop offset="1" stop-color="#5A3CC4"/></radialGradient></defs><ellipse cx="14" cy="12" rx="10.5" ry="12" fill="url(#lgf)"/><ellipse cx="10.2" cy="7.6" rx="2.2" ry="3.4" fill="#fff" opacity=".55" transform="rotate(-24 10.2 7.6)"/><path d="M12.4 23.6 14 26l1.6-2.4z" fill="#5A3CC4"/><path d="M14 26c-2.4 2 2.4 3 0 6" stroke="#6B4BD8" stroke-width="1.3" fill="none"/></svg><span><b>Alisa Decor &amp; Balloons</b></span></a>
       <p style="margin-top:14px;max-width:300px">Готовые композиции из воздушных шаров для ваших особенных моментов.</p>
     </div>
     <div><h4>Каталог</h4>
@@ -1681,7 +1706,7 @@ function vcard(p,bdg){
    '<div class="vimgw"><a class="vimg" href="#product/'+p.id+'" aria-label="'+esc(p.name)+'" style="background:'+(p.photo?'#F1EEF6':'linear-gradient(160deg,'+p.tone[2]+',#EDE6FA)')+'">'+pic(p)+'</a>'+
    (badge?'<span class="vbadge vbtop'+(raw==="Новинка"?" new":"")+'">'+(raw==="Хит"?"Хит продаж":badge)+'</span>':'')+'<button class="vheart" data-fav="'+p.id+'" aria-pressed="'+fav+'" aria-label="'+(fav?"Убрать из понравившихся":"В понравившиеся")+'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2c-.3 0-.6-.1-.8-.3C8.6 17.8 3.2 13.9 3.2 9.1 3.2 6.4 5.2 4.3 7.8 4.3c1.7 0 3.2.9 4.2 2.3 1-1.4 2.5-2.3 4.2-2.3 2.6 0 4.6 2.1 4.6 4.8 0 4.8-5.4 8.7-8 10.8-.2.2-.5.3-.8.3z"/></svg></button></div>'+
    '<div class="vbody"><a class="vname" href="#product/'+p.id+'">'+esc(p.name)+'</a><span class="vsub">'+esc(vsub(p))+'</span><span class="vprice">'+lei(p.price)+'</span>'+
-   '<button class="vadd'+(inCart?' done':'')+'" data-add="'+p.id+'" aria-pressed="'+inCart+'" aria-label="'+(inCart?'Убрать из корзины «':'Добавить «')+esc(p.name)+'»">'+BAG+'</button></div>'+
+   '<button class="vadd'+(inCart?' done':'')+'" data-add="'+p.id+'" aria-pressed="'+inCart+'" aria-label="'+(inCart?'Убрать из корзины «':'Добавить в корзину «')+esc(p.name)+'»">'+BAG+'</button></div>'+
   '</article>';
 }
 function card(p){return vcard(p)}
@@ -1837,10 +1862,10 @@ function pCart(){
   var t=totals();
   return '<div class="wrap kwrap2"><div class="khead"><button type="button" class="kback" data-back="" aria-label="Назад"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><h1>Корзина</h1><span class="kcount">'+t.n+' '+plural(t.n,["товар","товара","товаров"])+'</span></div>'+
    '<div class="kgrid"><div class="klist">'+
-   cart.map(function(c,i){var p=byId(c.id);if(!p)return '';return '<article class="kitem"><a class="ctimg" href="#product/'+p.id+'" style="background:'+bg(p)+'" aria-label="'+esc(p.name)+'">'+pic(p)+'</a><div class="kinfo"><a class="kname" href="#product/'+p.id+'">'+esc(p.name)+'</a><span class="kmeta">'+esc(p.catName)+(c.wish?' · '+esc(c.wish):'')+'</span><b class="kprice">'+lei(p.price)+'</b></div><button class="krm" data-rm="'+i+'" aria-label="Удалить «'+esc(p.name)+'» из корзины"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></article>'}).join('')+
+   cart.map(function(c,i){var p=byId(c.id);if(!p)return '';return '<article class="kitem"><a class="ctimg" href="#product/'+p.id+'" style="background:'+bg(p)+'" aria-label="'+esc(p.name)+'">'+pic(p)+'</a><div class="kinfo"><a class="kname" href="#product/'+p.id+'">'+esc(p.name)+'</a><span class="kmeta">'+esc(p.catName)+(c.wish?' · '+esc(c.wish):'')+'</span><div class="krow"><div class="kqty" role="group" aria-label="Количество"><button type="button" data-qd="'+i+'" aria-label="Уменьшить количество"'+(c.qty<=1?' disabled':'')+'>−</button><span aria-live="polite">'+c.qty+'</span><button type="button" data-qi="'+i+'" aria-label="Увеличить количество"'+(c.qty>=20?' disabled':'')+'>+</button></div><b class="kprice">'+lei(p.price*c.qty)+'</b></div></div><button class="krm" data-rm="'+i+'" aria-label="Удалить «'+esc(p.name)+'» из корзины"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></article>'}).join('')+
    '<a class="kmore" href="#catalog">+ Добавить ещё композицию</a></div>'+
    '<aside class="ksum" aria-label="Итог"><div class="kline"><span>Товары</span><b>'+lei(t.sum)+'</b></div><div class="kline"><span>Доставка</span><span class="kmut">уточним по адресу</span></div><div class="kline ktot"><span>Итого</span><b>'+lei(t.sum)+'</b></div>'+
-   '<a class="kgo" href="#checkout">Оформить заказ</a><p class="kfine">Без регистрации · дату выберете на следующем шаге</p></aside></div></div>';
+   '<a class="kgo" href="#checkout">Оформить заказ</a><p class="kfine">Без регистрации и без предоплаты</p></aside></div></div>';
 }
 function opt(name,val,label,cur){return '<label class="opt"><input type="radio" name="'+name+'" value="'+val+'"'+(cur===val?' checked':'')+'><span>'+label+'</span></label>'}
 function pCheckout(){
@@ -1866,12 +1891,12 @@ function pCheckout(){
 function pThanks(){
   var o=lastOrder;
   if(!o)return '<div class="wrap"><div class="empty"><h1 class="h2">Заказ не найден</h1><p class="sub" style="margin-top:8px">Оформите заказ, чтобы увидеть подтверждение</p><a class="btn" href="#catalog" style="margin-top:18px">В каталог</a></div></div>';
-  return '<div class="wrap"><section class="panel thanks" style="margin:24px auto 0"><div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg></div>'+
-   '<h1 class="h2" style="margin-top:18px">Спасибо! Заказ №'+o.num+' принят</h1><p class="sub" style="margin-top:10px">Мы свяжемся с вами '+(o.msgr==="Звонок"?"по телефону":"в "+esc(o.msgr))+', чтобы подтвердить '+(o.how==="pickup"?"самовывоз":"доставку")+' и оплату.</p>'+
+  return '<div class="wrap"><section class="panel thanks" style="margin:24px auto 0"><div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg></div>'+
+   '<h1 class="h2" style="margin-top:18px">Заказ сформирован, но не отправлен</h1><p class="sub" style="margin-top:10px">Это демо-версия магазина: приём заказов ещё не подключён, и магазин этот заказ не получил. Товары остались в корзине. Чтобы заказать сейчас, напишите нам — мы подтвердим '+(o.how==="pickup"?"самовывоз":"доставку")+' и оплату.</p>'+
    '<div style="text-align:left;margin-top:24px;background:var(--lav-4);border-radius:var(--r-l);padding:20px">'+
    '<div class="sline"><span>Имя</span><b>'+esc(o.name)+'</b></div><div class="sline"><span>Телефон</span><b>'+esc(o.phone)+'</b></div><div class="sline"><span>Получение</span><b>'+(o.how==="pickup"?"Самовывоз, Комрат":esc(o.town)+", "+esc(o.addr))+'</b></div><div class="sline"><span>Оплата</span><b>'+(o.pay==="card"?"Картой при получении":"Наличными при получении")+'</b></div>'+
    o.items.map(function(c){return '<div class="sline"><span>'+esc(c.name)+'</span><b>'+lei(c.sum)+'</b></div>'}).join('')+'<div class="sline total"><span>Итого</span><span>'+lei(o.sum)+'</span></div></div>'+
-   '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px"><a class="btn" href="#catalog">Вернуться в каталог</a><button class="btn line" data-contact>Написать нам</button></div></section></div>';
+   '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px"><a class="btn" href="#catalog">Вернуться в каталог</a><button class="btn line" data-contact>Написать нам</button></div><p class="hint" style="margin-top:14px">Номер в демо: №'+o.num+'</p></section></div>';
 }
 function pDelivery(){
   return '<div class="wrap"><nav class="crumbs"><a href="#home">Главная</a> / Доставка и оплата</nav><article class="doc"><p class="eyebrow">Покупателям</p><h1 class="h2" style="margin-top:12px">Доставка и оплата</h1>'+
@@ -2005,7 +2030,7 @@ function pFavs(arg){
    '<div class="hgrid">'+list.map(hitCard).join('')+'</div></div>';
 }
 function saveCart(){store("alisa-cart",cart);var n=totals().n;$$("[data-count]").forEach(function(e){e.textContent=n});$$("[data-count-badge]").forEach(function(e){e.textContent=n;e.hidden=!n})}
-function add(id,qty,wish,quiet){var p=byId(id);if(!p)return;var f=null;cart.forEach(function(c){if(c.id===id)f=c});if(f){f.wish=wish||f.wish;f.qty=1;saveCart();if(!quiet)toast('«'+p.name+'» уже в корзине','<a href="#cart">Открыть</a>');return}cart.push({id:id,qty:1,wish:wish||""});saveCart();if(!quiet)toast('Товар добавлен в корзину','<a href="#cart">Открыть</a>')}
+function add(id,qty,wish,quiet){var p=byId(id);if(!p)return;var f=null;cart.forEach(function(c){if(c.id===id)f=c});if(f){f.wish=wish||f.wish;saveCart();if(!quiet)toast('«'+p.name+'» уже в корзине','<a href="#cart">Открыть</a>');return}cart.push({id:id,qty:1,wish:wish||""});saveCart();if(!quiet)toast('Товар добавлен в корзину','<a href="#cart">Открыть</a>')}
 var tT;function toast(t,link){var el=$("#toast");el.innerHTML=esc(t)+(link?" "+link:"");el.classList.remove("hidden");clearTimeout(tT);tT=setTimeout(function(){el.classList.add("hidden")},2800)}
 
 /* ---------- categories row ---------- */
@@ -2078,6 +2103,7 @@ document.addEventListener("click",function(e){
   if(t.hasAttribute("data-back")){var bk=t.getAttribute("data-back");if(navN>0){history.back()}else{location.hash=bk?"#catalog/"+bk:"#catalog"}return}
   if(t.hasAttribute("data-q")){var q=$("#pq");q.textContent=Math.max(1,Math.min(20,+q.textContent+(+t.getAttribute("data-q"))));return}
   if(t.hasAttribute("data-cq")){var a=t.getAttribute("data-cq").split("|");var c=cart[+a[0]];c.qty=Math.max(1,Math.min(20,c.qty+(+a[1])));saveCart();route();return}
+  if(t.hasAttribute("data-qi")||t.hasAttribute("data-qd")){var qi=+(t.getAttribute("data-qi")||t.getAttribute("data-qd"));var cc=cart[qi];if(cc){cc.qty=Math.max(1,Math.min(20,cc.qty+(t.hasAttribute("data-qi")?1:-1)));saveCart();var sy=scrollY;route();scrollTo(0,sy)}return}
   if(t.hasAttribute("data-rm")){cart.splice(+t.getAttribute("data-rm"),1);saveCart();route();toast("Удалено из корзины");return}
   if(t.id==="toS2"){grab();if(v1()){co.step=2;route()}else firstBad();return}
   if(t.id==="backS1"){grab();co.step=1;route();return}
@@ -2118,13 +2144,14 @@ document.addEventListener("submit",function(e){
   if(e.target.id==="finder"){e.preventDefault();var c=$("#fdCat").value;var fb=budgetOf($("#fdBud").value);view.budget="any";view.pmin=fb[2];view.pmax=fb[3]>=1e9?0:fb[3];view.q="";co.data.how=$("#fdHow").value;if($("#fdDate").value)co.data.date=$("#fdDate").value;
     var nh="#catalog"+(c==="all"?"":"/"+c);view.cat=c;if(location.hash!==nh)location.hash=nh;else route();return}
   if(e.target.id==="pForm"){e.preventDefault();add(e.target.getAttribute("data-id"),1,prodWish());return}
-  if(e.target.id==="coForm"){e.preventDefault();grab();
+  if(e.target.id==="coForm"){e.preventDefault();if(co.sending)return;grab();
     if(co.step===1){if(v1()){co.step=2;route()}else firstBad();return}
     if(!v2()){firstBad();return}
+    co.sending=true;var sb=e.target.querySelector('[type="submit"]');if(sb){sb.disabled=true;sb.setAttribute("aria-busy","true")}
     var d=co.data,t=totals();
     lastOrder={num:String(Date.now()).slice(-5),name:d.name.trim(),phone:d.phone.trim(),msgr:d.msgr,how:d.how,town:d.town,addr:(d.addr||"").trim(),pay:d.pay,sum:t.sum,
       items:cart.map(function(c){var p=byId(c.id);return {name:p.name,qty:c.qty,sum:p.price*c.qty}})};
-    cart=[];saveCart();co={step:1,data:{msgr:"Instagram",how:"delivery",pay:"cash"}};location.hash="thanks";
+    co.step=1;location.hash="thanks";setTimeout(function(){co.sending=false},800);
   }
 });
 
