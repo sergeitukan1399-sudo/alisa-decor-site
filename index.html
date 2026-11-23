@@ -1403,6 +1403,12 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 .ktile .kimg{transition:box-shadow .25s ease,transform .25s ease!important}
 .ktile:hover,.ktile:focus-visible{box-shadow:none!important;transform:none!important}
 .ktile:hover .kimg,.ktile:focus-visible .kimg,.ktile:active .kimg{transform:translateY(-2px)!important;box-shadow:0 10px 18px -8px rgba(140,100,230,.75),0 4px 28px -6px rgba(170,130,245,.45)!important}
+/* smaller filter button */
+.toolbar .fwrap{width:auto!important;flex:none!important}
+.toolbar .fbtn{width:auto!important;height:36px!important;min-height:36px!important;padding:0 16px!important;font-size:13.5px!important;gap:7px!important}
+.toolbar .fbtn svg{width:15px;height:15px}
+.toolbar .select{height:36px!important;min-height:36px!important;width:auto!important;font-size:13.5px!important}
+@media (max-width:860px){.toolbar{justify-content:space-between!important}.toolbar .select{width:auto!important;flex:none!important;padding:0 6px 0 12px!important}}
 </style>
 </head>
 <body>
