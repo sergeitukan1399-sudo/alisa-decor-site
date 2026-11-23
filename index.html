@@ -2108,6 +2108,7 @@ if(!load("alisa-cookie",null))$("#cookie").classList.remove("hidden");
 route();
 })();
 document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-sortset]");if(a&&window.__setSort)window.__setSort(a.getAttribute("data-sortset"))},true);
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#home"]');if(!a)return;var h=location.hash;if(h===""||h==="#"||h==="#home"){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});}},true);
 </script>
 </body>
 </html>
