@@ -1432,6 +1432,9 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
   .hw{background:radial-gradient(70% 45% at 50% 100%,rgba(255,250,243,.95) 0%,rgba(255,250,243,0) 75%),linear-gradient(180deg,#F6EDE1 0%,#EFE2D0 60%,#E9D9C3 100%)!important}
 }
 @media (max-width:860px){.mtop.mini .mtsearch{margin-right:58px!important}}
+/* reviews: static, no autoplay, no morph */
+.rv{transition:none!important}
+.rv[data-pos="0"] .rvtxt,.rvtxt{transition:opacity .2s ease!important}
 </style>
 </head>
 <body>
@@ -2000,7 +2003,7 @@ function initRev(){
   var st=$("#rvStage");if(!st)return;var cards=$$(".rv",st),n=cards.length,cur=0,timer=null;
   function pos(i){var d=(i-cur+n)%n;if(d>n/2)d-=n;return d}
   function show(k){cur=(k+n)%n;cards.forEach(function(c,i){var d=pos(i);c.setAttribute("data-pos",Math.abs(d)>2?"x":d);c.setAttribute("aria-hidden",d!==0);c.tabIndex=d===0?-1:0});$$("[data-rvdot]").forEach(function(b,i){b.setAttribute("aria-selected",i===cur)})}
-  function play(){stop();if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;timer=setInterval(function(){show(cur+1)},6500)}
+  function play(){stop()}
   function stop(){if(timer)clearInterval(timer);timer=null}
   cards.forEach(function(c,i){c.addEventListener("click",function(){if(i!==cur){show(i);play()}});c.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&i!==cur){e.preventDefault();show(i)}})});
   $("#rvPrev").onclick=function(){show(cur-1);play()};$("#rvNext").onclick=function(){show(cur+1);play()};
