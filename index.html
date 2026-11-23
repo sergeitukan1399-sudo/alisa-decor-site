@@ -1516,6 +1516,12 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 #cRow{align-items:flex-start!important}
 @media (max-width:860px){#cRow .kname{font-size:15px!important;line-height:1.25!important;min-height:2.5em}}
 #cRow .ktile{gap:6px!important}#cRow .kname{margin-top:0!important;padding-top:0!important}
+/* product page: bigger heart + share */
+.pgw .pfav.vheart,.pgw .pfav,.pgw .pshare{width:52px!important;height:52px!important;right:14px!important;left:auto!important;background:#fff!important;border:1.5px solid #D9D6DE!important;color:#2B2730!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.pgw .pfav{top:14px!important}
+.pgw .pshare{top:76px!important}
+.pgw .pfav svg,.pgw .pshare svg{width:26px!important;height:26px!important}
+@media (max-width:860px){.pgw .pfav,.pgw .pshare{width:48px!important;height:48px!important;right:12px!important}.pgw .pfav{top:12px!important}.pgw .pshare{top:70px!important}.pgw .pfav svg,.pgw .pshare svg{width:24px!important;height:24px!important}}
 </style>
 </head>
 <body>
@@ -1872,6 +1878,7 @@ function pProduct(id){
   '<div class="prod"><div class="pgw">'+
    '<div class="pgal" id="pGal" tabindex="0" aria-label="Фото композиции">'+slides.map(function(h){return '<div class="pslide" style="background:'+bg(p)+'">'+h+'</div>'}).join('')+'</div>'+
    '<button type="button" class="pfloat pback" data-back="'+p.cat+'" aria-label="Назад"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button>'+
+   '<button type="button" class="pfloat pshare" data-pshare="'+p.id+'" aria-label="Поделиться"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="m8.3 10.8 7.4-4M8.3 13.2l7.4 4"/></svg></button>'+
    '<button type="button" class="pfloat pfav vheart" data-fav="'+p.id+'" aria-pressed="'+fav+'" aria-label="'+(fav?"Убрать из понравившихся":"В понравившиеся")+'"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.2c-.3 0-.6-.1-.8-.3C8.6 17.8 3.2 13.9 3.2 9.1 3.2 6.4 5.2 4.3 7.8 4.3c1.7 0 3.2.9 4.2 2.3 1-1.4 2.5-2.3 4.2-2.3 2.6 0 4.6 2.1 4.6 4.8 0 4.8-5.4 8.7-8 10.8-.2.2-.5.3-.8.3z"/></svg></button>'+
    (slides.length>1?'<span class="pcount" id="pCount">1 / '+slides.length+'</span>':'')+
    (slides.length>1?'<div class="thumbs" role="group" aria-label="Фото композиции">'+v.map(function(x,i){return '<button type="button" style="background:'+bg(p)+'" data-thumb="'+i+'" aria-pressed="'+(i===0)+'" aria-label="Фото '+(i+1)+'">'+art(x,i===2)+'</button>'}).join('')+'</div>':'')+
@@ -2208,6 +2215,9 @@ route();
 })();
 document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("[data-sortset]");if(a&&window.__setSort)window.__setSort(a.getAttribute("data-sortset"))},true);
 document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#home"]');if(!a)return;var h=location.hash;if(h===""||h==="#"||h==="#home"){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});}},true);
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-pshare]");if(!b)return;e.preventDefault();var p=byId(b.getAttribute("data-pshare"));var url=location.href.split("#")[0]+"#product/"+(p?p.id:"");var d={title:p?p.name+" — Alisa Decor & Balloons":document.title,url:url};
+ if(navigator.share){navigator.share(d).catch(function(){});return}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){toast("Ссылка скопирована")},function(){toast(url)})}else toast(url)});
 </script>
 </body>
 </html>
