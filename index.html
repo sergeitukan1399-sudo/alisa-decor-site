@@ -2028,12 +2028,15 @@ function pCheckout(){
 function pThanks(){
   var o=lastOrder;
   if(!o)return '<div class="wrap"><div class="empty"><h1 class="h2">Заказ не найден</h1><p class="sub" style="margin-top:8px">Оформите заказ, чтобы увидеть подтверждение</p><a class="btn" href="#catalog" style="margin-top:18px">В каталог</a></div></div>';
-  return '<div class="wrap"><section class="panel thanks" style="margin:24px auto 0"><div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg></div>'+
-   '<h1 class="h2" style="margin-top:18px">Заказ сформирован, но не отправлен</h1><p class="sub" style="margin-top:10px">Это демо-версия магазина: приём заказов ещё не подключён, и магазин этот заказ не получил. Товары остались в корзине. Чтобы заказать сейчас, напишите нам — мы подтвердим '+(o.how==="pickup"?"самовывоз":"доставку")+' и оплату.</p>'+
+  var ic=o.sent?'<path d="m5 12 4.5 4.5L19 7"/>':'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/>';
+  var how=o.how==="pickup"?"самовывоз":"доставку";
+  var head=o.sent?'<h1 class="h2" style="margin-top:18px">Спасибо! Заказ №'+o.num+' принят</h1><p class="sub" style="margin-top:10px">Мы свяжемся с вами '+(o.msgr==="Звонок"?"по телефону":"в "+esc(o.msgr))+' в ближайшее время, чтобы подтвердить '+how+' и оплату.</p>'
+   :'<h1 class="h2" style="margin-top:18px">Заказ не отправлен</h1><p class="sub" style="margin-top:10px">Не получилось передать заказ магазину. Товары остались в корзине — попробуйте ещё раз или напишите нам, и мы оформим заказ вручную.</p>';
+  return '<div class="wrap"><section class="panel thanks" style="margin:24px auto 0"><div class="ok"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">'+ic+'</svg></div>'+head+
    '<div style="text-align:left;margin-top:24px;background:var(--lav-4);border-radius:var(--r-l);padding:20px">'+
    '<div class="sline"><span>Имя</span><b>'+esc(o.name)+'</b></div><div class="sline"><span>Телефон</span><b>'+esc(o.phone)+'</b></div><div class="sline"><span>Получение</span><b>'+(o.how==="pickup"?"Самовывоз, ул. Ленина, 143":esc(o.town)+", "+esc(o.addr))+'</b></div><div class="sline"><span>Оплата</span><b>'+(o.pay==="card"?"Картой при получении":"Наличными при получении")+'</b></div>'+
    o.items.map(function(c){return '<div class="sline"><span>'+esc(c.name)+'</span><b>'+lei(c.sum)+'</b></div>'}).join('')+'<div class="sline total"><span>Итого</span><span>'+lei(o.sum)+'</span></div></div>'+
-   '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px"><a class="btn" href="#catalog">Вернуться в каталог</a><button class="btn line" data-contact>Написать нам</button></div><p class="hint" style="margin-top:14px">Номер в демо: №'+o.num+'</p></section></div>';
+   '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px"><a class="btn" href="#catalog">Вернуться в каталог</a><button class="btn line" data-contact>Написать нам</button></div></section></div>';
 }
 function pDelivery(){
   return '<div class="wrap"><nav class="crumbs"><a href="#home">Главная</a> / Доставка и оплата</nav><article class="doc"><p class="eyebrow">Покупателям</p><h1 class="h2" style="margin-top:12px">Доставка и оплата</h1>'+
@@ -2291,9 +2294,11 @@ document.addEventListener("submit",function(e){
     if(!v2()){firstBad();return}
     co.sending=true;var sb=e.target.querySelector('[type="submit"]');if(sb){sb.disabled=true;sb.setAttribute("aria-busy","true")}
     var d=co.data,t=totals();
-    lastOrder={num:String(Date.now()).slice(-5),name:d.name.trim(),phone:d.phone.trim(),msgr:d.msgr,how:d.how,town:d.town,addr:(d.addr||"").trim(),pay:d.pay,sum:t.sum,
-      items:cart.map(function(c){var p=byId(c.id);return {name:p.name,qty:c.qty,sum:p.price*c.qty}})};
-    co.step=1;location.hash="thanks";setTimeout(function(){co.sending=false},800);
+    lastOrder={num:String(Date.now()).slice(-5),name:d.name.trim(),phone:d.phone.trim(),msgr:d.msgr,how:d.how,town:d.town,addr:(d.addr||"").trim(),pay:d.pay,sum:t.sum,comm:(d.comm||"").trim(),
+      items:cart.map(function(c){var p=byId(c.id);var w=String(c.wish||"").match(/Цвет: ([^·;\n]+)/);return {name:p.name,qty:c.qty,sum:p.price*c.qty,color:w?w[1].trim():"как на фото"}})};
+    var done=function(ok){lastOrder.sent=ok;if(ok){cart=[];saveCart()}co.step=1;location.hash="thanks";setTimeout(function(){co.sending=false;if(sb){sb.disabled=false;sb.removeAttribute("aria-busy")}},800)};
+    var ctl=window.AbortController?new AbortController():null;var tm=setTimeout(function(){ctl&&ctl.abort()},12000);
+    if(window.fetch&&/^https?:/.test(location.protocol)){fetch("/api/order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(lastOrder),signal:ctl?ctl.signal:undefined}).then(function(r){return r.ok?r.json():{ok:false}}).then(function(j){clearTimeout(tm);done(!!(j&&j.ok))}).catch(function(){clearTimeout(tm);done(false)})}else done(false);
   }
 });
 
