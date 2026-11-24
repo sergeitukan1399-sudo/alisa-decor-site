@@ -1534,8 +1534,8 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 }
 /* mobile: hide top bar on scroll down, show on scroll up */
 @media (max-width:860px){
- .mtop{transition:transform .28s cubic-bezier(.2,.8,.2,1),padding .28s cubic-bezier(.2,.8,.2,1)!important;will-change:transform}
- body.mt-hide .mtop{transform:translateY(calc(-100% - 12px))}
+ .mtop,.mbar{transition:transform .28s cubic-bezier(.2,.8,.2,1)!important;will-change:transform}
+ body.mt-hide .mtop,body.mt-hide .mbar{transform:translateY(calc(-100% - 12px))}
 }
 /* mobile: no shadows anywhere */
 @media (max-width:860px){*,*::before,*::after{box-shadow:none!important;text-shadow:none!important}.hwimg,.hw img,.vimgw img,.kimg,.kimg img,.hwic,.hw .hwic,.hw .hwimg{filter:none!important}.hw,.hw:hover,.hwlist .hw,html body .hw,.mmenu,.drawer,.mmenu.drawer,#mmenu{box-shadow:none!important}}
@@ -1544,12 +1544,33 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 .pgw .pfav svg,.pgw .pshare svg,.pbox .pshare2 svg{width:21px!important;height:21px!important}
 @media (max-width:860px){.pgw .pfav.vheart,.pgw .pfav,.pgw .pshare{width:40px!important;height:40px!important}.pgw .pfav svg,.pgw .pshare svg{width:20px!important;height:20px!important}}
 @media (max-width:860px){#cRow .ktile .kimg,#cRow .ktile:hover .kimg,#cRow .ktile:active .kimg,#cRow .ktile:focus-visible .kimg{box-shadow:none!important}}
+/* ===== new mobile header: menu | logo | search ===== */
+.mbar{display:none}
+@media (max-width:860px){
+ .mbar{display:block;position:fixed;left:0;right:0;top:0;z-index:70;background:#fff;border-bottom:1px solid #EEEAF3;color:#1E1B26}
+ .mbrow{display:grid;grid-template-columns:88px 1fr 88px;align-items:center;height:54px;padding:0 6px}
+ .mbl,.mbr{display:flex;align-items:center}
+ .mbr{justify-content:flex-end}
+ .mbb{width:44px;height:44px;border:0;background:none;color:#1E1B26;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;padding:0}
+ .mbb:active{background:#F3F0F8}
+ #mtBack{display:none}
+ body.prodpage #mtBack{display:flex}
+ body.prodpage #mtBurger{display:none}
+ .mbx[hidden]{display:none!important}
+ .mblogo{justify-self:center;display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#6B44C2;font-weight:800;font-size:17px;letter-spacing:.14em;padding:8px 6px;min-height:44px}
+ .mbs{display:none;align-items:center;gap:8px;margin:0 12px 10px;height:42px;border-radius:999px;background:#F3F0F8;padding:0 6px 0 14px;color:#6E6A78}
+ .mbar.sopen .mbs{display:flex}
+ .mbs input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:16px;color:#1E1B26;outline:none;height:100%}
+ .mbs input::-webkit-search-cancel-button{display:none}
+ .mbx{width:34px;height:34px;border:0;background:none;color:#6E6A78;display:flex;align-items:center;justify-content:center;border-radius:50%}
+ .mbar.sopen #mtSOpen{color:#6B44C2}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#app" onclick="event.preventDefault();document.getElementById('app').focus()">Перейти к содержимому</a>
 <div class="demo" role="note">Демо-версия магазина: названия, цены, фото и отзывы — примеры, заказ никуда не отправляется</div>
-<div class="mtop mini" id="mtop"><div class="mt1"><span></span><div class="mtic"><button class="mtb" id="mtBurger" aria-label="Меню"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div><button type="button" class="mtback" id="mtBack" aria-label="Назад"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><a class="mthome" id="mtHome" href="#home" aria-label="На главную"><svg width="20" height="23" viewBox="0 0 28 32" aria-hidden="true"><defs><radialGradient id="lgm" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#C9B8F5"/><stop offset="1" stop-color="#5A3CC4"/></radialGradient></defs><ellipse cx="14" cy="12" rx="10.5" ry="12" fill="url(#lgm)"/><ellipse cx="10.2" cy="7.6" rx="2.2" ry="3.4" fill="#fff" opacity=".55" transform="rotate(-24 10.2 7.6)"/><path d="M12.4 23.6 14 26l1.6-2.4z" fill="#5A3CC4"/><path d="M14 26c-2.4 2 2.4 3 0 6" stroke="#6B4BD8" stroke-width="1.3" fill="none"/></svg></a><form class="mtsearch" id="mtSearch" role="search"><span class="mtsi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><label class="sr" for="mq">Поиск композиций</label><input id="mq" type="search" placeholder="Поиск композиций" autocomplete="off" enterkeyhint="search"><button type="button" class="mtx" id="mtX" aria-label="Очистить поиск" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form></div>
+<div class="mbar" id="mtop"><div class="mbrow"><div class="mbl"><button type="button" class="mbb" id="mtBurger" aria-label="Меню"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h11M4 17h16"/></svg></button><button type="button" class="mbb" id="mtBack" aria-label="Назад"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button></div><a class="mblogo" id="mtHome" href="#home" aria-label="Alisa Decor &amp; Balloons — на главную"><svg width="15" height="18" viewBox="0 0 28 32" aria-hidden="true"><defs><radialGradient id="lgm" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#C9B8F5"/><stop offset="1" stop-color="#5A3CC4"/></radialGradient></defs><ellipse cx="14" cy="12" rx="10.5" ry="12" fill="url(#lgm)"/><ellipse cx="10.2" cy="7.6" rx="2.2" ry="3.4" fill="#fff" opacity=".55" transform="rotate(-24 10.2 7.6)"/><path d="M12.4 23.6 14 26l1.6-2.4z" fill="#5A3CC4"/></svg><span>ALISA</span></a><div class="mbr"><button type="button" class="mbb" id="mtSOpen" aria-label="Поиск" aria-expanded="false" aria-controls="mtSearch"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button></div></div><form class="mbs" id="mtSearch" role="search"><span class="mbsi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><label class="sr" for="mq">Поиск композиций</label><input id="mq" type="search" placeholder="Поиск композиций" autocomplete="off" enterkeyhint="search"><button type="button" class="mbx" id="mtX" aria-label="Очистить поиск" hidden><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></form></div>
 <div class="mtspace" id="mtSpace" aria-hidden="true"></div>
 
 
@@ -2041,6 +2062,8 @@ function seo(page,arg){var B=" — Alisa Decor & Balloons",ld=null,crumbs=[["Г�
   mx.addEventListener("click",function(){mq.value="";mx.hidden=true;mq.focus()});
   document.getElementById("mtSearch").addEventListener("submit",function(e){e.preventDefault();view.q=mq.value.trim();view.cat="all";mq.blur();if(location.hash!=="#catalog")location.hash="catalog";else route()});
   document.getElementById("mtBurger").addEventListener("click",function(){mOpen(true)});
+  var so=document.getElementById("mtSOpen");window.mbSearch=function(on){top.classList.toggle("sopen",on);so.setAttribute("aria-expanded",on?"true":"false");setTimeout(place,10);if(on)setTimeout(function(){mq.focus()},60)};
+  so.addEventListener("click",function(){var on=!top.classList.contains("sopen");if(!on&&document.body.classList.contains("catpage"))on=true;mbSearch(on)});
   document.getElementById("mtBack").addEventListener("click",function(){var b=document.querySelector(".pback");if(b)b.click();else history.back()});
   var sp=document.getElementById("mtSpace"),dm=document.querySelector(".demo");
   function place(){var dh=dm&&dm.offsetParent?dm.offsetHeight:0;top.style.top=Math.max(0,dh-scrollY)+"px";sp.style.setProperty("--mth",top.offsetHeight+"px")}
@@ -2052,6 +2075,7 @@ function seo(page,arg){var B=" — Alisa Decor & Balloons",ld=null,crumbs=[["Г�
 
   window.mtSync=function(page,arg){var cur=page==="catalog"?(view.cat&&view.cat!=="all"?view.cat:(arg||"all")):"";
     $$("#mtChips a").forEach(function(a){var on=a.getAttribute("data-mc")===cur;a.classList.toggle("on",on);if(on){a.setAttribute("aria-current","page");if(chips){var l=a.offsetLeft-16;chips.scrollTo({left:l,behavior:"smooth"})}}else a.removeAttribute("aria-current")});
+    top.classList.toggle("sopen",page==="catalog");document.getElementById("mtSOpen").setAttribute("aria-expanded",page==="catalog"?"true":"false");setTimeout(function(){window.mtPlace&&mtPlace()},20);
     if(page!=="catalog"){mq.value="";mx.hidden=true}else if(view.q){mq.value=view.q;mx.hidden=false}
     document.body.classList.toggle("catpage",page==="catalog");top.classList.toggle("mini",page!=="catalog");lastY=0;if(window.mtPlace)setTimeout(mtPlace,0);}
 })();
