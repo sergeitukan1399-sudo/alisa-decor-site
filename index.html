@@ -1598,6 +1598,15 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 @media (min-width:861px){.htag.t4{display:none}}
 @media (min-width:861px){.hchip.c1{left:auto;right:3%;top:21%;transform:rotate(3deg)}}
 @media (max-width:679px){.hchips{display:none!important}}
+/* hero chips: gentle float */
+@keyframes hfloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@keyframes hfloat2{0%,100%{translate:0 0}50%{translate:5px -6px}}
+.hchip,.htag{animation:hfloat 5.5s ease-in-out infinite;will-change:translate}
+.c2,.t2{animation-name:hfloat2;animation-duration:6.5s;animation-delay:-1.5s}
+.c3,.t3{animation-duration:7s;animation-delay:-3s}
+.t1{animation-name:hfloat2;animation-duration:6s;animation-delay:-2.2s}
+.t4{animation-delay:-4s}
+@media (prefers-reduced-motion:reduce){.hchip,.htag{animation:none}}
 </style>
 </head>
 <body>
