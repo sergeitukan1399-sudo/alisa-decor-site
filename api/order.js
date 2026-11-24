@@ -26,6 +26,10 @@ module.exports = async (req, res) => {
   const items = Array.isArray(o.items) ? o.items.slice(0, 30) : [];
   if (!name || phone.replace(/\D/g, '').length < 6 || !items.length) { res.status(400).json({ ok: false, error: 'invalid' }); return; }
 
+  const hd = req.headers || {};
+  const host = String(hd['x-forwarded-host'] || hd.host || 'alisa-shop.vercel.app').split(',')[0].trim().replace(/[^a-z0-9.:-]/gi, '');
+  const site = 'https://' + host + '/';
+  const sid = v => /^[a-z0-9-]{1,40}$/i.test(String(v || '')) ? String(v) : '';
   const num = cut(o.num, 12).replace(/\D/g, '') || String(Date.now()).slice(-5);
   const when = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Chisinau', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
   const tel = phone.replace(/[^\d+]/g, '');
@@ -44,7 +48,8 @@ module.exports = async (req, res) => {
     ...items.map((it, i) => {
       const q = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
       const color = cut(it.color, 60);
-      return `${i + 1}. ${esc(cut(it.name, 120))} — ${q} шт., ${lei(it.sum)}` + (color ? `\n   Цвет: ${esc(color)}` : '');
+      const id = sid(it.id), nm = esc(cut(it.name, 120));
+      return `${i + 1}. ${id ? `<a href="${site}#product/${id}">${nm}</a>` : nm} — ${q} шт., ${lei(it.sum)}` + (color ? `\n   Цвет: ${esc(color)}` : '');
     }),
     '',
     `💰 <b>Итого: ${lei(o.sum)}</b>` + (pickup ? '' : '\n   + доставка (стоимость уточнить)'),
@@ -52,6 +57,12 @@ module.exports = async (req, res) => {
     pickup ? '🏠 Самовывоз — ул. Ленина, 143' : `🚚 Доставка: ${esc(cut(o.town, 60))}, ${esc(cut(o.addr, 200))}`,
     `💳 Оплата: ${o.pay === 'card' ? 'картой курьеру' : 'наличными курьеру'}`,
   ];
+  const payload = ['n=' + num].concat(items.map(it => {
+    const id = sid(it.id); if (!id) return '';
+    const q = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
+    return [id, q, cut(it.color, 40).replace(/[~|]/g, ' ')].join('~');
+  }).filter(Boolean)).join('|');
+  if (payload.includes('~')) lines.push('', `🛒 <a href="${site}#order/${encodeURIComponent(payload)}">Открыть заказ с фото</a>`);
   const comm = cut(o.comm, 600).trim();
   if (comm) lines.push('', `📝 Комментарий: «${esc(comm)}»`);
 

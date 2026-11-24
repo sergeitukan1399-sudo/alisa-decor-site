@@ -1607,6 +1607,7 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 .t1{animation-name:hfloat2;animation-duration:6s;animation-delay:-2.2s}
 .t4{animation-delay:-4s}
 @media (prefers-reduced-motion:reduce){.hchip,.htag{animation:none}}
+.ordlist{margin-top:18px;display:flex;flex-direction:column;gap:10px}.orow{display:flex;align-items:center;gap:14px;padding:10px;border:1px solid #ECE8F2;border-radius:18px;text-decoration:none;color:inherit;background:#fff}.oimg{width:84px;height:104px;border-radius:12px;overflow:hidden;background:#F3F0F8;flex:none}.oimg img{width:100%;height:100%;object-fit:cover}.oinf{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}.oinf b{font-size:16px}.oinf small{color:#6E6A78;font-size:13px}.osum{white-space:nowrap;font-size:16px}
 </style>
 </head>
 <body>
@@ -2025,6 +2026,15 @@ function pCheckout(){
    '<div class="steps" aria-hidden="true"><span class="on"></span><span class="'+(co.step===2?'on':'')+'"></span></div><p class="hint" id="stepLbl">Шаг '+co.step+' из 2 · '+(co.step===1?'Контакты':'Получение и оплата')+'</p>'+s1+s2+
    '<p class="note">Оплата при получении — заранее платить не нужно</p></form>'+sumBox("Ваш заказ")+'</div></div>';
 }
+function pOrder(arg){
+  var raw="";try{raw=decodeURIComponent(arg||"")}catch(e){}
+  var parts=raw.split("|"),num="",rows=[],sum=0;
+  parts.forEach(function(x){if(/^n=/.test(x)){num=x.slice(2).replace(/\D/g,"");return}var a=x.split("~"),p=byId(a[0]);if(!p)return;var q=Math.max(1,Math.min(99,parseInt(a[1],10)||1));rows.push({p:p,q:q,c:a[2]||"как на фото"});sum+=p.price*q});
+  if(!rows.length)return '<div class="wrap"><div class="empty"><h1 class="h2">Заказ не найден</h1><p class="sub" style="margin-top:8px">Ссылка неполная или товары сняты с продажи</p><a class="btn" href="#catalog" style="margin-top:18px">В каталог</a></div></div>';
+  return '<div class="wrap"><section class="panel ordv" style="margin:24px auto 0;max-width:720px"><p class="eyebrow">Для магазина</p><h1 class="h2" style="margin-top:8px">Заказ'+(num?' №'+num:'')+'</h1><p class="sub" style="margin-top:6px">Что выбрал клиент. Цены — текущие на сайте.</p><div class="ordlist">'+
+   rows.map(function(r){return '<a class="orow" href="#product/'+r.p.id+'"><span class="oimg">'+(r.p.photo?'<img src="'+r.p.photo+'" alt="" loading="lazy">':'')+'</span><span class="oinf"><b>'+esc(r.p.name)+'</b><small>'+esc(r.p.catName)+' · цвет: '+esc(r.c)+'</small><small>'+r.q+' шт. × '+lei(r.p.price)+'</small></span><b class="osum">'+lei(r.p.price*r.q)+'</b></a>'}).join('')+
+   '</div><div class="sline total" style="margin-top:14px"><span>Итого</span><span>'+lei(sum)+'</span></div></section></div>';
+}
 function pThanks(){
   var o=lastOrder;
   if(!o)return '<div class="wrap"><div class="empty"><h1 class="h2">Заказ не найден</h1><p class="sub" style="margin-top:8px">Оформите заказ, чтобы увидеть подтверждение</p><a class="btn" href="#catalog" style="margin-top:18px">В каталог</a></div></div>';
@@ -2058,7 +2068,7 @@ function pNotFound(){return '<div class="wrap"><div class="empty" style="margin-
 /* ---------- router ---------- */
 var app=$("#app");
 function route(){
-  var h=(location.hash||"#home").slice(1).split("/");var page=h[0]||"home",arg=h[1];
+  var h=(location.hash||"#home").slice(1).split("/");var page=h[0]||"home",arg=h[1];if(page==="order")arg=h.slice(1).join("/");
   var html;
   if(page==="home"){html=pHome()}
   else if(page==="catalog"){if(arg&&catBy(arg)){view.cat=arg}else if(!arg&&!view.q){view.cat="all"}else if(!arg){view.cat="all"}html=pCatalog()}
@@ -2066,6 +2076,7 @@ function route(){
   else if(page==="cart"){html=pCart()}
   else if(page==="checkout"){html=pCheckout()}
   else if(page==="thanks"){html=pThanks()}
+  else if(page==="order"){html=pOrder(arg)}
   else if(page==="delivery"){html=pDelivery()}
   else if(page==="privacy"){html=pPrivacy(arg)}
   else if(page==="favorites"){html=pFavs(arg)}
@@ -2091,6 +2102,7 @@ function seo(page,arg){var B=" — Alisa Decor & Balloons",ld=null,crumbs=[["Г�
   else if(page==="cart")setMeta("Корзина"+B,"");
   else if(page==="checkout")setMeta("Оформление заказа"+B,"");
   else if(page==="thanks")setMeta("Заказ принят"+B,"");
+  else if(page==="order")setMeta("Заказ"+B,"");
   else if(page==="favorites")setMeta("Понравившиеся композиции"+B,"");
   else if(page==="delivery")setMeta("Доставка и оплата"+B,"Доставка композиций из шаров по Гагаузии и самовывоз в Комрате. Оплата наличными или картой при получении.");
   else if(page==="privacy")setMeta((arg==="terms"?"Условия покупки":"Политика конфиденциальности")+B,"");
@@ -2295,7 +2307,7 @@ document.addEventListener("submit",function(e){
     co.sending=true;var sb=e.target.querySelector('[type="submit"]');if(sb){sb.disabled=true;sb.setAttribute("aria-busy","true")}
     var d=co.data,t=totals();
     lastOrder={num:String(Date.now()).slice(-5),name:d.name.trim(),phone:d.phone.trim(),msgr:d.msgr,how:d.how,town:d.town,addr:(d.addr||"").trim(),pay:d.pay,sum:t.sum,comm:(d.comm||"").trim(),
-      items:cart.map(function(c){var p=byId(c.id);var w=String(c.wish||"").match(/Цвет: ([^·;\n]+)/);return {name:p.name,qty:c.qty,sum:p.price*c.qty,color:w?w[1].trim():"как на фото"}})};
+      items:cart.map(function(c){var p=byId(c.id);var w=String(c.wish||"").match(/Цвет: ([^·;\n]+)/);return {id:p.id,name:p.name,qty:c.qty,sum:p.price*c.qty,color:w?w[1].trim():"как на фото"}})};
     var done=function(ok){lastOrder.sent=ok;if(ok){cart=[];saveCart()}co.step=1;location.hash="thanks";setTimeout(function(){co.sending=false;if(sb){sb.disabled=false;sb.removeAttribute("aria-busy")}},800)};
     var ctl=window.AbortController?new AbortController():null;var tm=setTimeout(function(){ctl&&ctl.abort()},12000);
     if(window.fetch&&/^https?:/.test(location.protocol)){fetch("/api/order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(lastOrder),signal:ctl?ctl.signal:undefined}).then(function(r){return r.ok?r.json():{ok:false}}).then(function(j){clearTimeout(tm);done(!!(j&&j.ok))}).catch(function(){clearTimeout(tm);done(false)})}else done(false);
