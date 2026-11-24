@@ -1537,6 +1537,8 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
  .mtop{transition:transform .28s cubic-bezier(.2,.8,.2,1),padding .28s cubic-bezier(.2,.8,.2,1)!important;will-change:transform}
  body.mt-hide .mtop{transform:translateY(calc(-100% - 12px))}
 }
+/* mobile: no shadows anywhere */
+@media (max-width:860px){*,*::before,*::after{box-shadow:none!important;text-shadow:none!important}.hwimg,.hw img,.vimgw img,.kimg,.kimg img,.hwic,.hw .hwic,.hw .hwimg{filter:none!important}.hw,.hw:hover,.hwlist .hw,html body .hw,.mmenu,.drawer,.mmenu.drawer,#mmenu{box-shadow:none!important}}
 </style>
 </head>
 <body>
