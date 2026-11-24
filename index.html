@@ -1532,6 +1532,11 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
  .pbox .pttl{padding-right:56px}
  .pgw .pshare{display:none!important}
 }
+/* mobile: hide top bar on scroll down, show on scroll up */
+@media (max-width:860px){
+ .mtop{transition:transform .28s cubic-bezier(.2,.8,.2,1),padding .28s cubic-bezier(.2,.8,.2,1)!important;will-change:transform}
+ body.mt-hide .mtop{transform:translateY(calc(-100% - 12px))}
+}
 </style>
 </head>
 <body>
@@ -2228,6 +2233,14 @@ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.c
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-pshare]");if(!b)return;e.preventDefault();var p=byId(b.getAttribute("data-pshare"));var url=location.href.split("#")[0]+"#product/"+(p?p.id:"");var d={title:p?p.name+" — Alisa Decor & Balloons":document.title,url:url};
  if(navigator.share){navigator.share(d).catch(function(){});return}
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){toast("Ссылка скопирована")},function(){toast(url)})}else toast(url)});
+(function(){var last=scrollY,acc=0,mq=matchMedia("(max-width:860px)");
+ function busy(){var a=document.activeElement;return (a&&a.id==="mq")||document.body.classList.contains("menu-open")||[].some.call(document.querySelectorAll(".drawer,.sheet,[role=dialog]"),function(e){return e.id!=="cookie"&&e.getClientRects().length&&getComputedStyle(e).visibility!=="hidden"})}
+ addEventListener("scroll",function(){var y=scrollY,d=y-last;last=y;if(!mq.matches){document.body.classList.remove("mt-hide");return}
+  if(y<90||busy()){acc=0;document.body.classList.remove("mt-hide");return}
+  if((d>0)!==(acc>0))acc=0;acc+=d;
+  if(acc>24)document.body.classList.add("mt-hide");else if(acc<-16)document.body.classList.remove("mt-hide")},{passive:true});
+ addEventListener("hashchange",function(){document.body.classList.remove("mt-hide");acc=0});
+})();
 </script>
 </body>
 </html>
