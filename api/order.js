@@ -5,8 +5,17 @@ const cut = (s, n) => String(s == null ? '' : s).slice(0, n);
 const lei = n => Math.round(Number(n) || 0).toLocaleString('ru-RU').replace(/ /g, ' ') + ' лей';
 
 module.exports = async (req, res) => {
+  const token = (process.env.TG_TOKEN || '').trim(), chat = (process.env.TG_CHAT_ID || '').trim();
+  if (req.method === 'GET') {
+    // Diagnostics: never returns the token, never sends a message.
+    const out = { function: 'ok', TG_TOKEN: token ? 'set' : 'MISSING', TG_CHAT_ID: chat ? chat : 'MISSING' };
+    if (token) {
+      try { const r = await (await fetch(`https://api.telegram.org/bot${token}/getMe`)).json(); out.bot = r.ok ? '@' + r.result.username : 'ERROR: ' + r.description; } catch (e) { out.bot = 'network error'; }
+      if (chat) { try { const r = await (await fetch(`https://api.telegram.org/bot${token}/getChat?chat_id=${encodeURIComponent(chat)}`)).json(); out.group = r.ok ? r.result.title || r.result.type : 'ERROR: ' + r.description; } catch (e) { out.group = 'network error'; } }
+    }
+    res.setHeader('Cache-Control', 'no-store'); res.status(200).json(out); return;
+  }
   if (req.method !== 'POST') { res.status(405).json({ ok: false }); return; }
-  const token = process.env.TG_TOKEN, chat = process.env.TG_CHAT_ID;
   if (!token || !chat) { res.status(503).json({ ok: false, error: 'not_configured' }); return; }
 
   let o = req.body;
@@ -52,7 +61,7 @@ module.exports = async (req, res) => {
       body: JSON.stringify({ chat_id: chat, text: lines.join('\n'), parse_mode: 'HTML', disable_web_page_preview: true }),
     });
     const j = await r.json();
-    if (!j.ok) { res.status(502).json({ ok: false, error: 'telegram' }); return; }
+    if (!j.ok) { res.status(502).json({ ok: false, error: 'telegram: ' + j.description }); return; }
     res.status(200).json({ ok: true, num });
   } catch (e) {
     res.status(502).json({ ok: false, error: 'network' });
