@@ -1575,6 +1575,27 @@ button,a,label,[role=button],.vcard,.ktile,.pcol,.tabbar,.mtop,.hw,.rv,img,svg{-
 .msgr{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.mbtn{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:999px;border:1.5px solid #E4DFEE;background:#fff;color:#1E1B26;font-weight:700;font-size:15px;text-decoration:none}.mbtn:active{background:#F6F3FB}
 .top .ic,.top .ic:hover,.top .ic:focus{box-shadow:none!important}
 .top .ic{border:1px solid #ECE8F2}
+/* hero floating chips & tags */
+.hchips{position:absolute;z-index:1;pointer-events:none}
+.hchip{position:absolute;display:inline-flex;align-items:center;gap:8px;background:#fff;color:#1E1B26;font-weight:600;font-size:14px;line-height:1;padding:7px 14px 7px 7px;border-radius:999px;white-space:nowrap;box-shadow:0 6px 18px rgba(60,30,120,.10)}
+.hchip i{width:24px;height:24px;border-radius:50%;background:#7B4FD6;display:flex;align-items:center;justify-content:center;flex:none}
+.htag{position:absolute;font-size:12px;font-weight:600;color:#5A33B0;background:rgba(255,255,255,.72);border:1px solid rgba(123,79,214,.22);padding:5px 10px;border-radius:999px;white-space:nowrap;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.c1{left:44%;top:14%;transform:rotate(-4deg)}
+.c2{left:48%;top:56%;transform:rotate(3deg)}
+.c3{left:66%;top:86%;transform:rotate(-2deg)}
+.t1{left:52%;top:30%;transform:rotate(-6deg)}
+.t2{left:88%;top:46%;transform:rotate(5deg)}
+.t3{left:42%;top:76%;transform:rotate(4deg)}
+.t4{left:78%;top:6%;transform:rotate(-3deg)}
+@media (max-width:860px){
+ .hchip{font-size:11.5px;gap:6px;padding:5px 10px 5px 5px}
+ .hchip i{width:19px;height:19px}.hchip i svg{width:9px;height:9px}
+ .htag{font-size:10.5px;padding:4px 8px}
+ .c1{left:2%;top:6%}.c2{left:3%;top:54%}.c3{left:auto;right:3%;top:88%}
+ .t1{left:6%;top:30%}.t2{left:auto;right:2%;top:50%}.t3{left:4%;top:80%}.t4{left:auto;right:4%;top:2%}
+}
+@media (min-width:680px) and (max-width:860px){.c1{left:46%;top:10%}.c2{left:50%;top:56%}.c3{left:auto;right:4%;top:86%}.t1{left:56%;top:30%}.t3{left:44%;top:78%}}
+@media (min-width:861px){.htag.t4{display:none}}
 </style>
 </head>
 <body>
@@ -1864,6 +1885,7 @@ function pHome(){
   return '<div class="wrap">'+
   '<section class="hero2 hero3" aria-labelledby="h1">'+
    '<picture><source media="(max-width:679px)" srcset="img/hero7-sm.webp"><img class="hero-bg" src="img/hero6.webp" alt="Девочка в белом платье радуется сиреневым шарам, которые вылетают из большой подарочной коробки" width="1760" height="880" fetchpriority="high"></picture>'+
+   '<div class="hchips" id="hChips" aria-hidden="true"><span class="hchip c1"><i><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></i>Без предоплаты</span><span class="hchip c2"><i><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></i>Цвета на выбор</span><span class="hchip c3"><i><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></i>Доставка по Гагаузии</span><span class="htag t1">#годик</span><span class="htag t2">#выписка</span><span class="htag t3">#юбилей</span><span class="htag t4">#деньрождения</span></div>'+
    '<div class="hero-in">'+
     '<h1 class="hx" id="h1"><span class="l1">Праздник<br class="dbr"> <span class="acc-word">уже&nbsp;готов</span>&nbsp;—</span><br class="mbr"> <span class="l2">осталось выбрать</span></h1>'+
     '<p class="hdesc">Готовые композиции из воздушных шаров для ваших особенных моментов</p>'+
@@ -2042,7 +2064,7 @@ function route(){
   $$("[data-nav]").forEach(function(a){var n=a.getAttribute("data-nav");a.classList.toggle("on",page==="home"?(arg?n===arg:n==="home"):n===page);if(a.classList.contains("on"))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   mOpen(false);
   if(page==="product"){var g=$("#pGal"),pc=$("#pCount");if(g&&pc){g.addEventListener("scroll",function(){var i=Math.round(g.scrollLeft/g.clientWidth);pc.textContent=(i+1)+" / "+g.children.length;$$("[data-thumb]").forEach(function(b,j){b.setAttribute("aria-pressed",j===i)})},{passive:true})}}
-  if(page==="home"){initRev();initCats();initHow();if(arg){var t=document.getElementById(arg);if(t){setTimeout(function(){t.scrollIntoView({behavior:"smooth"})},30);return}}}
+  if(page==="home"){initChips();initRev();initCats();initHow();if(arg){var t=document.getElementById(arg);if(t){setTimeout(function(){t.scrollIntoView({behavior:"smooth"})},30);return}}}
   if(page==="delivery"&&arg==="contacts"){var c=document.getElementById("contactsH");if(c){setTimeout(function(){c.scrollIntoView({behavior:"smooth"})},30);return}}
   window.scrollTo(0,0);
 }
@@ -2147,6 +2169,7 @@ function initCats(){var r=$("#cRow");if(!r)return;function st(){return Math.max(
   $("#cPrev").onclick=function(){r.scrollBy({left:-st(),behavior:"smooth"})};$("#cNext").onclick=function(){r.scrollBy({left:st(),behavior:"smooth"})};
   r.addEventListener("scroll",upd,{passive:true});upd();}
 /* ---------- reviews slider ---------- */
+function initChips(){var c=$("#hChips"),h=$(".hero3"),i=$(".hero3 picture img");if(!c||!h||!i)return;function pl(){var a=h.getBoundingClientRect(),b=i.getBoundingClientRect();c.style.left=(b.left-a.left)+"px";c.style.top=(b.top-a.top)+"px";c.style.width=b.width+"px";c.style.height=b.height+"px"}pl();if(!i.complete)i.addEventListener("load",pl,{once:true});if(!window.__chipRs){window.__chipRs=1;addEventListener("resize",function(){window.__pl&&__pl()})}window.__pl=pl}
 function initRev(){
   var st=$("#rvStage");if(!st)return;var cards=$$(".rv",st),n=cards.length,cur=0,timer=null;
   function pos(i){var d=(i-cur+n)%n;if(d>n/2)d-=n;return d}
