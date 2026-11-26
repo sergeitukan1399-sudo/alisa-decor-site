@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
     `💰 <b>Итого: ${lei(o.sum)}</b>` + (pickup ? '' : '\n   + доставка (стоимость уточнить)'),
     '',
     pickup ? '🏠 Самовывоз — ул. Ленина, 143' : `🚚 Доставка: ${esc(cut(o.town, 60))}, ${esc(cut(o.addr, 200))}`,
-    `💳 Оплата: ${o.pay === 'card' ? 'картой курьеру' : 'наличными курьеру'}`,
+    `💳 Оплата: ${o.pay === 'card' ? 'картой' : 'наличными'} ${pickup ? 'в магазине' : 'курьеру'}`,
   ];
   const payload = ['n=' + num].concat(items.map(it => {
     const id = sid(it.id); if (!id) return '';

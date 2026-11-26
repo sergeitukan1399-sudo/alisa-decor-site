@@ -44,7 +44,7 @@ export async function onRequest({ request, env }) {
     }),
     '', `💰 <b>Итого: ${lei(o.sum)}</b>` + (pickup ? '' : '\n   + доставка (стоимость уточнить)'), '',
     pickup ? '🏠 Самовывоз — ул. Ленина, 143' : `🚚 Доставка: ${esc(cut(o.town, 60))}, ${esc(cut(o.addr, 200))}`,
-    `💳 Оплата: ${o.pay === 'card' ? 'картой курьеру' : 'наличными курьеру'}`,
+    `💳 Оплата: ${o.pay === 'card' ? 'картой' : 'наличными'} ${pickup ? 'в магазине' : 'курьеру'}`,
   ];
   const payload = ['n=' + num].concat(items.map(it => { const id = sid(it.id); if (!id) return ''; const q = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1)); return [id, q, cut(it.color, 40).replace(/[~|]/g, ' ')].join('~'); }).filter(Boolean)).join('|');
   if (payload.includes('~')) lines.push('', `🛒 <a href="${site}#order/${encodeURIComponent(payload)}">Открыть заказ с фото</a>`);
