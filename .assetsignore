@@ -1,10 +1,8 @@
 .git
 .github
-api
 functions
 worker
 wrangler.jsonc
 .assetsignore
 README.md
 node_modules
-vercel.json
