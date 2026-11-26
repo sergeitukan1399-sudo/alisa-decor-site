@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
   try {
     const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: chat, text: lines.join('\n'), parse_mode: 'HTML', disable_web_page_preview: true }),
+      body: JSON.stringify({ chat_id: chat, text: lines.join('\n'), parse_mode: 'HTML', disable_web_page_preview: true, reply_markup: { inline_keyboard: [[{ text: '✅ Принят', callback_data: 'acc' }, { text: '❌ Отменён', callback_data: 'cancel' }]] } }),
     });
     const j = await r.json();
     if (!j.ok) { res.status(502).json({ ok: false, error: 'telegram: ' + j.description }); return; }
