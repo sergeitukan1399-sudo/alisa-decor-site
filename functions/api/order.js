@@ -40,7 +40,7 @@ export async function onRequest({ request, env }) {
     '🛍 <b>Состав заказа:</b>',
     ...items.map((it, i) => {
       const q = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1)), color = cut(it.color, 60), id = sid(it.id), nm = esc(cut(it.name, 120));
-      return `${i + 1}. ${id ? `<a href="${site}#product/${id}">${nm}</a>` : nm} — ${q} шт., ${lei(it.sum)}` + (color ? `\n   Цвет: ${esc(color)}` : '');
+      return `${i + 1}. ${id ? `<a href="${site}#product/${id}">${nm}</a>` : nm} — ${q} шт., ${lei(it.sum)}` + (color && !/^как на фото$/i.test(color) ? `\n   Цвет: ${esc(color)}` : '');
     }),
     '', `💰 <b>Итого: ${lei(o.sum)}</b>` + (pickup ? '' : '\n   + доставка (стоимость уточнить)'), '',
     pickup ? '🏠 Самовывоз — ул. Ленина, 143' : `🚚 Доставка: ${esc(cut(o.town, 60))}, ${esc(cut(o.addr, 200))}`,
