@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alisa Decor & Balloons — композиции из шаров в Комрате</title>
-<meta name="description" content="Готовые композиции из воздушных шаров в Комрате: день рождения, выписка, свадьба, юбилей. Фиксированные цены, доставка, оплата при получении.">
+<meta name="description" content="Готовые композиции из воздушных шаров в Комрате: день рождения, выписка, свадьба, юбилей. Фиксированные цены, без предоплаты, доставка по Гагаузии.">
 <meta name="theme-color" content="#683BB2">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Alisa Decor & Balloons">
 <meta property="og:title" content="Alisa Decor & Balloons — композиции из шаров в Комрате">
-<meta property="og:description" content="Готовые композиции из воздушных шаров с доставкой. Выберите повод и цвет — оплата при получении.">
+<meta property="og:description" content="Готовые композиции из воздушных шаров в Комрате: выберите набор на сайте — без предоплаты, доставка по Гагаузии.">
 <meta property="og:locale" content="ru_RU">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='13' rx='9' ry='10.5' fill='%23683BB2'/%3E%3Cpath d='M14.5 23h3l-1.5 2.2z' fill='%23683BB2'/%3E%3Cpath d='M16 25c0 3-2 3-2 6' stroke='%23B9A7D6' stroke-width='1.4' fill='none'/%3E%3Cellipse cx='12.5' cy='9.5' rx='2' ry='3' fill='%23fff' opacity='.45'/%3E%3C/svg%3E">
 <link rel="preload" as="image" href="img/hero6.webp" media="(min-width:861px)">
@@ -2103,7 +2103,7 @@ function route(){
   if(page==="delivery"&&arg==="contacts"){var c=document.getElementById("contactsH");if(c){setTimeout(function(){c.scrollIntoView({behavior:"smooth"})},30);return}}
   window.scrollTo(0,0);
 }
-var DEF_DESC="Готовые композиции из воздушных шаров в Комрате: день рождения, выписка, свадьба, юбилей. Фиксированные цены, доставка, оплата при получении.";
+var DEF_DESC="Готовые композиции из воздушных шаров в Комрате: день рождения, выписка, свадьба, юбилей. Фиксированные цены, без предоплаты, доставка по Гагаузии.";
 function setMeta(t,d){document.title=t;var m=document.querySelector('meta[name="description"]');if(m)m.setAttribute("content",d||DEF_DESC);var o=document.querySelector('meta[property="og:title"]');if(o)o.setAttribute("content",t)}
 function seo(page,arg){var B=" — Alisa Decor & Balloons",ld=null,crumbs=[["Главная","#home"]];
   if(page==="catalog"){var c=catBy(arg);var n=c?c.name:"Каталог";setMeta((c?c.name+" — композиции из шаров в Комрате":"Каталог композиций из шаров")+B,c?"Готовые композиции из воздушных шаров — "+c.name.toLowerCase()+". Фиксированные цены, доставка по Гагаузии, оплата при получении.":"Все готовые композиции из воздушных шаров: по поводу, цвету и цене. Доставка и самовывоз в Комрате.");crumbs.push(["Каталог","#catalog"]);if(c)crumbs.push([c.name,"#catalog/"+c.id])}
@@ -2116,7 +2116,7 @@ function seo(page,arg){var B=" — Alisa Decor & Balloons",ld=null,crumbs=[["Г�
   else if(page==="favorites")setMeta("Понравившиеся композиции"+B,"");
   else if(page==="delivery")setMeta("Доставка и оплата"+B,"Доставка композиций из шаров по Гагаузии и самовывоз в Комрате. Оплата наличными или картой при получении.");
   else if(page==="privacy")setMeta((arg==="terms"?"Условия покупки":"Политика конфиденциальности")+B,"");
-  else if(page==="home")setMeta("Alisa Decor & Balloons — композиции из шаров в Комрате","Готовые композиции из воздушных шаров в Комрате: день рождения, выписка, свадьба, юбилей. Фиксированные цены, доставка, оплата при получении.");
+  else if(page==="home")setMeta("Alisa Decor & Balloons — композиции из шаров в Комрате","Готовые композиции из воздушных шаров в Комрате: день рождения, выписка, свадьба, юбилей. Фиксированные цены, без предоплаты, доставка по Гагаузии.");
   else setMeta("Страница не найдена"+B,"");
   var bc=crumbs.length>1?{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":crumbs.map(function(c,i){return {"@type":"ListItem","position":i+1,"name":c[0],"item":location.href.split("#")[0]+c[1]}})}:null;
   var el=document.getElementById("ldPage");if(el)el.textContent=JSON.stringify([ld,bc].filter(Boolean));}
