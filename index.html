@@ -1764,7 +1764,7 @@ CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
    tone:c.t,box:!!c.box,variant:(ci+i)%3,pop:HITS.indexOf(id)>-1?100-HITS.indexOf(id):(NEW.indexOf(id)>-1?50:10+((ci*7+i*3)%30)),
    photo:NEWPH[id],badge:HITS.indexOf(id)>-1?"Хит":(NEW.indexOf(id)>-1?"Новинка":"")});
 });});
-[["p-tractor-2","birthday","Композиция из шаров для мальчика","Цифра 2, трактор, большой шар с надписью и 5 шаров",1485,{client:1,wish:1,recolor:1,items:["Набор шаров — 5 шт","Цифра «2» с гелием","Фигура «Трактор»","Большой стеклянный шар с индивидуальной надписью"]}],
+[["p-tractor-2","birthday","Композиция из шаров для мальчика","Цифра 2, трактор, большой шар с надписью и 5 шаров",1485,{client:1,wish:1,recolor:1,ph:"img/p-tractor-2-sq.webp",items:["Набор шаров — 5 шт","Цифра «2» с гелием","Фигура «Трактор»","Большой стеклянный шар с индивидуальной надписью"]}],
  ["p-star-1-boy","birthday","Композиция из шаров на годик для мальчика","Цифра 1 на стойке и набор из 8 шаров",565,{client:1,recolor:1,items:["Набор шаров — 8 шт","Цифра «1» на стойке"]}],
  ["p-blue-stars","him","Синие звёзды","Звёзды, сердце и хромированные шары",260],
  ["p-emerald","him","Изумрудный букет","Зелёные, белые шары и шар с конфетти",220],
@@ -1776,7 +1776,7 @@ CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
  ["p-one-girl","birthday","Первый годик девочки","Цифра с сердцем + два фонтана из шаров",390],
  ["p-yana-3","birthday","Фотозона с именем и цифрой «3»","Фонтаны, цифра и табличка с именем",590],
  ["p-dreams","newborn","Сладких снов, малыш","Голубые и белые шары с рисунком",210]].forEach(function(x,i){
-  var c=catBy(x[1]),o=x[5]||{};if(o.client&&RCATS.indexOf(x[1])<0)RCATS.push(x[1]);P.push({id:x[0],cat:x[1],catName:c.name,name:x[2],sub:x[3],price:x[4],items:o.items,wish:!!o.wish,recolor:!!o.recolor,tone:c.t,box:false,variant:0,photo:"img/"+x[0]+".webp",pop:(HITS2.indexOf(x[0])>-1?100-HITS2.indexOf(x[0]):90-i),badge:HITS2.indexOf(x[0])>-1?"Хит":(NEW.indexOf(x[0])>-1?"Новинка":"")});
+  var c=catBy(x[1]),o=x[5]||{};if(o.client&&RCATS.indexOf(x[1])<0)RCATS.push(x[1]);P.push({id:x[0],cat:x[1],catName:c.name,name:x[2],sub:x[3],price:x[4],items:o.items,wish:!!o.wish,recolor:!!o.recolor,tone:c.t,box:false,variant:0,photo:o.ph||"img/"+x[0]+".webp",pop:(HITS2.indexOf(x[0])>-1?100-HITS2.indexOf(x[0]):90-i),badge:HITS2.indexOf(x[0])>-1?"Хит":(NEW.indexOf(x[0])>-1?"Новинка":"")});
 });
 /* categories with real items from the client: hide generated demo items there */
 P=P.filter(function(p){return !(RCATS.indexOf(p.cat)>-1&&!p.photo)});
