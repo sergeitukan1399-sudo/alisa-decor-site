@@ -1757,14 +1757,16 @@ var NAMES={
  christening:["Нежные крестины","Белый ангел"],bubble:["Bubble Box с цветами","Bubble Box с именем"],
  gender:["Мальчик или девочка?","Розово-голубой сюрприз"],cumatria:["Кумэтрие в белом","Светлое торжество"],box:["Коробка-сюрприз «Лаванда»","Коробка с цифрой"]
 };
-var P=[];var HITS=[];var HITS2=["p-yana-3","p-35-gold","p-one-boy","p-red-gold"];var NEW=["p-one-girl","p-70-rose","p-raspberry-star","p-emerald"];var NEWPH={};
+var RCATS=[];var P=[];var HITS=[];var HITS2=["p-yana-3","p-35-gold","p-one-boy","p-red-gold"];var NEW=["p-one-girl","p-70-rose","p-raspberry-star","p-emerald"];var NEWPH={};
 CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
   var id=c.id+"-"+i;
   P.push({id:id,cat:c.id,catName:c.name,name:n,price:[190,240,290,350,220,420,180,260,390,230,310,200][(ci+i*5)%12]+(i?40:0),
    tone:c.t,box:!!c.box,variant:(ci+i)%3,pop:HITS.indexOf(id)>-1?100-HITS.indexOf(id):(NEW.indexOf(id)>-1?50:10+((ci*7+i*3)%30)),
    photo:NEWPH[id],badge:HITS.indexOf(id)>-1?"Хит":(NEW.indexOf(id)>-1?"Новинка":"")});
 });});
-[["p-blue-stars","him","Синие звёзды","Звёзды, сердце и хромированные шары",260],
+[["p-tractor-2","birthday","Композиция из шаров для мальчика","Цифра 2, трактор, большой шар с надписью и 5 шаров",1485,{client:1,wish:1,recolor:1,items:["Набор шаров — 5 шт","Цифра «2» с гелием","Фигура «Трактор»","Большой стеклянный шар с индивидуальной надписью"]}],
+ ["p-star-1-boy","birthday","Композиция из шаров на годик для мальчика","Цифра 1 на стойке и набор из 8 шаров",565,{client:1,recolor:1,items:["Набор шаров — 8 шт","Цифра «1» на стойке"]}],
+ ["p-blue-stars","him","Синие звёзды","Звёзды, сердце и хромированные шары",260],
  ["p-emerald","him","Изумрудный букет","Зелёные, белые шары и шар с конфетти",220],
  ["p-70-rose","jubilee","«70» в розовом золоте","Две цифры + фонтан из хромированных шаров",420],
  ["p-35-gold","jubilee","«35» в золоте и красном","Цифры на подставках + фонтан с сердцами",450],
@@ -1774,8 +1776,10 @@ CATS.forEach(function(c,ci){NAMES[c.id].forEach(function(n,i){
  ["p-one-girl","birthday","Первый годик девочки","Цифра с сердцем + два фонтана из шаров",390],
  ["p-yana-3","birthday","Фотозона с именем и цифрой «3»","Фонтаны, цифра и табличка с именем",590],
  ["p-dreams","newborn","Сладких снов, малыш","Голубые и белые шары с рисунком",210]].forEach(function(x,i){
-  var c=catBy(x[1]);P.push({id:x[0],cat:x[1],catName:c.name,name:x[2],sub:x[3],price:x[4],tone:c.t,box:false,variant:0,photo:"img/"+x[0]+".webp",pop:(HITS2.indexOf(x[0])>-1?100-HITS2.indexOf(x[0]):90-i),badge:HITS2.indexOf(x[0])>-1?"Хит":(NEW.indexOf(x[0])>-1?"Новинка":"")});
+  var c=catBy(x[1]),o=x[5]||{};if(o.client&&RCATS.indexOf(x[1])<0)RCATS.push(x[1]);P.push({id:x[0],cat:x[1],catName:c.name,name:x[2],sub:x[3],price:x[4],items:o.items,wish:!!o.wish,recolor:!!o.recolor,tone:c.t,box:false,variant:0,photo:"img/"+x[0]+".webp",pop:(HITS2.indexOf(x[0])>-1?100-HITS2.indexOf(x[0]):90-i),badge:HITS2.indexOf(x[0])>-1?"Хит":(NEW.indexOf(x[0])>-1?"Новинка":"")});
 });
+/* categories with real items from the client: hide generated demo items there */
+P=P.filter(function(p){return !(RCATS.indexOf(p.cat)>-1&&!p.photo)});
 var WISH_CATS=["wedding","welcome","facade"];
 var REVIEWS=[
  {tag:"День рождения",h:"Дочка была в восторге",ph:"img/p-yana-3.webp",t:"Заказывали шары на день рождения дочери. Цвета идеально сочетались, а шары ещё долго радовали нас дома."},
@@ -1980,7 +1984,7 @@ var COLORS=[["Лаванда","#B9A7D6"],["Белый","#FFFFFF"],["Пудров
 function prodWish(){var c=$("#pColor"),w=$("#wish");return [c&&c.textContent!=="Как на фото"?"Цвет: "+c.textContent:"",w?w.value.trim():""].filter(Boolean).join(" · ")}
 function pProduct(id){
   var p=byId(id);if(!p)return pNotFound();
-  var wish=WISH_CATS.indexOf(p.cat)>-1;
+  var wish=WISH_CATS.indexOf(p.cat)>-1||p.wish;
   var sim=P.filter(function(x){return x.cat===p.cat&&x.id!==p.id}).concat(P.filter(function(x){return x.badge&&x.cat!==p.cat})).slice(0,4);
   var v=[p,{tone:p.tone,box:p.box,variant:(p.variant+1)%3},{tone:[p.tone[1],p.tone[0],p.tone[2]],box:p.box,variant:p.variant}];
   var slides=p.photo?[pic(p)]:v.map(function(x,i){return art(x,i===2)});
@@ -1998,9 +2002,9 @@ function pProduct(id){
   '<form class="pbox" id="pForm" data-id="'+p.id+'" novalidate>'+
    '<button type="button" class="pshare2" data-pshare="'+p.id+'" aria-label="Поделиться"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5.5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="18.5" r="2.6"/><path d="m8.3 10.8 7.4-4M8.3 13.2l7.4 4"/></svg></button>'+'<span class="pcat">'+esc(p.catName)+'</span><h1 class="pttl">'+esc(p.name)+'</h1><p class="price">'+lei(p.price)+'</p>'+
    '<div class="popts">'+
-   (wish?'<div class="field"><label for="wish">Надпись и пожелания</label><textarea class="inp" id="wish" maxlength="300" placeholder="Например: «Анна & Иван, 14.06» или название магазина"></textarea><span class="hint">Менеджер свяжется с вами после заказа и уточнит детали</span></div>':'')+
-   '<div class="pdesc"><h2>Описание</h2><div class="pdtext" id="pDesc"><p>Готовая композиция — именно такая, как на фото. Есть пожелание — напишите его в комментарии к заказу, и мы уточним, получится ли. Чтобы шары радовали дольше, берегите их от солнца, жары и перепадов температуры.</p>'+
-    '<ul class="incl"><li>Состав композиции <span class="tbd">уточняется</span></li></ul></div>'+
+   (wish?'<div class="field"><label for="wish">Надпись и пожелания</label><textarea class="inp" id="wish" maxlength="300" placeholder="'+(p.wish&&WISH_CATS.indexOf(p.cat)<0?'Например: «Маркуше 2 годика!»':'Например: «Анна & Иван, 14.06» или название магазина')+'"></textarea><span class="hint">Менеджер свяжется с вами после заказа и уточнит детали</span></div>':'')+
+   '<div class="pdesc"><h2>Описание</h2><div class="pdtext" id="pDesc"><p>'+(p.recolor?'Готовая композиция, как на фото. Можем повторить её в других цветовых сочетаниях — напишите пожелание в комментарии к заказу.':'Готовая композиция — именно такая, как на фото. Есть пожелание — напишите его в комментарии к заказу, и мы уточним, получится ли.')+' Чтобы шары радовали дольше, берегите их от солнца, жары и перепадов температуры.</p>'+
+    '<ul class="incl">'+(p.items&&p.items.length?p.items.map(function(t){return '<li>'+esc(t)+'</li>'}).join(''):'<li>Состав композиции <span class="tbd">уточняется</span></li>')+'</ul></div>'+
     '<button type="button" class="pmore" id="pMore" aria-expanded="false" aria-controls="pDesc">Подробнее</button></div>'+
    '<div class="info"><div><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg></i><span>Доставка по Гагаузии — стоимость назовём при подтверждении заказа. <a href="#delivery">Подробнее</a></span></div>'+
    '<div><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><span>Самовывоз: Комрат, ул. Ленина, 143 · ежедневно 9:00–19:00</span></div></div>'+
